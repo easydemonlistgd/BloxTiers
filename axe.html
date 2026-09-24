@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axe Rankings - BlockTiers</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">Block<span>Tiers</span></a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="mace.html">Mace</a>
+        <a href="sword.html">Sword</a>
+        <a href="crystal.html">Crystal</a>
+        <a href="axe.html" class="active">Axe</a>
+        <a href="uhc.html">UHC</a>
+        <a href="smp.html">SMP</a>
+    </nav>
+</header>
+
+<main class="ranking-page">
+    <section class="ranking-header">
+        <div class="kit-icon large">A</div>
+        <div>
+            <p class="small-title">KIT RANKINGS</p>
+            <h1>Axe</h1>
+            <p>Top players ranked by points.</p>
+        </div>
+    </section>
+
+    <section id="ranking"></section>
+</main>
+
+<footer>BlockTiers &copy; 2026</footer>
+
+<script src="js/data.js"></script>
+<script src="js/kit.js"></script>
+<script>loadKit("axe");</script>
+
+</body>
+</html>
