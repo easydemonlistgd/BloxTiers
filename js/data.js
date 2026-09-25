@@ -55,6 +55,7 @@ const kits = {
             { name: "PlayerThree", points: 1550 },
             { name: "PlayerSeven", points: 1400 },
             { name: "PlayerTwo", points: 1250 },
+            { name: "PlayerNine", points: 1100 },
             { name: "PlayerNine", points: 1100 }
         ]
     },
@@ -66,6 +67,7 @@ const kits = {
             { name: "PlayerTen", points: 1500 },
             { name: "PlayerOne", points: 1350 },
             { name: "PlayerFive", points: 1200 },
+            { name: "PlayerNine", points: 1100 },
             { name: "PlayerFour", points: 1050 }
         ]
     }
