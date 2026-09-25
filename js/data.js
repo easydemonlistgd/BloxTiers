@@ -5,7 +5,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 1450 },
-            { name: "user", points: 1500 },
+            { name: "ITzMe", points: 1600 },
             { name: "user", points: 0 },
             { name: "user", points: 0 },
             { name: "User", points: 0 }
