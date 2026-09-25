@@ -4,8 +4,8 @@ const kits = {
         name: "Mace",
 
         players: [
-            { name: "Reda_TNT", points: 1500 },
-            { name: "ITzMe", points: 1450 },
+            { name: "Reda_TNT", points: 1450 },
+            { name: "ITzMe", points: 1500 },
             { name: "PlayerThree", points: 1200 },
             { name: "PlayerFour", points: 1050 },
             { name: "User", points: 0 }
