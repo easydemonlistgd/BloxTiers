@@ -16,7 +16,7 @@ const kits = {
         name: "Sword",
 
         players: [
-            { name: "Reda_TNT", points: 50 },
+            { name: "Reda_TNT", points: 75 },
             { name: "User", points: 0 },
             { name: "User", points: 0 },
             { name: "User", points: 0 },
