@@ -228,3 +228,6 @@
     client.auth.onAuthStateChange(() => updateAuthUI());
     updateAuthUI();
 })();
+
+client.auth.onAuthStateChange(() => updateAuthUI());
+updateAuthUI();
