@@ -298,3 +298,16 @@
     updateAuthUI();
 })();
 
+
+
+// List of admin usernames
+const adminUsers = ["YourUsernameHere", "AnotherAdmin"];
+
+function renderUsername(usernameElement, username) {
+    // Check if the current username is in the admin list
+    if (adminUsers.includes(username)) {
+        usernameElement.innerHTML = `${username} <span class="admin-badge">ADMIN</span>`;
+    } else {
+        usernameElement.textContent = username;
+    }
+}
