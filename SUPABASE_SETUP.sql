@@ -164,7 +164,7 @@ grant execute on function public.update_blocktiers_points(bigint, integer) to au
 insert into public.blocktiers_admins (user_id)
 select id
 from public.profiles
-where username = 'RedaPlayz'
+where username = 'Reda'
 on conflict (user_id) do nothing;
 
 -- =========================================================
