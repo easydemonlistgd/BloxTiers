@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - BlockTiers</title>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+<header class="navbar">
+<a href="index.html" class="logo">Block<span>Tiers</span></a>
+<nav>
+<a href="index.html">Home</a><a href="mace.html">Mace</a><a href="sword.html">Sword</a><a href="crystal.html">Crystal</a><a href="axe.html">Axe</a><a href="uhc.html">UHC</a><a href="smp.html">SMP</a><a href="rules.html">Rules</a><a href="whats-new.html">What's New</a>
+<span id="account-slot"></span>
+</nav>
+</header>
+<main id="profile-page" class="profile-page">
+<section class="profile-card">
+<div class="profile-top">
+<div id="profile-avatar" class="profile-avatar">?</div>
+<div><h1 id="profile-display-name">Loading...</h1><p id="profile-username" class="profile-username">@...</p></div>
+</div>
+<div class="profile-info">
+<div class="profile-info-row"><span>Display Name</span><span id="profile-display-name-copy">Your profile</span></div>
+<div class="profile-info-row"><span>Member Since</span><span id="profile-created">Loading...</span></div>
+</div>
+<p id="profile-error" class="form-message error"></p>
+<button id="logout-button" class="logout-button">Log Out</button>
+</section>
+</main>
+<footer>BlockTiers &copy; 2026</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script><script>
+document.addEventListener("DOMContentLoaded", () => {
+    const name = document.getElementById("profile-display-name");
+    const copy = document.getElementById("profile-display-name-copy");
+    const observer = new MutationObserver(() => { copy.textContent = name.textContent; });
+    observer.observe(name, { childList: true });
+});
+</script><script src="js/auth.js"></script>
+</body></html>

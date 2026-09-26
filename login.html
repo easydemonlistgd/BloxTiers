@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - BlockTiers</title>
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+<header class="navbar">
+<a href="index.html" class="logo">Block<span>Tiers</span></a>
+<nav>
+<a href="index.html">Home</a><a href="mace.html">Mace</a><a href="sword.html">Sword</a><a href="crystal.html">Crystal</a><a href="axe.html">Axe</a><a href="uhc.html">UHC</a><a href="smp.html">SMP</a><a href="rules.html">Rules</a><a href="whats-new.html">What's New</a>
+<span id="account-slot"><a href="login.html" class="account-button">Login</a></span>
+</nav>
+</header>
+<main class="auth-page">
+<section class="auth-card">
+<h1>Welcome back</h1><p class="auth-subtitle">Log in to your BlockTiers account.</p>
+<form id="login-form">
+<div class="form-group"><label for="login-username">Username</label><input id="login-username" type="text" placeholder="RedaPlays" autocomplete="username" required></div>
+<div class="form-group"><label for="login-password">Password</label><input id="login-password" type="password" placeholder="Your password" autocomplete="current-password" required></div>
+<p id="login-message" class="form-message"></p>
+<button class="auth-submit" type="submit">Login</button>
+</form>
+<p class="auth-switch">Don't have an account? <a href="signup.html">Create one</a></p>
+</section>
+</main>
+<footer>BlockTiers &copy; 2026</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script><script src="js/auth.js"></script>
+</body></html>
