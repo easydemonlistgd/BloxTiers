@@ -1,4 +1,3 @@
-
 (() => {
     const CONFIG_URL = window.BLOCKTIERS_SUPABASE_URL;
     const CONFIG_KEY = window.BLOCKTIERS_SUPABASE_ANON_KEY;
@@ -12,6 +11,18 @@
     window.blockTiersAuth = client;
 
     const byId = (id) => document.getElementById(id);
+
+    // List of admin usernames (Change "YourUsernameHere" to your actual account username)
+    const adminUsers = ["YourUsernameHere", "AnotherAdmin"];
+
+    function renderUsername(element, displayName, username) {
+        // Check if the account username is in the admin list
+        if (adminUsers.includes(username)) {
+            element.innerHTML = `${escapeHtml(displayName)} <span class="admin-badge">ADMIN</span>`;
+        } else {
+            element.textContent = displayName;
+        }
+    }
 
     function setMessage(id, message, type = "") {
         const el = byId(id);
@@ -259,8 +270,9 @@
             try {
                 const profile = await getProfile(user);
 
-                byId("profile-display-name").textContent =
-                    profile.display_name;
+                // This checks if their username is an admin, and displays the badge next to their display name
+                const nameElement = byId("profile-display-name");
+                renderUsername(nameElement, profile.display_name, profile.username);
 
                 byId("profile-username").textContent =
                     `@${profile.username}`;
@@ -297,17 +309,3 @@
 
     updateAuthUI();
 })();
-
-
-
-// List of admin usernames
-const adminUsers = ["YourUsernameHere", "AnotherAdmin"];
-
-function renderUsername(usernameElement, username) {
-    // Check if the current username is in the admin list
-    if (adminUsers.includes(username)) {
-        usernameElement.innerHTML = `${username} <span class="admin-badge">ADMIN</span>`;
-    } else {
-        usernameElement.textContent = username;
-    }
-}
