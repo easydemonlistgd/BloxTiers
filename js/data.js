@@ -5,7 +5,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 1700 },
-            { name: "ITzMeArzhel", points: 1650 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "Nully", points: 1700 },
             { name: "user", points: 0 },
             { name: "User", points: 0 }
@@ -17,7 +17,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 100 },
-            { name: "ITzMeArzhel", points: 150 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "User", points: 0 },
             { name: "User", points: 0 },
             { name: "User", points: 0 }
@@ -29,7 +29,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 50 },
-            { name: "ITzMeArzhel", points: 100 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 }
@@ -41,7 +41,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 0 },
-            { name: "ITzMeArzhel", points: 50 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 }
@@ -53,7 +53,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 0 },
-            { name: "ITzMeArzhel", points: 50 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 }
@@ -65,7 +65,7 @@ const kits = {
 
         players: [
             { name: "Reda_TNT", points: 0 },
-            { name: "ITzMeArzhel", points: 50 },
+            { name: "ITzMeArzhel", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 },
             { name: "user", points: 0 }
