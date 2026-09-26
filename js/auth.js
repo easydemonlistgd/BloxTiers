@@ -249,6 +249,75 @@
     const profilePage = byId("profile-page");
 
     if (profilePage) {
+        const deleteAccountButton = byId("delete-account-button");
+
+        if (deleteAccountButton) {
+            deleteAccountButton.addEventListener("click", async () => {
+                console.log("BlockTiers: Delete Account clicked.");
+
+                const confirmed = confirm(
+                    "Are you sure you want to permanently delete your BlockTiers account?"
+                );
+
+                if (!confirmed) return;
+
+                deleteAccountButton.disabled = true;
+                deleteAccountButton.textContent = "Deleting...";
+
+                try {
+                    const { data: userData } =
+                        await client.auth.getUser();
+
+                    const user = userData.user;
+
+                    if (!user) {
+                        throw new Error("You are not logged in.");
+                    }
+
+                    console.log(
+                        "BlockTiers: Deleting account",
+                        user.id
+                    );
+
+                    const { error } = await client.rpc(
+                        "delete_my_account"
+                    );
+
+                    if (error) {
+                        console.error(
+                            "BlockTiers: Delete RPC error:",
+                            error
+                        );
+                        throw error;
+                    }
+
+                    await client.auth.signOut();
+
+                    alert("Your BlockTiers account has been deleted.");
+
+                    location.href = "index.html";
+                } catch (error) {
+                    console.error(
+                        "BlockTiers: Account deletion failed:",
+                        error
+                    );
+
+                    alert(
+                        "Could not delete your account.\n\n" +
+                        error.message
+                    );
+
+                    deleteAccountButton.disabled = false;
+                    deleteAccountButton.textContent =
+                        "Delete Account";
+                }
+            });
+        } else {
+            console.warn(
+                "BlockTiers: Delete Account button was not found."
+            );
+        }
+
         (async () => {
             const {
                 data: { user }
@@ -291,53 +360,6 @@
                     await client.auth.signOut();
                     location.href = "index.html";
                 });
-            }
-
-            const deleteAccountButton =
-                byId("delete-account-button");
-
-            if (deleteAccountButton) {
-                deleteAccountButton.addEventListener(
-                    "click",
-                    async () => {
-                        const confirmed = confirm(
-                            "Are you sure you want to permanently delete your BlockTiers account?"
-                        );
-
-                        if (!confirmed) return;
-
-                        deleteAccountButton.disabled = true;
-                        deleteAccountButton.textContent = "Deleting...";
-
-                        try {
-                            const { error } =
-                                await client.rpc(
-                                    "delete_my_account"
-                                );
-
-                            if (error) {
-                                throw error;
-                            }
-
-                            await client.auth.signOut();
-
-                            location.href = "index.html";
-                        } catch (error) {
-                            console.error(
-                                "Account deletion failed:",
-                                error
-                            );
-
-                            alert(
-                                "Could not delete your account. Please try again."
-                            );
-
-                            deleteAccountButton.disabled = false;
-                            deleteAccountButton.textContent =
-                                "Delete Account";
-                        }
-                    }
-                );
             }
         })();
     }
