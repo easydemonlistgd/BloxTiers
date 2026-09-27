@@ -13,7 +13,7 @@
     const byId = (id) => document.getElementById(id);
 
     // List of admin usernames (Change "YourUsernameHere" to your actual account username)
-    const adminUsers = ["RedaPlayz", "AnotherAdmin"];
+    const adminUsers = ["BlockTiersAdmin", "AnotherAdmin"];
 
     function renderUsername(element, displayName, username) {
         // Check if the account username is in the admin list
