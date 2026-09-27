@@ -503,3 +503,155 @@ css
     vertical-align: middle;
 }
 
+
+/* STAFF PAGE */
+
+.staff-page {
+width: min(1000px, 90%);
+margin: auto;
+padding: 80px 0 100px;
+}
+
+.staff-header {
+text-align: center;
+margin-bottom: 45px;
+}
+
+.staff-header h1 {
+font-size: clamp(40px, 6vw, 58px);
+letter-spacing: -3px;
+margin-bottom: 12px;
+}
+
+.staff-header > p:last-child {
+color: #747888;
+font-size: 14px;
+}
+
+.staff-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 16px;
+}
+
+.staff-card {
+display: flex;
+align-items: center;
+gap: 18px;
+
+
+padding: 22px;
+
+border: 1px solid #1c1e2b;
+border-radius: 14px;
+
+background: linear-gradient(
+    145deg,
+    #11131c,
+    #0c0d14
+);
+
+transition:
+    transform 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+
+
+}
+
+.staff-card:hover {
+transform: translateY(-4px);
+border-color: #5946a8;
+background: #12131d;
+}
+
+.staff-avatar {
+width: 58px;
+height: 58px;
+
+
+flex-shrink: 0;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 12px;
+
+background: #171329;
+border: 1px solid #2a2350;
+
+color: #9b82ff;
+
+font-size: 20px;
+font-weight: 800;
+
+
+}
+
+.staff-info h2 {
+font-size: 17px;
+margin-bottom: 4px;
+}
+
+.staff-username {
+color: #686c7c;
+font-size: 12px;
+margin-bottom: 10px;
+}
+
+.staff-role {
+display: inline-block;
+
+
+padding: 4px 9px;
+
+border-radius: 6px;
+
+font-size: 10px;
+font-weight: 800;
+letter-spacing: 0.5px;
+
+background: #171329;
+border: 1px solid #2a2350;
+color: #9b82ff;
+
+
+}
+
+.staff-role.owner {
+color: #b09cff;
+border-color: #493b83;
+background: #1a1530;
+}
+
+.staff-role.admin {
+color: #ff8791;
+border-color: #55232a;
+background: #241216;
+}
+
+.staff-role.moderator {
+color: #82b8ff;
+border-color: #263e5e;
+background: #121c2b;
+}
+
+@media (max-width: 650px) {
+
+
+.staff-page {
+    padding-top: 55px;
+}
+
+.staff-grid {
+    grid-template-columns: 1fr;
+}
+
+.staff-card {
+    padding: 18px;
+}
+
+
+}
+
