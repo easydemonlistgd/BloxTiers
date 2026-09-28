@@ -447,29 +447,84 @@ document.addEventListener("DOMContentLoaded", () => {
          * Supabase Storage upload will be connected next.
          */
 
-        const reader = new FileReader();
+avatarFile.addEventListener("change", async () => {
 
-        reader.onload = (event) => {
+    if (!avatarFile.files.length) {
+        avatarFileName.textContent = "No image selected";
+        return;
+    }
 
-            const avatar = document.getElementById("profile-avatar");
+    const file = avatarFile.files[0];
 
-            avatar.innerHTML = `
-                <img src="${event.target.result}" alt="Profile picture">
-            `;
+    if (!file.type.startsWith("image/")) {
+        avatarFileName.textContent = "Please select an image";
+        avatarFile.value = "";
+        return;
+    }
 
-        };
+    if (file.size > 2 * 1024 * 1024) {
+        avatarFileName.textContent = "Image must be smaller than 2 MB";
+        avatarFile.value = "";
+        return;
+    }
 
-        reader.readAsDataURL(file);
+    avatarFileName.textContent = "Uploading...";
 
-    });
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabase.auth.getUser();
+
+        if (userError || !user) {
+            throw new Error("You must be logged in.");
+        }
+
+        const extension = file.name.split(".").pop().toLowerCase();
+
+        const filePath = `${user.id}/avatar.${extension}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from("avatars")
+            .upload(filePath, file, {
+                upsert: true,
+                contentType: file.type
+            });
+
+        if (uploadError) {
+            throw uploadError;
+        }
+
+        const {
+            data: { publicUrl }
+        } = supabase.storage
+            .from("avatars")
+            .getPublicUrl(filePath);
+
+        const { error: profileError } = await supabase
+            .from("profiles")
+            .update({
+                avatar_url: publicUrl
+            })
+            .eq("id", user.id);
+
+        if (profileError) {
+            throw profileError;
+        }
+
+        document.getElementById("profile-avatar").innerHTML = `
+            <img src="${publicUrl}" alt="Profile picture">
+        `;
+
+        avatarFileName.textContent = "Profile picture saved!";
+
+    } catch (error) {
+
+        console.error("Avatar upload error:", error);
+
+        avatarFileName.textContent =
+            "Upload failed: " + error.message;
+    }
 
 });
-</script>
-
-<script src="js/auth.js"></script>
-
-</body>
-</html>
-
-</script><script src="js/auth.js"></script>
-</body></html>
