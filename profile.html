@@ -1,43 +1,475 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>My Profile - BlockTiers</title>
-<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/auth.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+
+<style>
+.profile-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.profile-card {
+    background: rgba(15, 17, 30, 0.95);
+    border: 1px solid rgba(124, 92, 255, 0.25);
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cff, #9c86ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+    overflow: hidden;
+    border: 4px solid rgba(124, 92, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(124, 92, 255, 0.2);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-edit-button {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid #0f111e;
+    background: #7c5cff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.avatar-edit-button:hover {
+    transform: scale(1.08);
+}
+
+.profile-heading h1 {
+    margin: 0 0 6px;
+    font-size: 32px;
+}
+
+.profile-username {
+    margin: 0;
+    color: #9c86ff;
+    font-size: 16px;
+}
+
+.profile-subtitle {
+    margin: 10px 0 0;
+    color: #8d91a3;
+    font-size: 14px;
+}
+
+.profile-section {
+    margin-top: 28px;
+}
+
+.profile-section h2 {
+    margin: 0 0 15px;
+    font-size: 18px;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.profile-info-row {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.profile-info-row span:first-child {
+    display: block;
+    color: #85899a;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.profile-info-row span:last-child {
+    color: #f1f1f5;
+    font-weight: 600;
+}
+
+.avatar-upload-area {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(124, 92, 255, 0.2);
+    border-radius: 14px;
+}
+
+.avatar-upload-area.show {
+    display: block;
+}
+
+.avatar-upload-area p {
+    margin: 0 0 12px;
+    color: #9699aa;
+    font-size: 14px;
+}
+
+#avatar-file {
+    display: none;
+}
+
+.choose-avatar-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #7c5cff;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.choose-avatar-button:hover {
+    background: #8b70ff;
+}
+
+.avatar-file-name {
+    margin-left: 10px;
+    color: #8d91a3;
+    font-size: 13px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
+
+.logout-button,
+.danger-button {
+    border-radius: 10px;
+    padding: 11px 18px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logout-button {
+    background: rgba(124, 92, 255, 0.12);
+    border: 1px solid rgba(124, 92, 255, 0.3);
+    color: #c7bcff;
+}
+
+.logout-button:hover {
+    background: rgba(124, 92, 255, 0.2);
+}
+
+.danger-button {
+    display: block;
+    margin: 25px auto 0;
+    background: rgba(255, 70, 70, 0.08);
+    border: 1px solid rgba(255, 70, 70, 0.25);
+    color: #ff7777;
+}
+
+.danger-button:hover {
+    background: rgba(255, 70, 70, 0.15);
+}
+
+.form-message {
+    margin-top: 15px;
+}
+
+@media (max-width: 650px) {
+    .profile-card {
+        padding: 22px;
+    }
+
+    .profile-header {
+        align-items: flex-start;
+    }
+
+    .profile-avatar {
+        width: 85px;
+        height: 85px;
+        font-size: 32px;
+    }
+
+    .profile-heading h1 {
+        font-size: 25px;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
 </head>
+
 <body>
+
 <header class="navbar">
-<a href="index.html" class="logo">Block<span>Tiers</span></a>
+    <a href="index.html" class="logo">Block<span>Tiers</span></a>
+
+```
 <nav>
-<a href="index.html">Home</a><a href="mace.html">Mace</a><a href="sword.html">Sword</a><a href="crystal.html">Crystal</a><a href="axe.html">Axe</a><a href="uhc.html">UHC</a><a href="smp.html">SMP</a><a href="rules.html">Rules</a><a href="whats-new.html">What's New</a>
-<span id="account-slot"></span>
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="whats-new.html">What's New</a>
+    <span id="account-slot"></span>
 </nav>
+```
+
 </header>
-    <button id="delete-account-button" class="danger-button">
+
+<main id="profile-page" class="profile-page">
+
+```
+<section class="profile-card">
+
+    <div class="profile-header">
+
+        <div class="profile-avatar-wrapper">
+
+            <div id="profile-avatar" class="profile-avatar">
+                ?
+            </div>
+
+            <button
+                id="avatar-edit-button"
+                class="avatar-edit-button"
+                type="button"
+                title="Change profile picture">
+                +
+            </button>
+
+        </div>
+
+        <div class="profile-heading">
+
+            <h1 id="profile-display-name">Loading...</h1>
+
+            <p id="profile-username" class="profile-username">
+                @...
+            </p>
+
+            <p class="profile-subtitle">
+                BlockTiers Member
+            </p>
+
+        </div>
+
+    </div>
+
+    <div id="avatar-upload-area" class="avatar-upload-area">
+
+        <p>
+            Choose a profile picture. PNG, JPG and WEBP images are supported.
+        </p>
+
+        <input
+            type="file"
+            id="avatar-file"
+            accept="image/png,image/jpeg,image/webp">
+
+        <label
+            for="avatar-file"
+            class="choose-avatar-button">
+            Choose Image
+        </label>
+
+        <span id="avatar-file-name" class="avatar-file-name">
+            No image selected
+        </span>
+
+    </div>
+
+    <div class="profile-section">
+
+        <h2>Profile Information</h2>
+
+        <div class="profile-info">
+
+            <div class="profile-info-row">
+                <span>Display Name</span>
+                <span id="profile-display-name-copy">
+                    Loading...
+                </span>
+            </div>
+
+            <div class="profile-info-row">
+                <span>Username</span>
+                <span id="profile-username-copy">
+                    Loading...
+                </span>
+            </div>
+
+            <div class="profile-info-row">
+                <span>Member Since</span>
+                <span id="profile-created">
+                    Loading...
+                </span>
+            </div>
+
+            <div class="profile-info-row">
+                <span>Account Status</span>
+                <span>Active</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <p id="profile-error" class="form-message error"></p>
+
+    <div class="profile-actions">
+
+        <button
+            id="logout-button"
+            class="logout-button">
+            Log Out
+        </button>
+
+    </div>
+
+</section>
+
+<button
+    id="delete-account-button"
+    class="danger-button">
     Delete Account
 </button>
-<main id="profile-page" class="profile-page">
-<section class="profile-card">
-<div class="profile-top">
-<div id="profile-avatar" class="profile-avatar">?</div>
-<div><h1 id="profile-display-name">Loading...</h1><p id="profile-username" class="profile-username">@...</p></div>
-</div>
-<div class="profile-info">
-<div class="profile-info-row"><span>Display Name</span><span id="profile-display-name-copy">Your profile</span></div>
-<div class="profile-info-row"><span>Member Since</span><span id="profile-created">Loading...</span></div>
-</div>
-<p id="profile-error" class="form-message error"></p>
-<button id="logout-button" class="logout-button">Log Out</button>
-</section>
+```
+
 </main>
-<footer>BlockTiers &copy; 2026</footer>
+
+<footer>
+    BlockTiers &copy; 2026
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script><script>
+
+<script src="js/supabase-config.js"></script>
+
+<script>
 document.addEventListener("DOMContentLoaded", () => {
+
     const name = document.getElementById("profile-display-name");
     const copy = document.getElementById("profile-display-name-copy");
-    const observer = new MutationObserver(() => { copy.textContent = name.textContent; });
-    observer.observe(name, { childList: true });
+    const username = document.getElementById("profile-username");
+    const usernameCopy = document.getElementById("profile-username-copy");
+
+    const observer = new MutationObserver(() => {
+        copy.textContent = name.textContent;
+
+        if (username.textContent !== "@...") {
+            usernameCopy.textContent = username.textContent;
+        }
+    });
+
+    observer.observe(name, {
+        childList: true,
+        subtree: true
+    });
+
+    observer.observe(username, {
+        childList: true,
+        subtree: true
+    });
+
+    const avatarButton = document.getElementById("avatar-edit-button");
+    const uploadArea = document.getElementById("avatar-upload-area");
+    const avatarFile = document.getElementById("avatar-file");
+    const avatarFileName = document.getElementById("avatar-file-name");
+
+    avatarButton.addEventListener("click", () => {
+        uploadArea.classList.toggle("show");
+    });
+
+    avatarFile.addEventListener("change", () => {
+
+        if (!avatarFile.files.length) {
+            avatarFileName.textContent = "No image selected";
+            return;
+        }
+
+        const file = avatarFile.files[0];
+
+        avatarFileName.textContent = file.name;
+
+        /*
+         * Preview only for now.
+         * Supabase Storage upload will be connected next.
+         */
+
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+
+            const avatar = document.getElementById("profile-avatar");
+
+            avatar.innerHTML = `
+                <img src="${event.target.result}" alt="Profile picture">
+            `;
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
 });
+</script>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>
+
 </script><script src="js/auth.js"></script>
 </body></html>
