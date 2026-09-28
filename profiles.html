@@ -1,1 +1,448 @@
 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles - BlockTiers</title>
+
+```
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    .profiles-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 20px 80px;
+    }
+
+    .profiles-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .profiles-header h1 {
+        margin: 0 0 10px;
+        font-size: 42px;
+        font-weight: 800;
+    }
+
+    .profiles-header p {
+        margin: 0;
+        color: #a8a8b8;
+        font-size: 16px;
+    }
+
+    .profile-search-box {
+        max-width: 700px;
+        margin: 0 auto 45px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .profile-search-input {
+        flex: 1;
+        min-width: 0;
+        padding: 15px 18px;
+        border: 1px solid rgba(124, 92, 255, 0.35);
+        border-radius: 12px;
+        outline: none;
+        background: #10121d;
+        color: #ffffff;
+        font-size: 15px;
+        transition: 0.2s ease;
+    }
+
+    .profile-search-input::placeholder {
+        color: #77798a;
+    }
+
+    .profile-search-input:focus {
+        border-color: #7c5cff;
+        box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
+    }
+
+    .profile-search-button {
+        border: none;
+        border-radius: 12px;
+        padding: 0 24px;
+        background: #7c5cff;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .profile-search-button:hover {
+        transform: translateY(-1px);
+        opacity: 0.92;
+    }
+
+    .profile-search-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .profiles-status {
+        text-align: center;
+        color: #9294a5;
+        margin: 25px 0;
+        min-height: 22px;
+    }
+
+    .profile-results {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 18px;
+    }
+
+    .profile-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        background: #10121d;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 16px;
+        transition: 0.2s ease;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(124, 92, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-avatar {
+        width: 58px;
+        height: 58px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #191c2a;
+        border: 2px solid rgba(124, 92, 255, 0.35);
+    }
+
+    .profile-card-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .profile-display-name {
+        margin: 0 0 4px;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .profile-username {
+        margin: 0;
+        color: #858799;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .profile-view-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 9px 13px;
+        border-radius: 9px;
+        background: rgba(124, 92, 255, 0.13);
+        color: #a996ff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: 0.2s ease;
+    }
+
+    .profile-view-button:hover {
+        background: #7c5cff;
+        color: #ffffff;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #858799;
+        background: #10121d;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+    }
+
+    .empty-state h2 {
+        margin: 0 0 8px;
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    .empty-state p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+        .profiles-page {
+            padding: 40px 15px 60px;
+        }
+
+        .profiles-header h1 {
+            font-size: 32px;
+        }
+
+        .profile-search-box {
+            flex-direction: column;
+        }
+
+        .profile-search-button {
+            height: 48px;
+        }
+
+        .profile-card {
+            padding: 16px;
+        }
+
+        .profile-view-button {
+            padding: 8px 10px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<main class="profiles-page">
+
+    <section class="profiles-header">
+        <h1>Profiles</h1>
+        <p>Search for BlockTiers players and view their public profiles.</p>
+    </section>
+
+    <form class="profile-search-box" id="profile-search-form">
+        <input
+            type="text"
+            id="profile-search-input"
+            class="profile-search-input"
+            placeholder="Search for a username..."
+            autocomplete="off"
+            maxlength="30"
+        >
+
+        <button
+            type="submit"
+            id="profile-search-button"
+            class="profile-search-button"
+        >
+            Search
+        </button>
+    </form>
+
+    <div id="profiles-status" class="profiles-status">
+        Search for a player to get started.
+    </div>
+
+    <section id="profile-results" class="profile-results"></section>
+
+</main>
+
+<script src="js/supabase-config.js"></script>
+
+<script>
+    let supabaseClient = null;
+
+    const searchForm = document.getElementById("profile-search-form");
+    const searchInput = document.getElementById("profile-search-input");
+    const searchButton = document.getElementById("profile-search-button");
+    const statusElement = document.getElementById("profiles-status");
+    const resultsElement = document.getElementById("profile-results");
+
+    async function waitForSupabaseClient() {
+        for (let i = 0; i < 50; i++) {
+            if (window.supabaseClient) {
+                return window.supabaseClient;
+            }
+
+            if (window.blockTiersSupabase) {
+                return window.blockTiersSupabase;
+            }
+
+            if (window.blockTiersAuth && window.blockTiersAuth.supabase) {
+                return window.blockTiersAuth.supabase;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        return null;
+    }
+
+    function escapeHtml(value) {
+        const div = document.createElement("div");
+        div.textContent = value ?? "";
+        return div.innerHTML;
+    }
+
+    function getAvatar(profile) {
+        if (profile.avatar_url && profile.avatar_url.trim() !== "") {
+            return profile.avatar_url;
+        }
+
+        return "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(profile.display_name || profile.username || "User") +
+            "&background=191c2a&color=ffffff&size=128";
+    }
+
+    function showEmpty(title, message) {
+        resultsElement.innerHTML = `
+            <div class="empty-state">
+                <h2>${escapeHtml(title)}</h2>
+                <p>${escapeHtml(message)}</p>
+            </div>
+        `;
+    }
+
+    function displayResults(profiles) {
+        if (!profiles || profiles.length === 0) {
+            showEmpty(
+                "No profiles found",
+                "Try searching for a different username."
+            );
+            return;
+        }
+
+        resultsElement.innerHTML = profiles.map(profile => {
+            const username = profile.username || "Unknown";
+            const displayName = profile.display_name || username;
+
+            return `
+                <article class="profile-card">
+                    <img
+                        class="profile-avatar"
+                        src="${escapeHtml(getAvatar(profile))}"
+                        alt="${escapeHtml(displayName)}"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=191c2a&color=ffffff&size=128';"
+                    >
+
+                    <div class="profile-card-info">
+                        <h2 class="profile-display-name">
+                            ${escapeHtml(displayName)}
+                        </h2>
+
+                        <p class="profile-username">
+                            @${escapeHtml(username)}
+                        </p>
+                    </div>
+
+                    <a
+                        class="profile-view-button"
+                        href="public-profile.html?username=${encodeURIComponent(username)}"
+                    >
+                        View
+                    </a>
+                </article>
+            `;
+        }).join("");
+    }
+
+    async function searchProfiles(username) {
+        if (!supabaseClient) {
+            statusElement.textContent = "Supabase is still loading. Please try again.";
+            return;
+        }
+
+        const searchTerm = username.trim();
+
+        if (!searchTerm) {
+            statusElement.textContent = "Enter a username to search.";
+            resultsElement.innerHTML = "";
+            return;
+        }
+
+        searchButton.disabled = true;
+        searchButton.textContent = "Searching...";
+        statusElement.textContent = "Searching...";
+        resultsElement.innerHTML = "";
+
+        try {
+            const { data, error } = await supabaseClient
+                .from("profiles")
+                .select("username, display_name, avatar_url")
+                .ilike("username", `%${searchTerm}%`)
+                .limit(20);
+
+            if (error) {
+                console.error("Profile search error:", error);
+                statusElement.textContent = "Unable to search profiles.";
+                showEmpty(
+                    "Search error",
+                    "Something went wrong while searching. Check the browser console for details."
+                );
+                return;
+            }
+
+            statusElement.textContent =
+                data.length === 1
+                    ? "1 profile found."
+                    : `${data.length} profiles found.`;
+
+            displayResults(data);
+
+        } catch (error) {
+            console.error("Profile search error:", error);
+
+            statusElement.textContent = "Unable to search profiles.";
+
+            showEmpty(
+                "Something went wrong",
+                "Please try again."
+            );
+        } finally {
+            searchButton.disabled = false;
+            searchButton.textContent = "Search";
+        }
+    }
+
+    searchForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        searchProfiles(searchInput.value);
+    });
+
+    searchInput.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            searchInput.value = "";
+            resultsElement.innerHTML = "";
+            statusElement.textContent = "Search for a player to get started.";
+            searchInput.focus();
+        }
+    });
+
+    async function initializeProfilesPage() {
+        supabaseClient = await waitForSupabaseClient();
+
+        if (!supabaseClient) {
+            console.error("Supabase client could not be found.");
+            statusElement.textContent = "Unable to connect to BlockTiers.";
+            return;
+        }
+
+        console.log("BlockTiers profile search ready.");
+    }
+
+    initializeProfilesPage();
+</script>
+```
+
+</body>
+</html>
