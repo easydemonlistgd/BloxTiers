@@ -220,349 +220,405 @@
 
 <body>
 
-    <header class="navbar">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <button
-                class="menu-button"
-                id="menu-button"
-                aria-label="Open menu"
-                type="button"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<header class="navbar">
 
-            <a href="index.html" class="logo">
+    <div style="display: flex; align-items: center; gap: 12px;">
+
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+    </div>
+
+</header>
+
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="index.html" class="sidebar-logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+        <button
+            class="sidebar-close"
+            id="sidebar-close"
+            aria-label="Close menu"
+            type="button"
+        >
+            &times;
+        </button>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html">Home</a>
+        <a href="mace.html">Mace</a>
+        <a href="sword.html">Sword</a>
+        <a href="crystal.html">Crystal</a>
+        <a href="axe.html">Axe</a>
+        <a href="uhc.html">UHC</a>
+        <a href="smp.html">SMP</a>
+        <a href="rules.html">Rules</a>
+        <a href="staff.html">Staff</a>
+        <a href="profiles.html" class="active">Profiles</a>
+
+        <a href="mailto:BlockTiers@protonmail.com">
+            Support
+        </a>
+
+        <a href="whats-new.html">
+            What's New
+        </a>
+
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord
+        </a>
+
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
+
+    </nav>
+
+</aside>
+
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+
+<main class="public-profile-page">
+
+    <div id="profileLoading" class="profile-loading">
+        Loading profile...
+    </div>
+
+
+    <div id="profileError" class="profile-error" style="display:none;">
+
+        <h1>
+            Profile Not Found
+        </h1>
+
+        <p id="errorMessage">
+            Unable to find this BlockTiers profile.
+        </p>
+
+        <a href="profiles.html" class="back-button">
+            Back to Profiles
+        </a>
+
+    </div>
+
+
+    <div id="profileContainer" class="profile-container" style="display:none;">
+
+        <div class="profile-banner"></div>
+
+        <div class="profile-content">
+
+            <div class="profile-main">
+
                 <img
-                    src="images/BlockTiersicon.png"
-                    alt="BlockTiers"
-                    style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+                    id="profileAvatar"
+                    class="public-avatar"
+                    src=""
+                    alt="Profile avatar"
                 >
-                Block<span>Tiers</span>
-            </a>
-        </div>
-    </header>
 
-    <aside class="sidebar" id="sidebar">
+                <div class="profile-heading">
 
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
-                <img
-                    src="images/BlockTiersicon.png"
-                    alt="BlockTiers"
-                    style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
-                >
-                Block<span>Tiers</span>
-            </a>
+                    <h1
+                        id="profileDisplayName"
+                        class="profile-display-name"
+                    ></h1>
 
-            <button
-                class="sidebar-close"
-                id="sidebar-close"
-                aria-label="Close menu"
-                type="button"
-            >
-                &times;
-            </button>
-        </div>
-
-        <nav class="sidebar-nav">
-            <a href="index.html">Home</a>
-            <a href="mace.html">Mace</a>
-            <a href="sword.html">Sword</a>
-            <a href="crystal.html">Crystal</a>
-            <a href="axe.html">Axe</a>
-            <a href="uhc.html">UHC</a>
-            <a href="smp.html">SMP</a>
-            <a href="rules.html">Rules</a>
-            <a href="staff.html">Staff</a>
-            <a href="profiles.html" class="active">Profiles</a>
-            <a href="mailto:BlockTiers@protonmail.com">Support</a>
-            <a href="whats-new.html">What's New</a>
-            <a
-                href="https://discord.gg/fX7caP4gMb"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Discord
-            </a>
-
-            <span id="account-slot">
-                <a href="login.html">Login</a>
-            </span>
-        </nav>
-
-    </aside>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-    <main class="public-profile-page">
-
-        <div id="profileLoading" class="profile-loading">
-            Loading profile...
-        </div>
-
-        <div id="profileError" class="profile-error" style="display:none;">
-            <h1>Profile Not Found</h1>
-
-            <p id="errorMessage">
-                Unable to find this BlockTiers profile.
-            </p>
-
-            <a href="profiles.html" class="back-button">
-                Back to Profiles
-            </a>
-        </div>
-
-        <div id="profileContainer" class="profile-container" style="display:none;">
-
-            <div class="profile-banner"></div>
-
-            <div class="profile-content">
-
-                <div class="profile-main">
-
-                    <img
-                        id="profileAvatar"
-                        class="public-avatar"
-                        src=""
-                        alt="Profile avatar"
-                    >
-
-                    <div class="profile-heading">
-
-                        <h1
-                            id="profileDisplayName"
-                            class="profile-display-name"
-                        ></h1>
-
-                        <p
-                            id="profileUsername"
-                            class="profile-username"
-                        ></p>
-
-                    </div>
-
-                </div>
-
-                <div class="profile-information">
-
-                    <h2 class="profile-section-title">
-                        Social Media
-                    </h2>
-
-                    <div id="socialContent"></div>
+                    <p
+                        id="profileUsername"
+                        class="profile-username"
+                    ></p>
 
                 </div>
 
             </div>
+
+
+            <div class="profile-information">
+
+                <h2 class="profile-section-title">
+                    Social Media
+                </h2>
+
+                <div id="socialContent"></div>
+
+            </div>
+
         </div>
 
-    </main>
+    </div>
 
-    <script src="js/supabase-config.js"></script>
+</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script>
-        const menuButton = document.getElementById("menu-button");
-        const sidebar = document.getElementById("sidebar");
-        const sidebarClose = document.getElementById("sidebar-close");
-        const sidebarOverlay = document.getElementById("sidebar-overlay");
+<script src="js/supabase-config.js"></script>
 
-        function openSidebar() {
-            sidebar.classList.add("open");
-            sidebarOverlay.classList.add("show");
-            document.body.classList.add("sidebar-open");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+    sidebarClose.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
         }
+    });
 
-        function closeSidebar() {
-            sidebar.classList.remove("open");
-            sidebarOverlay.classList.remove("show");
-            document.body.classList.remove("sidebar-open");
-        }
-
-        menuButton.addEventListener("click", openSidebar);
-        sidebarClose.addEventListener("click", closeSidebar);
-        sidebarOverlay.addEventListener("click", closeSidebar);
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                closeSidebar();
-            }
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
         });
+    });
 
-        sidebar.querySelectorAll("a").forEach(function(link) {
-            link.addEventListener("click", function() {
-                closeSidebar();
-            });
-        });
 
-        const supabaseClient = window.supabase.createClient(
-            window.BLOCKTIERS_SUPABASE_URL,
-            window.BLOCKTIERS_SUPABASE_ANON_KEY
-        );
+    const supabaseClient = window.supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
 
-        const params = new URLSearchParams(window.location.search);
-        const username = params.get("username");
 
-        const loading = document.getElementById("profileLoading");
-        const error = document.getElementById("profileError");
-        const errorMessage = document.getElementById("errorMessage");
-        const container = document.getElementById("profileContainer");
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("username");
 
-        const avatar = document.getElementById("profileAvatar");
-        const displayName = document.getElementById("profileDisplayName");
-        const usernameElement = document.getElementById("profileUsername");
-        const socialContent = document.getElementById("socialContent");
+    const loading = document.getElementById("profileLoading");
+    const error = document.getElementById("profileError");
+    const errorMessage = document.getElementById("errorMessage");
+    const container = document.getElementById("profileContainer");
 
-        function showError(message) {
-            loading.style.display = "none";
-            container.style.display = "none";
-            error.style.display = "block";
-            errorMessage.textContent = message;
+    const avatar = document.getElementById("profileAvatar");
+    const displayName = document.getElementById("profileDisplayName");
+    const usernameElement = document.getElementById("profileUsername");
+    const socialContent = document.getElementById("socialContent");
+
+
+    function showError(message) {
+        loading.style.display = "none";
+        container.style.display = "none";
+        error.style.display = "block";
+        errorMessage.textContent = message;
+    }
+
+
+    async function loadProfile() {
+
+        if (!username) {
+            showError("No username was provided.");
+            return;
         }
 
-        async function loadProfile() {
 
-            if (!username) {
-                showError("No username was provided.");
-                return;
-            }
+        const { data, error: supabaseError } = await supabaseClient
+            .from("profiles")
+            .select(
+                "username, display_name, avatar_url, discord_username, youtube_url"
+            )
+            .eq("username", username)
+            .maybeSingle();
 
-            const { data, error: supabaseError } = await supabaseClient
-                .from("profiles")
-                .select(
-                    "username, display_name, avatar_url, discord_username, youtube_url"
-                )
-                .eq("username", username)
-                .maybeSingle();
 
-            if (supabaseError) {
-                console.error(supabaseError);
-                showError("Unable to connect to BlockTiers.");
-                return;
-            }
-
-            if (!data) {
-                showError("This profile does not exist.");
-                return;
-            }
-
-            displayName.textContent =
-                data.display_name ||
-                data.username ||
-                "BlockTiers User";
-
-            usernameElement.textContent =
-                "@" + data.username;
-
-            if (data.avatar_url) {
-                avatar.src = data.avatar_url;
-            } else {
-                avatar.src =
-                    "https://ui-avatars.com/api/?name=" +
-                    encodeURIComponent(
-                        data.display_name || data.username
-                    ) +
-                    "&background=7c5cff&color=ffffff";
-            }
-
-            socialContent.innerHTML = "";
-
-            let hasSocial = false;
-
-            if (data.discord_username) {
-                hasSocial = true;
-
-                const discordCard = document.createElement("div");
-                discordCard.className = "social-card";
-
-                discordCard.innerHTML = `
-                    <div class="social-icon">DC</div>
-
-                    <div class="social-details">
-                        <p class="social-name">Discord</p>
-
-                        <p class="social-description">
-                            ${escapeHtml(data.discord_username)}
-                        </p>
-                    </div>
-                `;
-
-                socialContent.appendChild(discordCard);
-            }
-
-            if (
-                data.youtube_url &&
-                (
-                    data.youtube_url.startsWith("https://youtube.com/") ||
-                    data.youtube_url.startsWith("https://www.youtube.com/")
-                )
-            ) {
-                hasSocial = true;
-
-                const youtubeCard = document.createElement("div");
-                youtubeCard.className = "social-card";
-
-                youtubeCard.innerHTML = `
-                    <div class="social-icon">YT</div>
-
-                    <div class="social-details">
-                        <p class="social-name">YouTube</p>
-
-                        <p class="social-description">
-                            ${escapeHtml(data.youtube_url)}
-                        </p>
-                    </div>
-
-                    <a
-                        class="social-button"
-                        href="${escapeAttribute(data.youtube_url)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Open
-                    </a>
-                `;
-
-                socialContent.appendChild(youtubeCard);
-            }
-
-            if (!hasSocial) {
-                socialContent.innerHTML = `
-                    <div class="no-socials">
-                        This user hasn't added any social media yet.
-                    </div>
-                `;
-            }
-
-            loading.style.display = "none";
-            container.style.display = "block";
+        if (supabaseError) {
+            console.error(supabaseError);
+            showError("Unable to connect to BlockTiers.");
+            return;
         }
 
-        function escapeHtml(value) {
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+
+        if (!data) {
+            showError("This profile does not exist.");
+            return;
         }
 
-        function escapeAttribute(value) {
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/"/g, "&quot;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+
+        displayName.textContent =
+            data.display_name ||
+            data.username ||
+            "BlockTiers User";
+
+
+        usernameElement.textContent =
+            "@" + data.username;
+
+
+        if (data.avatar_url) {
+
+            avatar.src = data.avatar_url;
+
+        } else {
+
+            avatar.src =
+                "https://ui-avatars.com/api/?name=" +
+                encodeURIComponent(
+                    data.display_name || data.username
+                ) +
+                "&background=7c5cff&color=ffffff";
+
         }
 
-        loadProfile();
-    </script>
+
+        socialContent.innerHTML = "";
+
+        let hasSocial = false;
+
+
+        if (data.discord_username) {
+
+            hasSocial = true;
+
+            const discordCard = document.createElement("div");
+            discordCard.className = "social-card";
+
+            discordCard.innerHTML = `
+                <div class="social-icon">DC</div>
+
+                <div class="social-details">
+                    <p class="social-name">Discord</p>
+
+                    <p class="social-description">
+                        ${escapeHtml(data.discord_username)}
+                    </p>
+                </div>
+            `;
+
+            socialContent.appendChild(discordCard);
+        }
+
+
+        if (
+            data.youtube_url &&
+            (
+                data.youtube_url.startsWith("https://youtube.com/") ||
+                data.youtube_url.startsWith("https://www.youtube.com/")
+            )
+        ) {
+
+            hasSocial = true;
+
+            const youtubeCard = document.createElement("div");
+            youtubeCard.className = "social-card";
+
+            youtubeCard.innerHTML = `
+                <div class="social-icon">YT</div>
+
+                <div class="social-details">
+                    <p class="social-name">YouTube</p>
+
+                    <p class="social-description">
+                        ${escapeHtml(data.youtube_url)}
+                    </p>
+                </div>
+
+                <a
+                    class="social-button"
+                    href="${escapeAttribute(data.youtube_url)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open
+                </a>
+            `;
+
+            socialContent.appendChild(youtubeCard);
+        }
+
+
+        if (!hasSocial) {
+
+            socialContent.innerHTML = `
+                <div class="no-socials">
+                    This user hasn't added any social media yet.
+                </div>
+            `;
+
+        }
+
+
+        loading.style.display = "none";
+        container.style.display = "block";
+    }
+
+
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function escapeAttribute(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    }
+
+
+    loadProfile();
+</script>
 
 </body>
 </html>
 ```
 
-This one is ready to replace your current `public-profile.html`. Your existing `style.css` already contains the sidebar styling, so you shouldn't need another CSS change.
+This one is safe to replace with. **No Supabase queries, profile rendering, avatar handling, Discord handling, or YouTube handling were removed.**
+
+Next should be `rules.html`.
