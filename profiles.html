@@ -1,227 +1,274 @@
-
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Profiles - BlockTiers</title>
+    <title>Profiles - BlockTiers</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
-<style>
-    .profiles-page {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 60px 20px 80px;
-    }
-
-    .profiles-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .profiles-header h1 {
-        margin: 0 0 10px;
-        font-size: 42px;
-        font-weight: 800;
-    }
-
-    .profiles-header p {
-        margin: 0;
-        color: #a8a8b8;
-        font-size: 16px;
-    }
-
-    .profile-search-box {
-        max-width: 700px;
-        margin: 0 auto 45px;
-        display: flex;
-        gap: 12px;
-    }
-
-    .profile-search-input {
-        flex: 1;
-        min-width: 0;
-        padding: 15px 18px;
-        border: 1px solid rgba(124, 92, 255, 0.35);
-        border-radius: 12px;
-        outline: none;
-        background: #10121d;
-        color: #ffffff;
-        font-size: 15px;
-        transition: 0.2s ease;
-    }
-
-    .profile-search-input::placeholder {
-        color: #77798a;
-    }
-
-    .profile-search-input:focus {
-        border-color: #7c5cff;
-        box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
-    }
-
-    .profile-search-button {
-        border: none;
-        border-radius: 12px;
-        padding: 0 24px;
-        background: #7c5cff;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s ease;
-    }
-
-    .profile-search-button:hover {
-        opacity: 0.9;
-        transform: translateY(-1px);
-    }
-
-    .profile-search-button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .profiles-status {
-        text-align: center;
-        color: #9294a5;
-        margin: 25px 0;
-        min-height: 22px;
-    }
-
-    .profile-results {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 18px;
-    }
-
-    .profile-card {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 20px;
-        background: #10121d;
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-radius: 16px;
-        transition: 0.2s ease;
-    }
-
-    .profile-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(124, 92, 255, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .profile-avatar {
-        width: 58px;
-        height: 58px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        object-fit: cover;
-        background: #191c2a;
-        border: 2px solid rgba(124, 92, 255, 0.35);
-    }
-
-    .profile-card-info {
-        min-width: 0;
-        flex: 1;
-    }
-
-    .profile-display-name {
-        margin: 0 0 4px;
-        color: #ffffff;
-        font-size: 17px;
-        font-weight: 700;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .profile-username {
-        margin: 0;
-        color: #858799;
-        font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .profile-view-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        padding: 9px 13px;
-        border-radius: 9px;
-        background: rgba(124, 92, 255, 0.13);
-        color: #a996ff;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 700;
-        transition: 0.2s ease;
-    }
-
-    .profile-view-button:hover {
-        background: #7c5cff;
-        color: #ffffff;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 50px 20px;
-        color: #858799;
-        background: #10121d;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 16px;
-        grid-column: 1 / -1;
-    }
-
-    .empty-state h2 {
-        margin: 0 0 8px;
-        color: #ffffff;
-        font-size: 20px;
-    }
-
-    .empty-state p {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
+    <style>
         .profiles-page {
-            padding: 40px 15px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+        }
+
+        .profiles-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .profiles-header h1 {
-            font-size: 32px;
+            margin: 0 0 10px;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .profiles-header p {
+            margin: 0;
+            color: #a8a8b8;
+            font-size: 16px;
         }
 
         .profile-search-box {
-            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto 45px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .profile-search-input {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 18px;
+            border: 1px solid rgba(124, 92, 255, 0.35);
+            border-radius: 12px;
+            outline: none;
+            background: #10121d;
+            color: #ffffff;
+            font-size: 15px;
+            transition: 0.2s ease;
+        }
+
+        .profile-search-input::placeholder {
+            color: #77798a;
+        }
+
+        .profile-search-input:focus {
+            border-color: #7c5cff;
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
         }
 
         .profile-search-button {
-            height: 48px;
+            border: none;
+            border-radius: 12px;
+            padding: 0 24px;
+            background: #7c5cff;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
-    }
-</style>
-```
 
+        .profile-search-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .profile-search-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .profiles-status {
+            text-align: center;
+            color: #9294a5;
+            margin: 25px 0;
+            min-height: 22px;
+        }
+
+        .profile-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: #10121d;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            transition: 0.2s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124, 92, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #191c2a;
+            border: 2px solid rgba(124, 92, 255, 0.35);
+        }
+
+        .profile-card-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .profile-display-name {
+            margin: 0 0 4px;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-username {
+            margin: 0;
+            color: #858799;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 9px 13px;
+            border-radius: 9px;
+            background: rgba(124, 92, 255, 0.13);
+            color: #a996ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .profile-view-button:hover {
+            background: #7c5cff;
+            color: #ffffff;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #858799;
+            background: #10121d;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state h2 {
+            margin: 0 0 8px;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .profiles-page {
+                padding: 40px 15px 60px;
+            }
+
+            .profiles-header h1 {
+                font-size: 32px;
+            }
+
+            .profile-search-box {
+                flex-direction: column;
+            }
+
+            .profile-search-button {
+                height: 48px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Block<span>Tiers</span>
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="mace.html">Mace</a>
+        <a href="sword.html">Sword</a>
+        <a href="crystal.html">Crystal</a>
+        <a href="axe.html">Axe</a>
+        <a href="uhc.html">UHC</a>
+        <a href="smp.html">SMP</a>
+        <a href="rules.html">Rules</a>
+        <a href="staff.html">Staff</a>
+
+        <a
+            href="profiles.html"
+            class="active"
+        >
+            Profiles
+        </a>
+
+        <a
+            href="mailto:BlockTiers@protonmail.com"
+            class="support-button"
+        >
+            Support
+        </a>
+
+        <a href="whats-new.html">What's New</a>
+
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="discord-button"
+        >
+            Discord
+        </a>
+
+        <span id="account-slot">
+            <a href="login.html" class="account-button">Login</a>
+        </span>
+    </nav>
+
+</header>
+
 <main class="profiles-page">
 
     <section class="profiles-header">
         <h1>Profiles</h1>
-        <p>Search for BlockTiers players and view their public profiles.</p>
+
+        <p>
+            Search for BlockTiers players and view their public profiles.
+        </p>
     </section>
 
     <form class="profile-search-box" id="profile-search-form">
@@ -249,14 +296,15 @@
         Search for a player to get started.
     </div>
 
-    <section id="profile-results" class="profile-results"></section>
+    <section
+        id="profile-results"
+        class="profile-results"
+    ></section>
 
 </main>
 
-<!-- Your existing Supabase configuration -->
 <script src="js/supabase-config.js"></script>
 
-<!-- Supabase JavaScript library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -545,26 +593,4 @@
 
         supabaseClient =
             window.supabase.createClient(
-
-                window.BLOCKTIERS_SUPABASE_URL,
-
-                window.BLOCKTIERS_SUPABASE_ANON_KEY
-            );
-
-
-        console.log(
-            "BlockTiers Supabase client initialized."
-        );
-
-        statusElement.textContent =
-            "Search for a player to get started.";
-    }
-
-
-    initializeProfilesPage();
-
-</script>
 ```
-
-</body>
-</html>
