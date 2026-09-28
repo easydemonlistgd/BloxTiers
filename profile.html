@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,6 +134,78 @@
     font-weight: 600;
 }
 
+/* Social Media */
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.social-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.social-card-title {
+    color: #f1f1f5;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.social-card-description {
+    color: #85899a;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.social-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9px;
+    padding: 11px 12px;
+    color: white;
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.social-input:focus {
+    border-color: rgba(124, 92, 255, 0.6);
+    box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.08);
+}
+
+.social-input::placeholder {
+    color: #686d80;
+}
+
+.social-save-button {
+    margin-top: 10px;
+    border: 1px solid rgba(124, 92, 255, 0.3);
+    background: rgba(124, 92, 255, 0.12);
+    color: #c7bcff;
+    border-radius: 9px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.social-save-button:hover {
+    background: rgba(124, 92, 255, 0.22);
+}
+
+.social-status {
+    margin-top: 8px;
+    color: #85899a;
+    font-size: 12px;
+    min-height: 16px;
+}
+
 .avatar-upload-area {
     display: none;
     margin-top: 20px;
@@ -220,6 +292,7 @@
 }
 
 @media (max-width: 650px) {
+
     .profile-card {
         padding: 22px;
     }
@@ -241,6 +314,11 @@
     .profile-info {
         grid-template-columns: 1fr;
     }
+
+    .social-links {
+        grid-template-columns: 1fr;
+    }
+
 }
 </style>
 
@@ -371,6 +449,82 @@
 
 </div>
 
+
+<!-- Social Media -->
+
+<div class="profile-section">
+
+    <h2>Social Media</h2>
+
+    <div class="social-links">
+
+        <div class="social-card">
+
+            <div class="social-card-title">
+                Discord
+            </div>
+
+            <div class="social-card-description">
+                Add your Discord username to your BlockTiers profile.
+            </div>
+
+            <input
+                type="text"
+                id="discord-username"
+                class="social-input"
+                placeholder="Your Discord username"
+                maxlength="32">
+
+            <button
+                id="save-discord"
+                class="social-save-button"
+                type="button">
+                Save Discord
+            </button>
+
+            <div
+                id="discord-status"
+                class="social-status">
+            </div>
+
+        </div>
+
+
+        <div class="social-card">
+
+            <div class="social-card-title">
+                YouTube
+            </div>
+
+            <div class="social-card-description">
+                Add your YouTube channel to your BlockTiers profile.
+            </div>
+
+            <input
+                type="url"
+                id="youtube-url"
+                class="social-input"
+                placeholder="https://youtube.com/@yourchannel">
+
+            <button
+                id="save-youtube"
+                class="social-save-button"
+                type="button">
+                Save YouTube
+            </button>
+
+            <div
+                id="youtube-status"
+                class="social-status">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <p id="profile-error" class="form-message error"></p>
 
 <div class="profile-actions">
@@ -402,10 +556,9 @@
 
 <script src="js/supabase-config.js"></script>
 
-<!-- Your existing account system MUST load before the avatar system -->
+<!-- Existing account system -->
 <script src="js/auth.js"></script>
 
-<!-- Avatar system -->
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -439,6 +592,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
+     * Social media elements
+     */
+
+    const discordInput =
+        document.getElementById("discord-username");
+
+    const youtubeInput =
+        document.getElementById("youtube-url");
+
+    const saveDiscordButton =
+        document.getElementById("save-discord");
+
+    const saveYouTubeButton =
+        document.getElementById("save-youtube");
+
+    const discordStatus =
+        document.getElementById("discord-status");
+
+    const youtubeStatus =
+        document.getElementById("youtube-status");
+
+
+    /*
      * Keep duplicate profile information
      * synchronized with auth.js.
      */
@@ -454,7 +630,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (usernameElement && usernameCopy) {
 
-            if (usernameElement.textContent.trim() !== "@...") {
+            if (
+                usernameElement.textContent.trim() !== "@..."
+            ) {
 
                 usernameCopy.textContent =
                     usernameElement.textContent;
@@ -517,7 +695,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (window.blockTiersAuth) {
 
                     clearInterval(interval);
-                    resolve(window.blockTiersAuth);
+
+                    resolve(
+                        window.blockTiersAuth
+                    );
+
                     return;
 
                 }
@@ -539,6 +721,309 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 50);
 
         });
+
+    }
+
+
+    /*
+     * Load social media information.
+     */
+
+    async function loadSocialMedia() {
+
+        try {
+
+            const client =
+                await waitForAuthClient();
+
+
+            const {
+                data: { user },
+                error: userError
+            } = await client.auth.getUser();
+
+
+            if (userError || !user) {
+
+                return;
+
+            }
+
+
+            const {
+                data,
+                error
+            } = await client
+                .from("profiles")
+                .select(
+                    "discord_username, youtube_url"
+                )
+                .eq("id", user.id)
+                .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Could not load social media:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            if (data) {
+
+                if (data.discord_username) {
+
+                    discordInput.value =
+                        data.discord_username;
+
+                    discordStatus.textContent =
+                        "Discord saved.";
+
+                }
+
+
+                if (data.youtube_url) {
+
+                    youtubeInput.value =
+                        data.youtube_url;
+
+                    youtubeStatus.textContent =
+                        "YouTube channel saved.";
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Social media loading error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Save Discord username.
+     */
+
+    if (saveDiscordButton) {
+
+        saveDiscordButton.addEventListener(
+            "click",
+            async () => {
+
+                const username =
+                    discordInput.value.trim();
+
+
+                if (!username) {
+
+                    discordStatus.textContent =
+                        "Please enter your Discord username.";
+
+                    return;
+
+                }
+
+
+                saveDiscordButton.disabled =
+                    true;
+
+                saveDiscordButton.textContent =
+                    "Saving...";
+
+
+                try {
+
+                    const client =
+                        await waitForAuthClient();
+
+
+                    const {
+                        data: { user },
+                        error: userError
+                    } = await client.auth.getUser();
+
+
+                    if (userError || !user) {
+
+                        throw new Error(
+                            "You must be logged in."
+                        );
+
+                    }
+
+
+                    const {
+                        error
+                    } = await client
+                        .from("profiles")
+                        .update({
+                            discord_username:
+                                username
+                        })
+                        .eq("id", user.id);
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    discordStatus.textContent =
+                        "Discord saved successfully.";
+
+                } catch (error) {
+
+                    console.error(
+                        "Discord save error:",
+                        error
+                    );
+
+                    discordStatus.textContent =
+                        "Could not save Discord: " +
+                        error.message;
+
+                } finally {
+
+                    saveDiscordButton.disabled =
+                        false;
+
+                    saveDiscordButton.textContent =
+                        "Save Discord";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Save YouTube channel.
+     */
+
+    if (saveYouTubeButton) {
+
+        saveYouTubeButton.addEventListener(
+            "click",
+            async () => {
+
+                const url =
+                    youtubeInput.value.trim();
+
+
+                if (!url) {
+
+                    youtubeStatus.textContent =
+                        "Please enter your YouTube channel URL.";
+
+                    return;
+
+                }
+
+
+                if (
+                    !url.startsWith(
+                        "https://youtube.com/"
+                    ) &&
+                    !url.startsWith(
+                        "https://www.youtube.com/"
+                    )
+                ) {
+
+                    youtubeStatus.textContent =
+                        "Please enter a valid YouTube URL.";
+
+                    return;
+
+                }
+
+
+                saveYouTubeButton.disabled =
+                    true;
+
+                saveYouTubeButton.textContent =
+                    "Saving...";
+
+
+                try {
+
+                    const client =
+                        await waitForAuthClient();
+
+
+                    const {
+                        data: { user },
+                        error: userError
+                    } = await client.auth.getUser();
+
+
+                    if (userError || !user) {
+
+                        throw new Error(
+                            "You must be logged in."
+                        );
+
+                    }
+
+
+                    const {
+                        error
+                    } = await client
+                        .from("profiles")
+                        .update({
+                            youtube_url:
+                                url
+                        })
+                        .eq("id", user.id);
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    youtubeStatus.textContent =
+                        "YouTube channel saved successfully.";
+
+                } catch (error) {
+
+                    console.error(
+                        "YouTube save error:",
+                        error
+                    );
+
+                    youtubeStatus.textContent =
+                        "Could not save YouTube: " +
+                        error.message;
+
+                } finally {
+
+                    saveYouTubeButton.disabled =
+                        false;
+
+                    saveYouTubeButton.textContent =
+                        "Save YouTube";
+
+                }
+
+            }
+        );
 
     }
 
@@ -818,10 +1303,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-     * Load the avatar after initialization.
+     * Load everything after initialization.
      */
 
     loadAvatar();
+
+    loadSocialMedia();
 
 });
 
@@ -829,4 +1316,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-```
+
