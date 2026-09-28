@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rules - BlockTiers</title>
+
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -12,11 +15,59 @@
 
 <header class="navbar">
 
-    <a href="index.html" class="logo">
-        Block<span>Tiers</span>
-    </a>
+    <div style="display: flex; align-items: center; gap: 12px;">
 
-    <nav>
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+    </div>
+
+</header>
+
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="index.html" class="sidebar-logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+        <button
+            class="sidebar-close"
+            id="sidebar-close"
+            aria-label="Close menu"
+            type="button"
+        >
+            &times;
+        </button>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
         <a href="index.html">Home</a>
         <a href="mace.html">Mace</a>
         <a href="sword.html">Sword</a>
@@ -25,127 +76,213 @@
         <a href="uhc.html">UHC</a>
         <a href="smp.html">SMP</a>
         <a href="rules.html" class="active">Rules</a>
+        <a href="staff.html">Staff</a>
+        <a href="profiles.html">Profiles</a>
+
+        <a href="mailto:BlockTiers@protonmail.com">
+            Support
+        </a>
+
+        <a href="whats-new.html">
+            What's New
+        </a>
 
         <a
-            href="https://discord.gg/YOURINVITE"
+            href="https://discord.gg/fX7caP4gMb"
             target="_blank"
             rel="noopener noreferrer"
-            class="discord-button"
         >
             Discord
         </a>
+
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
+
     </nav>
 
-</header>
+</aside>
+
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 
 
 <main class="rules-page">
 
     <section class="rules-header">
-        <p class="small-title">BLOCKTIERS</p>
 
-        <h1>Rules</h1>
+        <p class="small-title">
+            BLOCKTIERS
+        </p>
+
+        <h1>
+            Rules
+        </h1>
 
         <p>
             Please read the rules before participating in rankings.
         </p>
+
     </section>
 
 
     <section class="rules-list">
 
         <div class="rule">
-            <div class="rule-number">01</div>
+
+            <div class="rule-number">
+                01
+            </div>
 
             <div>
-                <h2>Be Respectful</h2>
+
+                <h2>
+                    Be Respectful
+                </h2>
+
                 <p>
                     Treat players, testers, staff, and other members
                     respectfully. Harassment and unnecessary toxicity
                     are not allowed.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">02</div>
+
+            <div class="rule-number">
+                02
+            </div>
 
             <div>
-                <h2>No Cheating</h2>
+
+                <h2>
+                    No Cheating
+                </h2>
+
                 <p>
                     Cheats, unfair modifications, macros, or other
                     tools that provide an unfair advantage are not
                     allowed.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">03</div>
+
+            <div class="rule-number">
+                03
+            </div>
 
             <div>
-                <h2>Valid Results Only</h2>
+
+                <h2>
+                    Valid Results Only
+                </h2>
+
                 <p>
                     Submitted results must be legitimate and must
                     follow the requirements for the relevant kit.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">04</div>
+
+            <div class="rule-number">
+                04
+            </div>
 
             <div>
-                <h2>No Fake Results</h2>
+
+                <h2>
+                    No Fake Results
+                </h2>
+
                 <p>
                     Do not submit fake, edited, fabricated, or
                     otherwise misleading results.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">05</div>
+
+            <div class="rule-number">
+                05
+            </div>
 
             <div>
-                <h2>Evidence</h2>
+
+                <h2>
+                    Evidence
+                </h2>
+
                 <p>
                     Staff may request proof of a result. Players
                     should provide the requested evidence when
                     necessary.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">06</div>
+
+            <div class="rule-number">
+                06
+            </div>
 
             <div>
-                <h2>Staff Decisions</h2>
+
+                <h2>
+                    Staff Decisions
+                </h2>
+
                 <p>
                     Staff may review, remove, or correct rankings
                     when a result does not meet the requirements.
                 </p>
+
             </div>
+
         </div>
 
 
         <div class="rule">
-            <div class="rule-number">07</div>
+
+            <div class="rule-number">
+                07
+            </div>
 
             <div>
-                <h2>Use Common Sense</h2>
+
+                <h2>
+                    Use Common Sense
+                </h2>
+
                 <p>
                     Not every situation can be covered by a written
                     rule. Use common sense and follow staff
                     instructions when necessary.
                 </p>
+
             </div>
+
         </div>
 
     </section>
@@ -157,6 +294,46 @@
     BlockTiers &copy; 2026
 </footer>
 
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+
+    sidebarClose.addEventListener("click", closeSidebar);
+
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+    });
+
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
+        });
+    });
+</script>
+
 </body>
 </html>
 ```
+
+This keeps the rules page itself untouched while giving it the same 3.0 navigation as the other pages.
