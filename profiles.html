@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -593,4 +593,25 @@
 
         supabaseClient =
             window.supabase.createClient(
-```
+
+                window.BLOCKTIERS_SUPABASE_URL,
+
+                window.BLOCKTIERS_SUPABASE_ANON_KEY
+            );
+
+
+        console.log(
+            "BlockTiers Supabase client initialized."
+        );
+
+        statusElement.textContent =
+            "Search for a player to get started.";
+    }
+
+
+    initializeProfilesPage();
+
+</script>
+
+</body>
+</html>
