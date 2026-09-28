@@ -71,7 +71,8 @@
     background: #7c5cff;
     color: white;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -165,6 +166,7 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
+    transition: 0.2s ease;
 }
 
 .choose-avatar-button:hover {
@@ -310,6 +312,7 @@
 
         <p>
             Choose a profile picture. PNG, JPG and WEBP images are supported.
+            Maximum size: 2 MB.
         </p>
 
         <input
@@ -401,16 +404,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const name = document.getElementById("profile-display-name");
     const copy = document.getElementById("profile-display-name-copy");
+
     const username = document.getElementById("profile-username");
     const usernameCopy = document.getElementById("profile-username-copy");
 
-    const observer = new MutationObserver(() => {
-        copy.textContent = name.textContent;
+    const avatarButton = document.getElementById("avatar-edit-button");
+    const uploadArea = document.getElementById("avatar-upload-area");
+    const avatarFile = document.getElementById("avatar-file");
+    const avatarFileName = document.getElementById("avatar-file-name");
 
-        if (username.textContent !== "@...") {
+    /*
+     * Keep the duplicate display-name/username fields synchronized
+     * with the information loaded by auth.js.
+     */
+
+    const updateCopies = () => {
+
+        if (name.textContent.trim() !== "Loading...") {
+            copy.textContent = name.textContent;
+        }
+
+        if (username.textContent.trim() !== "@...") {
             usernameCopy.textContent = username.textContent;
         }
-    });
+    };
+
+    const observer = new MutationObserver(updateCopies);
 
     observer.observe(name, {
         childList: true,
@@ -422,16 +441,60 @@ document.addEventListener("DOMContentLoaded", () => {
         subtree: true
     });
 
-    const avatarButton = document.getElementById("avatar-edit-button");
-    const uploadArea = document.getElementById("avatar-upload-area");
-    const avatarFile = document.getElementById("avatar-file");
-    const avatarFileName = document.getElementById("avatar-file-name");
+    /*
+     * Open/close avatar upload area.
+     */
 
     avatarButton.addEventListener("click", () => {
         uploadArea.classList.toggle("show");
     });
 
-    avatarFile.addEventListener("change", () => {
+    /*
+     * Load the user's saved avatar.
+     */
+
+    async function loadAvatar() {
+
+        try {
+
+            const {
+                data: { user },
+                error: userError
+            } = await supabase.auth.getUser();
+
+            if (userError || !user) {
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from("profiles")
+                .select("avatar_url")
+                .eq("id", user.id)
+                .single();
+
+            if (error) {
+                console.error("Could not load avatar:", error);
+                return;
+            }
+
+            if (data && data.avatar_url) {
+
+                document.getElementById("profile-avatar").innerHTML = `
+                    <img src="${data.avatar_url}" alt="Profile picture">
+                `;
+
+            }
+
+        } catch (error) {
+            console.error("Avatar loading error:", error);
+        }
+    }
+
+    /*
+     * Upload a new avatar.
+     */
+
+    avatarFile.addEventListener("change", async () => {
 
         if (!avatarFile.files.length) {
             avatarFileName.textContent = "No image selected";
@@ -440,91 +503,124 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const file = avatarFile.files[0];
 
-        avatarFileName.textContent = file.name;
+        if (!file.type.startsWith("image/")) {
 
-        /*
-         * Preview only for now.
-         * Supabase Storage upload will be connected next.
-         */
+            avatarFileName.textContent =
+                "Please select an image.";
 
-avatarFile.addEventListener("change", async () => {
+            avatarFile.value = "";
 
-    if (!avatarFile.files.length) {
-        avatarFileName.textContent = "No image selected";
-        return;
-    }
-
-    const file = avatarFile.files[0];
-
-    if (!file.type.startsWith("image/")) {
-        avatarFileName.textContent = "Please select an image";
-        avatarFile.value = "";
-        return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-        avatarFileName.textContent = "Image must be smaller than 2 MB";
-        avatarFile.value = "";
-        return;
-    }
-
-    avatarFileName.textContent = "Uploading...";
-
-    try {
-
-        const {
-            data: { user },
-            error: userError
-        } = await supabase.auth.getUser();
-
-        if (userError || !user) {
-            throw new Error("You must be logged in.");
+            return;
         }
 
-        const extension = file.name.split(".").pop().toLowerCase();
+        if (file.size > 2 * 1024 * 1024) {
 
-        const filePath = `${user.id}/avatar.${extension}`;
+            avatarFileName.textContent =
+                "Image must be smaller than 2 MB.";
 
-        const { error: uploadError } = await supabase.storage
-            .from("avatars")
-            .upload(filePath, file, {
-                upsert: true,
-                contentType: file.type
-            });
+            avatarFile.value = "";
 
-        if (uploadError) {
-            throw uploadError;
+            return;
         }
 
-        const {
-            data: { publicUrl }
-        } = supabase.storage
-            .from("avatars")
-            .getPublicUrl(filePath);
+        avatarFileName.textContent = "Uploading...";
 
-        const { error: profileError } = await supabase
-            .from("profiles")
-            .update({
-                avatar_url: publicUrl
-            })
-            .eq("id", user.id);
+        try {
 
-        if (profileError) {
-            throw profileError;
+            const {
+                data: { user },
+                error: userError
+            } = await supabase.auth.getUser();
+
+            if (userError || !user) {
+                throw new Error("You must be logged in.");
+            }
+
+            /*
+             * Use the user's ID as their folder.
+             */
+
+            const extension = file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+            const filePath = `${user.id}/avatar.${extension}`;
+
+            /*
+             * Upload to Supabase Storage.
+             */
+
+            const { error: uploadError } = await supabase.storage
+                .from("avatars")
+                .upload(filePath, file, {
+                    upsert: true,
+                    contentType: file.type
+                });
+
+            if (uploadError) {
+                throw uploadError;
+            }
+
+            /*
+             * Get the public URL.
+             */
+
+            const {
+                data: { publicUrl }
+            } = supabase.storage
+                .from("avatars")
+                .getPublicUrl(filePath);
+
+            /*
+             * Save the URL to the user's profile.
+             */
+
+            const { error: profileError } = await supabase
+                .from("profiles")
+                .update({
+                    avatar_url: publicUrl
+                })
+                .eq("id", user.id);
+
+            if (profileError) {
+                throw profileError;
+            }
+
+            /*
+             * Show the new avatar immediately.
+             */
+
+            const avatar = document.getElementById("profile-avatar");
+
+            avatar.innerHTML = `
+                <img src="${publicUrl}" alt="Profile picture">
+            `;
+
+            avatarFileName.textContent =
+                "Profile picture saved!";
+
+        } catch (error) {
+
+            console.error("Avatar upload error:", error);
+
+            avatarFileName.textContent =
+                "Upload failed: " + error.message;
         }
 
-        document.getElementById("profile-avatar").innerHTML = `
-            <img src="${publicUrl}" alt="Profile picture">
-        `;
+    });
 
-        avatarFileName.textContent = "Profile picture saved!";
+    /*
+     * Load the avatar after the page starts.
+     */
 
-    } catch (error) {
-
-        console.error("Avatar upload error:", error);
-
-        avatarFileName.textContent =
-            "Upload failed: " + error.message;
-    }
+    loadAvatar();
 
 });
+</script>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>
+
