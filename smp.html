@@ -1,16 +1,73 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SMP Rankings - BlockTiers</title>
+
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <header class="navbar">
-    <a href="index.html" class="logo">Block<span>Tiers</span></a>
-    <nav>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+    </div>
+
+</header>
+
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="index.html" class="sidebar-logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+        <button
+            class="sidebar-close"
+            id="sidebar-close"
+            aria-label="Close menu"
+            type="button"
+        >
+            &times;
+        </button>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
         <a href="index.html">Home</a>
         <a href="mace.html">Mace</a>
         <a href="sword.html">Sword</a>
@@ -18,27 +75,118 @@
         <a href="axe.html">Axe</a>
         <a href="uhc.html">UHC</a>
         <a href="smp.html" class="active">SMP</a>
+        <a href="rules.html">Rules</a>
+        <a href="staff.html">Staff</a>
+        <a href="profiles.html">Profiles</a>
+
+        <a href="mailto:BlockTiers@protonmail.com">
+            Support
+        </a>
+
+        <a href="whats-new.html">
+            What's New
+        </a>
+
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord
+        </a>
+
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
+
     </nav>
-</header>
+
+</aside>
+
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
 
 <main class="ranking-page">
+
     <section class="ranking-header">
-        <div class="kit-icon large">S</div>
-        <div>
-            <p class="small-title">KIT RANKINGS</p>
-            <h1>SMP</h1>
-            <p>Top players ranked by points.</p>
+
+        <div class="kit-icon large">
+            S
         </div>
+
+        <div>
+
+            <p class="small-title">
+                KIT RANKINGS
+            </p>
+
+            <h1>
+                SMP
+            </h1>
+
+            <p>
+                Top players ranked by points.
+            </p>
+
+        </div>
+
     </section>
 
     <section id="ranking"></section>
+
 </main>
 
-<footer>BlockTiers &copy; 2026</footer>
+
+<footer>
+    BlockTiers &copy; 2026
+</footer>
+
 
 <script src="js/data.js"></script>
 <script src="js/kit.js"></script>
-<script>loadKit("smp");</script>
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+
+    sidebarClose.addEventListener("click", closeSidebar);
+
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+    });
+
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
+        });
+    });
+
+    loadKit("smp");
+</script>
 
 </body>
 </html>
+```
+
+SMP is now using the same 3.0 sidebar, with **SMP highlighted as active**, while `loadKit("smp")` and the existing ranking scripts stay intact.
