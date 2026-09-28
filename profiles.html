@@ -1,392 +1,545 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Profiles - BlockTiers</title>
+    <title>Profiles - BlockTiers</title>
 
-<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
-<link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+    <link rel="stylesheet" href="css/style.css">
 
-<style>
-    .profiles-page {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 60px 20px 80px;
-    }
-
-    .profiles-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .profiles-header h1 {
-        margin: 0 0 10px;
-        font-size: 42px;
-        font-weight: 800;
-    }
-
-    .profiles-header p {
-        margin: 0;
-        color: #a8a8b8;
-        font-size: 16px;
-    }
-
-    .profile-search-box {
-        max-width: 700px;
-        margin: 0 auto 45px;
-        display: flex;
-        gap: 12px;
-    }
-
-    .profile-search-input {
-        flex: 1;
-        min-width: 0;
-        padding: 15px 18px;
-        border: 1px solid rgba(124, 92, 255, 0.35);
-        border-radius: 12px;
-        outline: none;
-        background: #10121d;
-        color: #ffffff;
-        font-size: 15px;
-        transition: 0.2s ease;
-    }
-
-    .profile-search-input::placeholder {
-        color: #77798a;
-    }
-
-    .profile-search-input:focus {
-        border-color: #7c5cff;
-        box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
-    }
-
-    .profile-search-button {
-        border: none;
-        border-radius: 12px;
-        padding: 0 24px;
-        background: #7c5cff;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s ease;
-    }
-
-    .profile-search-button:hover {
-        opacity: 0.9;
-        transform: translateY(-1px);
-    }
-
-    .profile-search-button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .profiles-status {
-        text-align: center;
-        color: #9294a5;
-        margin: 25px 0;
-        min-height: 22px;
-    }
-
-    .profile-results {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 18px;
-    }
-
-    .profile-card {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 20px;
-        background: #10121d;
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-radius: 16px;
-        transition: 0.2s ease;
-    }
-
-    .profile-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(124, 92, 255, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .profile-avatar {
-        width: 58px;
-        height: 58px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        object-fit: cover;
-        background: #191c2a;
-        border: 2px solid rgba(124, 92, 255, 0.35);
-    }
-
-    .profile-card-info {
-        min-width: 0;
-        flex: 1;
-    }
-
-    .profile-display-name {
-        margin: 0 0 4px;
-        color: #ffffff;
-        font-size: 17px;
-        font-weight: 700;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .profile-username {
-        margin: 0;
-        color: #858799;
-        font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .profile-view-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        padding: 9px 13px;
-        border-radius: 9px;
-        background: rgba(124, 92, 255, 0.13);
-        color: #a996ff;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 700;
-        transition: 0.2s ease;
-    }
-
-    .profile-view-button:hover {
-        background: #7c5cff;
-        color: #ffffff;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 50px 20px;
-        color: #858799;
-        background: #10121d;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 16px;
-        grid-column: 1 / -1;
-    }
-
-    .empty-state h2 {
-        margin: 0 0 8px;
-        color: #ffffff;
-        font-size: 20px;
-    }
-
-    .empty-state p {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
+    <style>
         .profiles-page {
-            padding: 40px 15px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+        }
+
+        .profiles-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .profiles-header h1 {
-            font-size: 32px;
+            margin: 0 0 10px;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .profiles-header p {
+            margin: 0;
+            color: #a8a8b8;
+            font-size: 16px;
         }
 
         .profile-search-box {
-            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto 45px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .profile-search-input {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 18px;
+            border: 1px solid rgba(124, 92, 255, 0.35);
+            border-radius: 12px;
+            outline: none;
+            background: #10121d;
+            color: #ffffff;
+            font-size: 15px;
+            transition: 0.2s ease;
+        }
+
+        .profile-search-input::placeholder {
+            color: #77798a;
+        }
+
+        .profile-search-input:focus {
+            border-color: #7c5cff;
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
         }
 
         .profile-search-button {
-            height: 48px;
+            border: none;
+            border-radius: 12px;
+            padding: 0 24px;
+            background: #7c5cff;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
-    }
-</style>
-```
 
+        .profile-search-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .profile-search-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .profiles-status {
+            text-align: center;
+            color: #9294a5;
+            margin: 25px 0;
+            min-height: 22px;
+        }
+
+        .profile-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: #10121d;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            transition: 0.2s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124, 92, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #191c2a;
+            border: 2px solid rgba(124, 92, 255, 0.35);
+        }
+
+        .profile-card-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .profile-display-name {
+            margin: 0 0 4px;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-username {
+            margin: 0;
+            color: #858799;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 9px 13px;
+            border-radius: 9px;
+            background: rgba(124, 92, 255, 0.13);
+            color: #a996ff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .profile-view-button:hover {
+            background: #7c5cff;
+            color: #ffffff;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #858799;
+            background: #10121d;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state h2 {
+            margin: 0 0 8px;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .profiles-page {
+                padding: 40px 15px 60px;
+            }
+
+            .profiles-header h1 {
+                font-size: 32px;
+            }
+
+            .profile-search-box {
+                flex-direction: column;
+            }
+
+            .profile-search-button {
+                height: 48px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="navbar">
 
-```
-<div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
 
-    <button
-        class="menu-button"
-        id="menu-button"
-        aria-label="Open menu"
-        type="button"
-    >
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <a href="index.html" class="logo">
-        <img
-            src="images/BlockTiersicon.png"
-            alt="BlockTiers"
-            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            type="button"
         >
-        Block<span>Tiers</span>
-    </a>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-</div>
-```
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+    </div>
 
 </header>
 
+
 <aside class="sidebar" id="sidebar">
 
-```
-<div class="sidebar-header">
+    <div class="sidebar-header">
 
-    <a href="index.html" class="sidebar-logo">
-        <img
-            src="images/BlockTiersicon.png"
-            alt="BlockTiers"
-            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        <a href="index.html" class="sidebar-logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+        <button
+            class="sidebar-close"
+            id="sidebar-close"
+            aria-label="Close menu"
+            type="button"
         >
-        Block<span>Tiers</span>
-    </a>
+            &times;
+        </button>
 
-    <button
-        class="sidebar-close"
-        id="sidebar-close"
-        aria-label="Close menu"
-        type="button"
-    >
-        &times;
-    </button>
+    </div>
 
-</div>
+    <nav class="sidebar-nav">
 
-<nav class="sidebar-nav">
+        <a href="index.html">Home</a>
+        <a href="mace.html">Mace</a>
+        <a href="sword.html">Sword</a>
+        <a href="crystal.html">Crystal</a>
+        <a href="axe.html">Axe</a>
+        <a href="uhc.html">UHC</a>
+        <a href="smp.html">SMP</a>
+        <a href="rules.html">Rules</a>
+        <a href="staff.html">Staff</a>
+        <a href="profiles.html" class="active">Profiles</a>
+        <a href="mailto:BlockTiers@protonmail.com">Support</a>
+        <a href="whats-new.html">What's New</a>
 
-    <a href="index.html">Home</a>
-    <a href="mace.html">Mace</a>
-    <a href="sword.html">Sword</a>
-    <a href="crystal.html">Crystal</a>
-    <a href="axe.html">Axe</a>
-    <a href="uhc.html">UHC</a>
-    <a href="smp.html">SMP</a>
-    <a href="rules.html">Rules</a>
-    <a href="staff.html">Staff</a>
-    <a href="profiles.html" class="active">Profiles</a>
-    <a href="mailto:BlockTiers@protonmail.com">Support</a>
-    <a href="whats-new.html">What's New</a>
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord
+        </a>
 
-    <a
-        href="https://discord.gg/fX7caP4gMb"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        Discord
-    </a>
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
 
-    <span id="account-slot">
-        <a href="login.html">Login</a>
-    </span>
-
-</nav>
-```
+    </nav>
 
 </aside>
 
+
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
 
 <main class="profiles-page">
 
-```
-<section class="profiles-header">
-    <h1>Profiles</h1>
+    <section class="profiles-header">
 
-    <p>
-        Search for BlockTiers players and view their public profiles.
-    </p>
-</section>
+        <h1>Profiles</h1>
 
-<form class="profile-search-box" id="profile-search-form">
+        <p>
+            Search for BlockTiers players and view their public profiles.
+        </p>
 
-    <input
-        type="text"
-        id="profile-search-input"
-        class="profile-search-input"
-        placeholder="Search for a username..."
-        autocomplete="off"
-        maxlength="30"
-    >
+    </section>
 
-    <button
-        type="submit"
-        id="profile-search-button"
-        class="profile-search-button"
-    >
-        Search
-    </button>
 
-</form>
+    <form class="profile-search-box" id="profile-search-form">
 
-<div id="profiles-status" class="profiles-status">
-    Search for a player to get started.
-</div>
+        <input
+            type="text"
+            id="profile-search-input"
+            class="profile-search-input"
+            placeholder="Search for a username..."
+            autocomplete="off"
+            maxlength="30"
+        >
 
-<section
-    id="profile-results"
-    class="profile-results"
-></section>
-```
+        <button
+            type="submit"
+            id="profile-search-button"
+            class="profile-search-button"
+        >
+            Search
+        </button>
+
+    </form>
+
+
+    <div id="profiles-status" class="profiles-status">
+        Search for a player to get started.
+    </div>
+
+
+    <section
+        id="profile-results"
+        class="profile-results"
+    ></section>
 
 </main>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+
+
 <script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
 
-const menuButton = document.getElementById("menu-button");
-const sidebar = document.getElementById("sidebar");
-const sidebarClose = document.getElementById("sidebar-close");
-const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-function openSidebar() {
-    sidebar.classList.add("open");
-    sidebarOverlay.classList.add("show");
-    document.body.classList.add("sidebar-open");
-}
-
-function closeSidebar() {
-    sidebar.classList.remove("open");
-    sidebarOverlay.classList.remove("show");
-    document.body.classList.remove("sidebar-open");
-}
-
-menuButton.addEventListener("click", openSidebar);
-sidebarClose.addEventListener("click", closeSidebar);
-sidebarOverlay.addEventListener("click", closeSidebar);
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        closeSidebar();
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
     }
-});
 
-sidebar.querySelectorAll("a").forEach(function(link) {
-    link.addEventListener("click", function() {
-        closeSidebar();
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+    sidebarClose.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
     });
-});
 
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
+        });
+    });
+
+
+    const supabaseClient = window.supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
+
+
+    const searchForm = document.getElementById("profile-search-form");
+    const searchInput = document.getElementById("profile-search-input");
+    const searchButton = document.getElementById("profile-search-button");
+    const status = document.getElementById("profiles-status");
+    const results = document.getElementById("profile-results");
+
+
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function createAvatar(profile) {
+
+        if (profile.avatar_url) {
+            return profile.avatar_url;
+        }
+
+        return (
+            "https://ui-avatars.com/api/?name=" +
+            encodeURIComponent(
+                profile.display_name ||
+                profile.username ||
+                "User"
+            ) +
+            "&background=7c5cff&color=ffffff"
+        );
+    }
+
+
+    searchForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const query = searchInput.value.trim();
+
+        if (!query) {
+            status.textContent = "Please enter a username.";
+            results.innerHTML = "";
+            return;
+        }
+
+
+        searchButton.disabled = true;
+        status.textContent = "Searching...";
+        results.innerHTML = "";
+
+
+        const { data, error } = await supabaseClient
+            .from("profiles")
+            .select("username, display_name, avatar_url")
+            .ilike("username", `%${query}%`)
+            .order("username", { ascending: true })
+            .limit(50);
+
+
+        searchButton.disabled = false;
+
+
+        if (error) {
+
+            console.error(error);
+
+            status.textContent =
+                "Unable to search profiles right now.";
+
+            return;
+        }
+
+
+        if (!data || data.length === 0) {
+
+            status.textContent =
+                "No profiles found.";
+
+            results.innerHTML = `
+                <div class="empty-state">
+                    <h2>No profiles found</h2>
+                    <p>Try searching for a different username.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        status.textContent =
+            `${data.length} profile${data.length === 1 ? "" : "s"} found.`;
+
+
+        results.innerHTML = data.map(function(profile) {
+
+            const safeUsername = escapeHtml(profile.username);
+            const safeDisplayName = escapeHtml(
+                profile.display_name ||
+                profile.username ||
+                "BlockTiers User"
+            );
+
+            const avatarUrl = escapeHtml(
+                createAvatar(profile)
+            );
+
+            return `
+                <article class="profile-card">
+
+                    <img
+                        class="profile-avatar"
+                        src="${avatarUrl}"
+                        alt="${safeDisplayName}"
+                    >
+
+                    <div class="profile-card-info">
+
+                        <p class="profile-display-name">
+                            ${safeDisplayName}
+                        </p>
+
+                        <p class="profile-username">
+                            @${safeUsername}
+                        </p>
+
+                    </div>
+
+                    <a
+                        class="profile-view-button"
+                        href="public-profile.html?username=${encodeURIComponent(profile.username)}"
+                    >
+                        View
+                    </a>
+
+                </article>
+            `;
+
+        }).join("");
+
+    });
 </script>
-
-<!-- KEEP YOUR EXISTING PROFILES SUPABASE / SEARCH SCRIPT BELOW THIS POINT -->
 
 </body>
 </html>
+
+
+Most importantly, the search now queries Supabase with `ilike`, so searching part of a username can return matching profiles, and each result goes to the existing `public-profile.html?username=...` page.
