@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,6 +7,7 @@
 
 <title>My Profile - BlockTiers</title>
 
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/auth.css">
 
@@ -328,11 +329,57 @@
 
 <header class="navbar">
 
-<a href="index.html" class="logo">
-    Block<span>Tiers</span>
-</a>
+```
+<div style="display: flex; align-items: center; gap: 12px;">
 
-<nav>
+    <button
+        class="menu-button"
+        id="menu-button"
+        aria-label="Open menu"
+        type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
+        Block<span>Tiers</span>
+    </a>
+
+</div>
+```
+
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+```
+<div class="sidebar-header">
+
+    <a href="index.html" class="sidebar-logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
+        Block<span>Tiers</span>
+    </a>
+
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button">
+        &times;
+    </button>
+
+</div>
+
+<nav class="sidebar-nav">
+
     <a href="index.html">Home</a>
     <a href="mace.html">Mace</a>
     <a href="sword.html">Sword</a>
@@ -341,11 +388,27 @@
     <a href="uhc.html">UHC</a>
     <a href="smp.html">SMP</a>
     <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="mailto:BlockTiers@protonmail.com">Support</a>
     <a href="whats-new.html">What's New</a>
-    <span id="account-slot"></span>
-</nav>
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer">
+        Discord
+    </a>
 
-</header>
+    <span id="account-slot">
+        <a href="login.html">Login</a>
+    </span>
+
+</nav>
+```
+
+</aside>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 
 <main id="profile-page" class="profile-page">
 
@@ -353,197 +416,201 @@
 
 <div class="profile-header">
 
-    <div class="profile-avatar-wrapper">
+```
+<div class="profile-avatar-wrapper">
 
-        <div id="profile-avatar" class="profile-avatar">
-            ?
-        </div>
-
-        <button
-            id="avatar-edit-button"
-            class="avatar-edit-button"
-            type="button"
-            title="Change profile picture">
-            +
-        </button>
-
+    <div id="profile-avatar" class="profile-avatar">
+        ?
     </div>
 
-    <div class="profile-heading">
+    <button
+        id="avatar-edit-button"
+        class="avatar-edit-button"
+        type="button"
+        title="Change profile picture">
+        +
+    </button>
 
-        <h1 id="profile-display-name">
-            Loading...
-        </h1>
+</div>
 
-        <p id="profile-username" class="profile-username">
-            @...
-        </p>
+<div class="profile-heading">
 
-        <p class="profile-subtitle">
-            BlockTiers Member
-        </p>
+    <h1 id="profile-display-name">
+        Loading...
+    </h1>
 
-    </div>
+    <p id="profile-username" class="profile-username">
+        @...
+    </p>
+
+    <p class="profile-subtitle">
+        BlockTiers Member
+    </p>
+
+</div>
+```
 
 </div>
 
 <div id="avatar-upload-area" class="avatar-upload-area">
 
-    <p>
-        Choose a profile picture. PNG, JPG and WEBP images are supported.
-        Maximum size: 2 MB.
-    </p>
+```
+<p>
+    Choose a profile picture. PNG, JPG and WEBP images are supported.
+    Maximum size: 2 MB.
+</p>
 
-    <input
-        type="file"
-        id="avatar-file"
-        accept="image/png,image/jpeg,image/webp">
+<input
+    type="file"
+    id="avatar-file"
+    accept="image/png,image/jpeg,image/webp">
 
-    <label
-        for="avatar-file"
-        class="choose-avatar-button">
-        Choose Image
-    </label>
+<label
+    for="avatar-file"
+    class="choose-avatar-button">
+    Choose Image
+</label>
 
-    <span
-        id="avatar-file-name"
-        class="avatar-file-name">
-        No image selected
-    </span>
+<span
+    id="avatar-file-name"
+    class="avatar-file-name">
+    No image selected
+</span>
+```
 
 </div>
 
 <div class="profile-section">
 
-    <h2>Profile Information</h2>
+```
+<h2>Profile Information</h2>
 
-    <div class="profile-info">
+<div class="profile-info">
 
-        <div class="profile-info-row">
-            <span>Display Name</span>
-            <span id="profile-display-name-copy">
-                Loading...
-            </span>
-        </div>
+    <div class="profile-info-row">
+        <span>Display Name</span>
+        <span id="profile-display-name-copy">
+            Loading...
+        </span>
+    </div>
 
-        <div class="profile-info-row">
-            <span>Username</span>
-            <span id="profile-username-copy">
-                Loading...
-            </span>
-        </div>
+    <div class="profile-info-row">
+        <span>Username</span>
+        <span id="profile-username-copy">
+            Loading...
+        </span>
+    </div>
 
-        <div class="profile-info-row">
-            <span>Member Since</span>
-            <span id="profile-created">
-                Loading...
-            </span>
-        </div>
+    <div class="profile-info-row">
+        <span>Member Since</span>
+        <span id="profile-created">
+            Loading...
+        </span>
+    </div>
 
-        <div class="profile-info-row">
-            <span>Account Status</span>
-            <span>Active</span>
-        </div>
-
+    <div class="profile-info-row">
+        <span>Account Status</span>
+        <span>Active</span>
     </div>
 
 </div>
+```
 
-
-<!-- Social Media -->
+</div>
 
 <div class="profile-section">
 
-    <h2>Social Media</h2>
+```
+<h2>Social Media</h2>
 
-    <div class="social-links">
+<div class="social-links">
 
-        <div class="social-card">
+    <div class="social-card">
 
-            <div class="social-card-title">
-                Discord
-            </div>
-
-            <div class="social-card-description">
-                Add your Discord username to your BlockTiers profile.
-            </div>
-
-            <input
-                type="text"
-                id="discord-username"
-                class="social-input"
-                placeholder="Your Discord username"
-                maxlength="32">
-
-            <button
-                id="save-discord"
-                class="social-save-button"
-                type="button">
-                Save Discord
-            </button>
-
-            <div
-                id="discord-status"
-                class="social-status">
-            </div>
-
+        <div class="social-card-title">
+            Discord
         </div>
 
+        <div class="social-card-description">
+            Add your Discord username to your BlockTiers profile.
+        </div>
 
-        <div class="social-card">
+        <input
+            type="text"
+            id="discord-username"
+            class="social-input"
+            placeholder="Your Discord username"
+            maxlength="32">
 
-            <div class="social-card-title">
-                YouTube
-            </div>
+        <button
+            id="save-discord"
+            class="social-save-button"
+            type="button">
+            Save Discord
+        </button>
 
-            <div class="social-card-description">
-                Add your YouTube channel to your BlockTiers profile.
-            </div>
+        <div
+            id="discord-status"
+            class="social-status">
+        </div>
 
-            <input
-                type="url"
-                id="youtube-url"
-                class="social-input"
-                placeholder="https://youtube.com/@yourchannel">
+    </div>
 
-            <button
-                id="save-youtube"
-                class="social-save-button"
-                type="button">
-                Save YouTube
-            </button>
+    <div class="social-card">
 
-            <div
-                id="youtube-status"
-                class="social-status">
-            </div>
+        <div class="social-card-title">
+            YouTube
+        </div>
 
+        <div class="social-card-description">
+            Add your YouTube channel to your BlockTiers profile.
+        </div>
+
+        <input
+            type="url"
+            id="youtube-url"
+            class="social-input"
+            placeholder="https://youtube.com/@yourchannel">
+
+        <button
+            id="save-youtube"
+            class="social-save-button"
+            type="button">
+            Save YouTube
+        </button>
+
+        <div
+            id="youtube-status"
+            class="social-status">
         </div>
 
     </div>
 
 </div>
+```
 
+</div>
 
 <p id="profile-error" class="form-message error"></p>
 
 <div class="profile-actions">
 
-    <button
-        id="logout-button"
-        class="logout-button">
-        Log Out
-    </button>
+```
+<button
+    id="logout-button"
+    class="logout-button">
+    Log Out
+</button>
+```
 
 </div>
 
 </section>
 
 <button
-    id="delete-account-button"
-    class="danger-button">
-    Delete Account
-</button>
+ id="delete-account-button"
+ class="danger-button">
+Delete Account </button>
 
 </main>
 
@@ -552,14 +619,52 @@
 </footer>
 
 <!-- Supabase -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/supabase-config.js"></script>
 
 <!-- Existing account system -->
+
 <script src="js/auth.js"></script>
 
 <script>
+
+/* BlockTiers 3.0 Sidebar */
+
+const menuButton = document.getElementById("menu-button");
+const sidebar = document.getElementById("sidebar");
+const sidebarClose = document.getElementById("sidebar-close");
+const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+function openSidebar() {
+    sidebar.classList.add("open");
+    sidebarOverlay.classList.add("show");
+    document.body.classList.add("sidebar-open");
+}
+
+function closeSidebar() {
+    sidebar.classList.remove("open");
+    sidebarOverlay.classList.remove("show");
+    document.body.classList.remove("sidebar-open");
+}
+
+menuButton.addEventListener("click", openSidebar);
+sidebarClose.addEventListener("click", closeSidebar);
+sidebarOverlay.addEventListener("click", closeSidebar);
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeSidebar();
+    }
+});
+
+sidebar.querySelectorAll("a").forEach(function(link) {
+    link.addEventListener("click", function() {
+        closeSidebar();
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -590,7 +695,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarFileName =
         document.getElementById("avatar-file-name");
 
-
     /*
      * Social media elements
      */
@@ -612,7 +716,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const youtubeStatus =
         document.getElementById("youtube-status");
-
 
     /*
      * Keep duplicate profile information
@@ -643,7 +746,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
     if (nameElement) {
 
         observer.observe(nameElement, {
@@ -653,7 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     if (usernameElement) {
 
         observer.observe(usernameElement, {
@@ -662,7 +763,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
-
 
     /*
      * Open / close avatar upload area.
@@ -677,7 +777,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
-
 
     /*
      * Wait until auth.js has created
@@ -724,7 +823,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     /*
      * Load social media information.
      */
@@ -736,19 +834,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const client =
                 await waitForAuthClient();
 
-
             const {
                 data: { user },
                 error: userError
             } = await client.auth.getUser();
-
 
             if (userError || !user) {
 
                 return;
 
             }
-
 
             const {
                 data,
@@ -761,7 +856,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .eq("id", user.id)
                 .single();
 
-
             if (error) {
 
                 console.error(
@@ -772,7 +866,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
 
             }
-
 
             if (data) {
 
@@ -785,7 +878,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Discord saved.";
 
                 }
-
 
                 if (data.youtube_url) {
 
@@ -810,7 +902,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     /*
      * Save Discord username.
      */
@@ -824,7 +915,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const username =
                     discordInput.value.trim();
 
-
                 if (!username) {
 
                     discordStatus.textContent =
@@ -834,25 +924,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
                 saveDiscordButton.disabled =
                     true;
 
                 saveDiscordButton.textContent =
                     "Saving...";
 
-
                 try {
 
                     const client =
                         await waitForAuthClient();
 
-
                     const {
                         data: { user },
                         error: userError
                     } = await client.auth.getUser();
-
 
                     if (userError || !user) {
 
@@ -861,7 +947,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
                     }
-
 
                     const {
                         error
@@ -873,13 +958,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         })
                         .eq("id", user.id);
 
-
                     if (error) {
 
                         throw error;
 
                     }
-
 
                     discordStatus.textContent =
                         "Discord saved successfully.";
@@ -910,7 +993,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     /*
      * Save YouTube channel.
      */
@@ -924,7 +1006,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const url =
                     youtubeInput.value.trim();
 
-
                 if (!url) {
 
                     youtubeStatus.textContent =
@@ -933,7 +1014,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
 
                 }
-
 
                 if (
                     !url.startsWith(
@@ -951,25 +1031,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
                 saveYouTubeButton.disabled =
                     true;
 
                 saveYouTubeButton.textContent =
                     "Saving...";
 
-
                 try {
 
                     const client =
                         await waitForAuthClient();
 
-
                     const {
                         data: { user },
                         error: userError
                     } = await client.auth.getUser();
-
 
                     if (userError || !user) {
 
@@ -978,7 +1054,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
                     }
-
 
                     const {
                         error
@@ -990,13 +1065,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         })
                         .eq("id", user.id);
 
-
                     if (error) {
 
                         throw error;
 
                     }
-
 
                     youtubeStatus.textContent =
                         "YouTube channel saved successfully.";
@@ -1027,7 +1100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     /*
      * Load the saved profile picture.
      */
@@ -1039,19 +1111,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const client =
                 await waitForAuthClient();
 
-
             const {
                 data: { user },
                 error: userError
             } = await client.auth.getUser();
-
 
             if (userError || !user) {
 
                 return;
 
             }
-
 
             const {
                 data,
@@ -1061,7 +1130,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .select("avatar_url")
                 .eq("id", user.id)
                 .single();
-
 
             if (error) {
 
@@ -1073,7 +1141,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
 
             }
-
 
             if (data && data.avatar_url) {
 
@@ -1096,7 +1163,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     /*
      * Upload a new profile picture.
      */
@@ -1116,10 +1182,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
                 const file =
                     avatarFile.files[0];
-
 
                 /*
                  * Check file type.
@@ -1131,7 +1195,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     "image/webp"
                 ];
 
-
                 if (!allowedTypes.includes(file.type)) {
 
                     avatarFileName.textContent =
@@ -1142,7 +1205,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
 
                 }
-
 
                 /*
                  * Maximum 2 MB.
@@ -1159,10 +1221,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
                 avatarFileName.textContent =
                     "Uploading...";
-
 
                 try {
 
@@ -1174,12 +1234,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     const client =
                         await waitForAuthClient();
 
-
                     const {
                         data: { user },
                         error: userError
                     } = await client.auth.getUser();
-
 
                     if (userError || !user) {
 
@@ -1188,7 +1246,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
                     }
-
 
                     /*
                      * Create a safe file path.
@@ -1201,10 +1258,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ? "webp"
                                 : "jpg";
 
-
                     const filePath =
                         `${user.id}/avatar.${extension}`;
-
 
                     /*
                      * Upload image to Supabase Storage.
@@ -1223,13 +1278,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         );
 
-
                     if (uploadError) {
 
                         throw uploadError;
 
                     }
-
 
                     /*
                      * Get public URL.
@@ -1241,10 +1294,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         .from("avatars")
                         .getPublicUrl(filePath);
 
-
                     const publicUrl =
                         publicData.publicUrl;
-
 
                     /*
                      * Save avatar URL to profile.
@@ -1259,13 +1310,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         })
                         .eq("id", user.id);
 
-
                     if (profileError) {
 
                         throw profileError;
 
                     }
-
 
                     /*
                      * Display the new avatar immediately.
@@ -1277,10 +1326,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             alt="Profile picture">
                     `;
 
-
                     avatarFileName.textContent =
                         "Profile picture saved!";
-
 
                 } catch (error) {
 
@@ -1288,7 +1335,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Avatar upload error:",
                         error
                     );
-
 
                     avatarFileName.textContent =
                         "Upload failed: " +
@@ -1300,7 +1346,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
 
     /*
      * Load everything after initialization.
@@ -1316,4 +1361,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
