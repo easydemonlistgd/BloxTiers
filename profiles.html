@@ -229,12 +229,7 @@
         <a href="rules.html">Rules</a>
         <a href="staff.html">Staff</a>
 
-        <a
-            href="profiles.html"
-            class="active"
-        >
-            Profiles
-        </a>
+        <a href="profiles.html" class="active">Profiles</a>
 
         <a
             href="mailto:BlockTiers@protonmail.com"
@@ -308,7 +303,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
     let supabaseClient = null;
 
     const searchForm =
@@ -328,17 +322,13 @@
 
 
     function escapeHtml(value) {
-
         const div = document.createElement("div");
-
         div.textContent = value ?? "";
-
         return div.innerHTML;
     }
 
 
     function getAvatar(profile) {
-
         if (
             profile.avatar_url &&
             profile.avatar_url.trim() !== ""
@@ -357,18 +347,10 @@
 
 
     function showEmpty(title, message) {
-
         resultsElement.innerHTML = `
             <div class="empty-state">
-
-                <h2>
-                    ${escapeHtml(title)}
-                </h2>
-
-                <p>
-                    ${escapeHtml(message)}
-                </p>
-
+                <h2>${escapeHtml(title)}</h2>
+                <p>${escapeHtml(message)}</p>
             </div>
         `;
     }
@@ -377,7 +359,6 @@
     function displayResults(profiles) {
 
         if (!profiles || profiles.length === 0) {
-
             showEmpty(
                 "No profiles found",
                 "Try searching for a different username."
@@ -385,7 +366,6 @@
 
             return;
         }
-
 
         resultsElement.innerHTML = profiles.map(profile => {
 
@@ -395,9 +375,7 @@
             const displayName =
                 profile.display_name || username;
 
-
             return `
-
                 <article class="profile-card">
 
                     <img
@@ -427,7 +405,6 @@
                     </a>
 
                 </article>
-
             `;
 
         }).join("");
@@ -439,7 +416,6 @@
         const searchTerm =
             username.trim();
 
-
         if (!searchTerm) {
 
             statusElement.textContent =
@@ -449,7 +425,6 @@
 
             return;
         }
-
 
         searchButton.disabled = true;
 
@@ -461,25 +436,19 @@
 
         resultsElement.innerHTML = "";
 
-
         try {
 
             const { data, error } =
                 await supabaseClient
-
                     .from("profiles")
-
                     .select(
                         "username, display_name, avatar_url"
                     )
-
                     .ilike(
                         "username",
                         `%${searchTerm}%`
                     )
-
                     .limit(20);
-
 
             if (error) {
 
@@ -500,18 +469,14 @@
                 return;
             }
 
-
             statusElement.textContent =
                 data.length === 1
                     ? "1 profile found."
                     : `${data.length} profiles found.`;
 
-
             displayResults(data);
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Profile search error:",
@@ -526,9 +491,7 @@
                 "Please try again."
             );
 
-        }
-
-        finally {
+        } finally {
 
             searchButton.disabled = false;
 
@@ -590,15 +553,11 @@
             return;
         }
 
-
         supabaseClient =
             window.supabase.createClient(
-
                 window.BLOCKTIERS_SUPABASE_URL,
-
                 window.BLOCKTIERS_SUPABASE_ANON_KEY
             );
-
 
         console.log(
             "BlockTiers Supabase client initialized."
@@ -610,7 +569,6 @@
 
 
     initializeProfilesPage();
-
 </script>
 
 </body>
