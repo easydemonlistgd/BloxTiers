@@ -1,4 +1,4 @@
-
+```html id="p4x7km"
 <!DOCTYPE html>
 
 <html lang="en">
@@ -6,137 +6,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Staff - BlockTiers</title>
 
-<title>Staff - BlockTiers</title>
-
-<link rel="stylesheet" href="css/style.css">
-
-
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header class="navbar">
 
+    <div style="display: flex; align-items: center; gap: 12px;">
 
-<a href="index.html" class="logo">
-    Block<span>Tiers</span>
-</a>
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="mace.html">Mace</a>
-    <a href="sword.html">Sword</a>
-    <a href="crystal.html">Crystal</a>
-    <a href="axe.html">Axe</a>
-    <a href="uhc.html">UHC</a>
-    <a href="smp.html">SMP</a>
-    <a href="rules.html">Rules</a>
-    <a href="staff.html" class="active">Staff</a>
-    <a href="whats-new.html">What's New</a>
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
 
-    <a
-        href="https://discord.gg/fX7caP4gMb"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="discord-button"
-    >
-        Discord
-    </a>
-
-    <span id="account-slot">
-        <a href="login.html" class="account-button">Login</a>
-    </span>
-</nav>
-
+    </div>
 
 </header>
 
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="index.html" class="sidebar-logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+
+        <button
+            class="sidebar-close"
+            id="sidebar-close"
+            aria-label="Close menu"
+            type="button"
+        >
+            &times;
+        </button>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html">Home</a>
+        <a href="mace.html">Mace</a>
+        <a href="sword.html">Sword</a>
+        <a href="crystal.html">Crystal</a>
+        <a href="axe.html">Axe</a>
+        <a href="uhc.html">UHC</a>
+        <a href="smp.html">SMP</a>
+        <a href="rules.html">Rules</a>
+        <a href="staff.html" class="active">Staff</a>
+        <a href="profiles.html">Profiles</a>
+
+        <a href="mailto:BlockTiers@protonmail.com">
+            Support
+        </a>
+
+        <a href="whats-new.html">
+            What's New
+        </a>
+
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord
+        </a>
+
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
+
+    </nav>
+
+</aside>
+
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+
 <main class="staff-page">
 
+    <section class="staff-header">
 
-<section class="staff-header">
-    <p class="small-title">BLOCKTIERS TEAM</p>
+        <p class="small-title">
+            BLOCKTIERS TEAM
+        </p>
 
-    <h1>
-        Staff
-    </h1>
+        <h1>
+            Staff
+        </h1>
 
-    <p>
-        Meet the people who help manage and maintain BlockTiers.
-    </p>
-</section>
+        <p>
+            Meet the people who help manage and maintain BlockTiers.
+        </p>
 
-<section class="staff-grid">
+    </section>
 
-    <div class="staff-card">
 
-        <div class="staff-avatar">
-            R
+    <section class="staff-grid">
+
+        <div class="staff-card">
+
+            <div class="staff-avatar">
+                R
+            </div>
+
+            <div class="staff-info">
+
+                <h2>
+                    BlockTiersAdmin
+                </h2>
+
+                <p class="staff-username">
+                    @BlockTiersAdmin
+                </p>
+
+                <span class="staff-role owner">
+                    Owner
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="staff-info">
-            <h2>BlockTiersAdmin</h2>
 
-            <p class="staff-username">
-                @BlockTiersAdmin
-            </p>
+        <div class="staff-card">
 
-            <span class="staff-role owner">
-                Owner
-            </span>
+            <div class="staff-avatar">
+                ?
+            </div>
+
+            <div class="staff-info">
+
+                <h2>
+                    Staff Member
+                </h2>
+
+                <p class="staff-username">
+                    @Username
+                </p>
+
+                <span class="staff-role admin">
+                    Admin
+                </span>
+
+            </div>
+
         </div>
 
-    </div>
 
-    <div class="staff-card">
+        <div class="staff-card">
 
-        <div class="staff-avatar">
-            ?
+            <div class="staff-avatar">
+                ?
+            </div>
+
+            <div class="staff-info">
+
+                <h2>
+                    Staff Member
+                </h2>
+
+                <p class="staff-username">
+                    @Username
+                </p>
+
+                <span class="staff-role moderator">
+                    Moderator
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="staff-info">
-            <h2>Staff Member</h2>
-
-            <p class="staff-username">
-                @Username
-            </p>
-
-            <span class="staff-role admin">
-                Admin
-            </span>
-        </div>
-
-    </div>
-
-    <div class="staff-card">
-
-        <div class="staff-avatar">
-            ?
-        </div>
-
-        <div class="staff-info">
-            <h2>Staff Member</h2>
-
-            <p class="staff-username">
-                @Username
-            </p>
-
-            <span class="staff-role moderator">
-                Moderator
-            </span>
-        </div>
-
-    </div>
-
-</section>
-
+    </section>
 
 </main>
+
 
 <footer>
     BlockTiers &copy; 2026
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -144,5 +219,46 @@
 
 <script src="js/auth.js"></script>
 
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+
+    sidebarClose.addEventListener("click", closeSidebar);
+
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+    });
+
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
+        });
+    });
+</script>
+
 </body>
 </html>
+```
+
+Staff is now fully on the 3.0 navigation, with **Staff active**, and your existing Supabase/auth setup remains in place.
