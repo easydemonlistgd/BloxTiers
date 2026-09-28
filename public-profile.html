@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
 
+```
 <title>Profile - BlockTiers</title>
 
 <link rel="stylesheet" href="css/style.css">
@@ -29,8 +28,16 @@
     .profile-banner {
         height: 150px;
         background:
-            radial-gradient(circle at 20% 30%, rgba(124, 92, 255, 0.35), transparent 35%),
-            radial-gradient(circle at 80% 70%, rgba(156, 134, 255, 0.18), transparent 40%),
+            radial-gradient(
+                circle at 20% 30%,
+                rgba(124, 92, 255, 0.35),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 70%,
+                rgba(156, 134, 255, 0.18),
+                transparent 40%
+            ),
             #090b14;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
@@ -104,9 +111,9 @@
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.06);
-        color: #ffffff;
-        font-size: 20px;
+        background: rgba(124, 92, 255, 0.12);
+        color: #a996ff;
+        font-size: 15px;
         font-weight: 800;
     }
 
@@ -182,362 +189,5 @@
     }
 
     .back-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 11px 18px;
-        border-radius: 10px;
-        background: rgba(124, 92, 255, 0.13);
-        color: #a996ff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 700;
-        transition: 0.2s ease;
-    }
-
-    .back-button:hover {
-        background: #7c5cff;
-        color: #ffffff;
-    }
-
-    @media (max-width: 600px) {
-        .public-profile-page {
-            padding: 40px 15px 60px;
-        }
-
-        .profile-banner {
-            height: 120px;
-        }
-
-        .profile-content {
-            padding: 0 20px 30px;
-        }
-
-        .profile-main {
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            margin-top: -55px;
-        }
-
-        .public-avatar {
-            width: 105px;
-            height: 105px;
-        }
-
-        .profile-display-name {
-            font-size: 24px;
-        }
-
-        .social-card {
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .social-button {
-            width: 100%;
-        }
-    }
-</style>
-
-
-</head>
-
-<body>
-
-
-<main class="public-profile-page">
-
-    <div id="profile-loading" class="profile-loading">
-        Loading profile...
-    </div>
-
-    <div id="profile-error" class="profile-error" style="display: none;">
-        <h1>Profile Not Found</h1>
-        <p id="profile-error-message">
-            This profile could not be found.
-        </p>
-
-        <a href="profiles.html" class="back-button">
-            Back to Profiles
-        </a>
-    </div>
-
-    <div
-        id="profile-container"
-        class="profile-container"
-        style="display: none;"
-    >
-
-        <div class="profile-banner"></div>
-
-        <div class="profile-content">
-
-            <div class="profile-main">
-
-                <img
-                    id="profile-avatar"
-                    class="public-avatar"
-                    src=""
-                    alt="Profile avatar"
-                >
-
-                <div class="profile-heading">
-
-                    <h1
-                        id="profile-display-name"
-                        class="profile-display-name"
-                    >
-                        Loading...
-                    </h1>
-
-                    <p
-                        id="profile-username"
-                        class="profile-username"
-                    >
-                        @username
-                    </p>
-
-                </div>
-
-            </div>
-
-            <section class="profile-information">
-
-                <h2 class="profile-section-title">
-                    Social Media
-                </h2>
-
-                <div id="social-media-container"></div>
-
-            </section>
-
-        </div>
-
-    </div>
-
-</main>
-
-<script src="js/supabase-config.js"></script>
-
-<script>
-    let supabaseClient = null;
-
-    function escapeHtml(value) {
-        const div = document.createElement("div");
-        div.textContent = value ?? "";
-        return div.innerHTML;
-    }
-
-    async function waitForSupabaseClient() {
-        for (let i = 0; i < 50; i++) {
-
-            if (window.supabaseClient) {
-                return window.supabaseClient;
-            }
-
-            if (window.blockTiersSupabase) {
-                return window.blockTiersSupabase;
-            }
-
-            if (window.blockTiersAuth && window.blockTiersAuth.supabase) {
-                return window.blockTiersAuth.supabase;
-            }
-
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-
-        return null;
-    }
-
-    function getAvatar(profile) {
-
-        if (profile.avatar_url && profile.avatar_url.trim() !== "") {
-            return profile.avatar_url;
-        }
-
-        return "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(
-                profile.display_name ||
-                profile.username ||
-                "User"
-            ) +
-            "&background=191c2a&color=ffffff&size=256";
-    }
-
-    function showError(message) {
-
-        document.getElementById("profile-loading").style.display = "none";
-
-        document.getElementById("profile-container").style.display = "none";
-
-        document.getElementById("profile-error").style.display = "block";
-
-        document.getElementById("profile-error-message").textContent =
-            message;
-    }
-
-    function displaySocialMedia(profile) {
-
-        const container =
-            document.getElementById("social-media-container");
-
-        let socialHtml = "";
-
-        if (profile.youtube_url) {
-
-            let youtubeUrl = profile.youtube_url.trim();
-
-            if (
-                youtubeUrl.startsWith("https://youtube.com/") ||
-                youtubeUrl.startsWith("https://www.youtube.com/")
-            ) {
-
-                socialHtml += `
-                    <div class="social-card">
-                        <div class="social-icon">
-                            YT
-                        </div>
-
-                        <div class="social-details">
-                            <p class="social-name">
-                                YouTube
-                            </p>
-
-                            <p class="social-description">
-                                ${escapeHtml(youtubeUrl)}
-                            </p>
-                        </div>
-
-                        <a
-                            class="social-button"
-                            href="${escapeHtml(youtubeUrl)}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Open YouTube
-                        </a>
-                    </div>
-                `;
-            }
-        }
-
-        if (!socialHtml) {
-
-            container.innerHTML = `
-                <div class="no-socials">
-                    This user hasn't added any social media yet.
-                </div>
-            `;
-
-            return;
-        }
-
-        container.innerHTML = socialHtml;
-    }
-
-    async function loadPublicProfile() {
-
-        const params = new URLSearchParams(window.location.search);
-
-        const username = params.get("username");
-
-        if (!username) {
-            showError("No username was provided.");
-            return;
-        }
-
-        supabaseClient = await waitForSupabaseClient();
-
-        if (!supabaseClient) {
-            showError("Unable to connect to BlockTiers.");
-            return;
-        }
-
-        try {
-
-            const { data, error } = await supabaseClient
-                .from("profiles")
-                .select(
-                    "username, display_name, avatar_url, youtube_url"
-                )
-                .eq("username", username)
-                .maybeSingle();
-
-            if (error) {
-
-                console.error(
-                    "Public profile error:",
-                    error
-                );
-
-                showError(
-                    "There was a problem loading this profile."
-                );
-
-                return;
-            }
-
-            if (!data) {
-                showError(
-                    `No profile was found for @${username}.`
-                );
-
-                return;
-            }
-
-            const displayName =
-                data.display_name ||
-                data.username ||
-                "User";
-
-            document.title =
-                `${displayName} (@${data.username}) - BlockTiers`;
-
-            document.getElementById("profile-avatar").src =
-                getAvatar(data);
-
-            document.getElementById("profile-avatar").alt =
-                `${displayName}'s avatar`;
-
-            document.getElementById("profile-avatar").onerror =
-                function() {
-                    this.src =
-                        "https://ui-avatars.com/api/?name=User&background=191c2a&color=ffffff&size=256";
-                };
-
-            document.getElementById(
-                "profile-display-name"
-            ).textContent = displayName;
-
-            document.getElementById(
-                "profile-username"
-            ).textContent = `@${data.username}`;
-
-            displaySocialMedia(data);
-
-            document.getElementById("profile-loading").style.display =
-                "none";
-
-            document.getElementById("profile-container").style.display =
-                "block";
-
-        } catch (error) {
-
-            console.error(
-                "Public profile error:",
-                error
-            );
-
-            showError(
-                "Something went wrong while loading this profile."
-            );
-        }
-    }
-
-    loadPublicProfile();
-</script>
-
-
-</body>
-</html>
+        display: inline-flex
+```
