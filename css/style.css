@@ -717,3 +717,23 @@ background: #121c2b;
         grid-template-columns: 1fr;
     }
 }
+
+
+/* BlockTiers navbar centering fix */
+.navbar nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.navbar .logo {
+    flex-shrink: 0;
+}
+
+
