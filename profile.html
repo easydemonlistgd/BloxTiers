@@ -135,8 +135,6 @@
     font-weight: 600;
 }
 
-/* Social Media */
-
 .social-links {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -329,82 +327,85 @@
 
 <header class="navbar">
 
-
 <div style="display: flex; align-items: center; gap: 12px;">
 
-    <button
-        class="menu-button"
-        id="menu-button"
-        aria-label="Open menu"
-        type="button">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+```
+<button
+    class="menu-button"
+    id="menu-button"
+    aria-label="Open menu"
+    type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
 
-    <a href="index.html" class="logo">
-        <img
-            src="images/BlockTiersicon.png"
-            alt="BlockTiers"
-            style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
-        Block<span>Tiers</span>
-    </a>
+<a href="index.html" class="logo">
+    <img
+        src="images/BlockTiersicon.png"
+        alt="BlockTiers"
+        style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
+    Block<span>Tiers</span>
+</a>
+```
 
 </div>
-
 
 </header>
 
 <aside class="sidebar" id="sidebar">
 
-
 <div class="sidebar-header">
 
-    <a href="index.html" class="sidebar-logo">
-        <img
-            src="images/BlockTiersicon.png"
-            alt="BlockTiers"
-            style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
-        Block<span>Tiers</span>
-    </a>
+```
+<a href="index.html" class="sidebar-logo">
+    <img
+        src="images/BlockTiersicon.png"
+        alt="BlockTiers"
+        style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
+    Block<span>Tiers</span>
+</a>
 
-    <button
-        class="sidebar-close"
-        id="sidebar-close"
-        aria-label="Close menu"
-        type="button">
-        &times;
-    </button>
+<button
+    class="sidebar-close"
+    id="sidebar-close"
+    aria-label="Close menu"
+    type="button">
+    &times;
+</button>
+```
 
 </div>
 
 <nav class="sidebar-nav">
 
-    <a href="index.html">Home</a>
-    <a href="mace.html">Mace</a>
-    <a href="sword.html">Sword</a>
-    <a href="crystal.html">Crystal</a>
-    <a href="axe.html">Axe</a>
-    <a href="uhc.html">UHC</a>
-    <a href="smp.html">SMP</a>
-    <a href="rules.html">Rules</a>
-    <a href="staff.html">Staff</a>
-    <a href="profiles.html">Profiles</a>
-    <a href="mailto:BlockTiers@protonmail.com">Support</a>
-    <a href="whats-new.html">What's New</a>
-    <a
-        href="https://discord.gg/fX7caP4gMb"
-        target="_blank"
-        rel="noopener noreferrer">
-        Discord
-    </a>
+```
+<a href="index.html">Home</a>
+<a href="mace.html">Mace</a>
+<a href="sword.html">Sword</a>
+<a href="crystal.html">Crystal</a>
+<a href="axe.html">Axe</a>
+<a href="uhc.html">UHC</a>
+<a href="smp.html">SMP</a>
+<a href="rules.html">Rules</a>
+<a href="staff.html">Staff</a>
+<a href="profiles.html">Profiles</a>
+<a href="mailto:BlockTiers@protonmail.com">Support</a>
+<a href="whats-new.html">What's New</a>
 
-    <span id="account-slot">
-        <a href="login.html">Login</a>
-    </span>
+<a
+    href="https://discord.gg/fX7caP4gMb"
+    target="_blank"
+    rel="noopener noreferrer">
+    Discord
+</a>
+
+<span id="account-slot">
+    <a href="login.html">Login</a>
+</span>
+```
 
 </nav>
-
 
 </aside>
 
@@ -416,44 +417,45 @@
 
 <div class="profile-header">
 
-
 <div class="profile-avatar-wrapper">
 
-    <div id="profile-avatar" class="profile-avatar">
-        ?
-    </div>
+```
+<div id="profile-avatar" class="profile-avatar">
+    ?
+</div>
 
-    <button
-        id="avatar-edit-button"
-        class="avatar-edit-button"
-        type="button"
-        title="Change profile picture">
-        +
-    </button>
+<button
+    id="avatar-edit-button"
+    class="avatar-edit-button"
+    type="button"
+    title="Change profile picture">
+    +
+</button>
+```
 
 </div>
 
 <div class="profile-heading">
 
-    <h1 id="profile-display-name">
-        Loading...
-    </h1>
+```
+<h1 id="profile-display-name">
+    Loading...
+</h1>
 
-    <p id="profile-username" class="profile-username">
-        @...
-    </p>
+<p id="profile-username" class="profile-username">
+    @...
+</p>
 
-    <p class="profile-subtitle">
-        BlockTiers Member
-    </p>
+<p class="profile-subtitle">
+    BlockTiers Member
+</p>
+```
 
 </div>
-
 
 </div>
 
 <div id="avatar-upload-area" class="avatar-upload-area">
-
 
 <p>
     Choose a profile picture. PNG, JPG and WEBP images are supported.
@@ -461,133 +463,130 @@
 </p>
 
 <input
-    type="file"
-    id="avatar-file"
-    accept="image/png,image/jpeg,image/webp">
+ type="file"
+ id="avatar-file"
+ accept="image/png,image/jpeg,image/webp">
 
 <label
-    for="avatar-file"
-    class="choose-avatar-button">
-    Choose Image
-</label>
+ for="avatar-file"
+ class="choose-avatar-button">
+Choose Image </label>
 
 <span
-    id="avatar-file-name"
-    class="avatar-file-name">
-    No image selected
-</span>
-
+ id="avatar-file-name"
+ class="avatar-file-name">
+No image selected </span>
 
 </div>
 
 <div class="profile-section">
-
 
 <h2>Profile Information</h2>
 
 <div class="profile-info">
 
-    <div class="profile-info-row">
-        <span>Display Name</span>
-        <span id="profile-display-name-copy">
-            Loading...
-        </span>
-    </div>
-
-    <div class="profile-info-row">
-        <span>Username</span>
-        <span id="profile-username-copy">
-            Loading...
-        </span>
-    </div>
-
-    <div class="profile-info-row">
-        <span>Member Since</span>
-        <span id="profile-created">
-            Loading...
-        </span>
-    </div>
-
-    <div class="profile-info-row">
-        <span>Account Status</span>
-        <span>Active</span>
-    </div>
-
+```
+<div class="profile-info-row">
+    <span>Display Name</span>
+    <span id="profile-display-name-copy">
+        Loading...
+    </span>
 </div>
 
+<div class="profile-info-row">
+    <span>Username</span>
+    <span id="profile-username-copy">
+        Loading...
+    </span>
+</div>
+
+<div class="profile-info-row">
+    <span>Member Since</span>
+    <span id="profile-created">
+        Loading...
+    </span>
+</div>
+
+<div class="profile-info-row">
+    <span>Account Status</span>
+    <span>Active</span>
+</div>
+```
+
+</div>
 
 </div>
 
 <div class="profile-section">
 
-
 <h2>Social Media</h2>
 
 <div class="social-links">
 
-    <div class="social-card">
+```
+<div class="social-card">
 
-        <div class="social-card-title">
-            Discord
-        </div>
-
-        <div class="social-card-description">
-            Add your Discord username to your BlockTiers profile.
-        </div>
-
-        <input
-            type="text"
-            id="discord-username"
-            class="social-input"
-            placeholder="Your Discord username"
-            maxlength="32">
-
-        <button
-            id="save-discord"
-            class="social-save-button"
-            type="button">
-            Save Discord
-        </button>
-
-        <div
-            id="discord-status"
-            class="social-status">
-        </div>
-
+    <div class="social-card-title">
+        Discord
     </div>
 
-    <div class="social-card">
+    <div class="social-card-description">
+        Add your Discord username to your BlockTiers profile.
+    </div>
 
-        <div class="social-card-title">
-            YouTube
-        </div>
+    <input
+        type="text"
+        id="discord-username"
+        class="social-input"
+        placeholder="Your Discord username"
+        maxlength="32">
 
-        <div class="social-card-description">
-            Add your YouTube channel to your BlockTiers profile.
-        </div>
+    <button
+        id="save-discord"
+        class="social-save-button"
+        type="button">
+        Save Discord
+    </button>
 
-        <input
-            type="url"
-            id="youtube-url"
-            class="social-input"
-            placeholder="https://youtube.com/@yourchannel">
-
-        <button
-            id="save-youtube"
-            class="social-save-button"
-            type="button">
-            Save YouTube
-        </button>
-
-        <div
-            id="youtube-status"
-            class="social-status">
-        </div>
-
+    <div
+        id="discord-status"
+        class="social-status">
     </div>
 
 </div>
 
+<div class="social-card">
+
+    <div class="social-card-title">
+        YouTube
+    </div>
+
+    <div class="social-card-description">
+        Add your YouTube channel to your BlockTiers profile.
+    </div>
+
+    <input
+        type="url"
+        id="youtube-url"
+        class="social-input"
+        placeholder="https://youtube.com/@yourchannel">
+
+    <button
+        id="save-youtube"
+        class="social-save-button"
+        type="button">
+        Save YouTube
+    </button>
+
+    <div
+        id="youtube-status"
+        class="social-status">
+    </div>
+
+</div>
+```
+
+</div>
 
 </div>
 
@@ -595,13 +594,20 @@
 
 <div class="profile-actions">
 
+```
+<a
+    href="friends.html"
+    class="logout-button"
+    style="text-decoration: none; display: inline-flex; align-items: center;">
+    Friends
+</a>
 
 <button
     id="logout-button"
     class="logout-button">
     Log Out
 </button>
-
+```
 
 </div>
 
@@ -618,19 +624,13 @@ Delete Account </button>
     BlockTiers &copy; 2026
 </footer>
 
-<!-- Supabase -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/supabase-config.js"></script>
 
-<!-- Existing account system -->
-
 <script src="js/auth.js"></script>
 
 <script>
-
-/* BlockTiers 3.0 Sidebar */
 
 const menuButton = document.getElementById("menu-button");
 const sidebar = document.getElementById("sidebar");
@@ -665,7 +665,6 @@ sidebar.querySelectorAll("a").forEach(function(link) {
     });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const nameElement =
@@ -695,10 +694,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarFileName =
         document.getElementById("avatar-file-name");
 
-    /*
-     * Social media elements
-     */
-
     const discordInput =
         document.getElementById("discord-username");
 
@@ -717,18 +712,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const youtubeStatus =
         document.getElementById("youtube-status");
 
-    /*
-     * Keep duplicate profile information
-     * synchronized with auth.js.
-     */
-
     const observer = new MutationObserver(() => {
 
         if (nameElement && nameCopy) {
-
             nameCopy.textContent =
                 nameElement.textContent;
-
         }
 
         if (usernameElement && usernameCopy) {
@@ -736,10 +724,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (
                 usernameElement.textContent.trim() !== "@..."
             ) {
-
                 usernameCopy.textContent =
                     usernameElement.textContent;
-
             }
 
         }
@@ -764,24 +750,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Open / close avatar upload area.
-     */
-
     if (avatarButton && uploadArea) {
 
         avatarButton.addEventListener("click", () => {
-
             uploadArea.classList.toggle("show");
-
         });
 
     }
-
-    /*
-     * Wait until auth.js has created
-     * window.blockTiersAuth.
-     */
 
     function waitForAuthClient() {
 
@@ -823,10 +798,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Load social media information.
-     */
-
     async function loadSocialMedia() {
 
         try {
@@ -840,9 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } = await client.auth.getUser();
 
             if (userError || !user) {
-
                 return;
-
             }
 
             const {
@@ -864,7 +833,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
-
             }
 
             if (data) {
@@ -902,10 +870,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Save Discord username.
-     */
-
     if (saveDiscordButton) {
 
         saveDiscordButton.addEventListener(
@@ -921,7 +885,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Please enter your Discord username.";
 
                     return;
-
                 }
 
                 saveDiscordButton.disabled =
@@ -959,9 +922,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         .eq("id", user.id);
 
                     if (error) {
-
                         throw error;
-
                     }
 
                     discordStatus.textContent =
@@ -993,10 +954,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Save YouTube channel.
-     */
-
     if (saveYouTubeButton) {
 
         saveYouTubeButton.addEventListener(
@@ -1012,7 +969,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Please enter your YouTube channel URL.";
 
                     return;
-
                 }
 
                 if (
@@ -1028,7 +984,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Please enter a valid YouTube URL.";
 
                     return;
-
                 }
 
                 saveYouTubeButton.disabled =
@@ -1066,9 +1021,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         .eq("id", user.id);
 
                     if (error) {
-
                         throw error;
-
                     }
 
                     youtubeStatus.textContent =
@@ -1100,10 +1053,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Load the saved profile picture.
-     */
-
     async function loadAvatar() {
 
         try {
@@ -1117,9 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } = await client.auth.getUser();
 
             if (userError || !user) {
-
                 return;
-
             }
 
             const {
@@ -1139,7 +1086,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
-
             }
 
             if (data && data.avatar_url) {
@@ -1163,10 +1109,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Upload a new profile picture.
-     */
-
     if (avatarFile) {
 
         avatarFile.addEventListener(
@@ -1179,15 +1121,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         "No image selected";
 
                     return;
-
                 }
 
                 const file =
                     avatarFile.files[0];
-
-                /*
-                 * Check file type.
-                 */
 
                 const allowedTypes = [
                     "image/png",
@@ -1203,12 +1140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     avatarFile.value = "";
 
                     return;
-
                 }
-
-                /*
-                 * Maximum 2 MB.
-                 */
 
                 if (file.size > 2 * 1024 * 1024) {
 
@@ -1218,18 +1150,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     avatarFile.value = "";
 
                     return;
-
                 }
 
                 avatarFileName.textContent =
                     "Uploading...";
 
                 try {
-
-                    /*
-                     * Get the existing BlockTiers
-                     * Supabase client.
-                     */
 
                     const client =
                         await waitForAuthClient();
@@ -1247,10 +1173,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     }
 
-                    /*
-                     * Create a safe file path.
-                     */
-
                     const extension =
                         file.type === "image/png"
                             ? "png"
@@ -1260,10 +1182,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const filePath =
                         `${user.id}/avatar.${extension}`;
-
-                    /*
-                     * Upload image to Supabase Storage.
-                     */
 
                     const {
                         error: uploadError
@@ -1279,14 +1197,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
 
                     if (uploadError) {
-
                         throw uploadError;
-
                     }
-
-                    /*
-                     * Get public URL.
-                     */
 
                     const {
                         data: publicData
@@ -1296,10 +1208,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const publicUrl =
                         publicData.publicUrl;
-
-                    /*
-                     * Save avatar URL to profile.
-                     */
 
                     const {
                         error: profileError
@@ -1311,14 +1219,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         .eq("id", user.id);
 
                     if (profileError) {
-
                         throw profileError;
-
                     }
-
-                    /*
-                     * Display the new avatar immediately.
-                     */
 
                     avatar.innerHTML = `
                         <img
@@ -1347,12 +1249,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /*
-     * Load everything after initialization.
-     */
-
     loadAvatar();
-
     loadSocialMedia();
 
 });
