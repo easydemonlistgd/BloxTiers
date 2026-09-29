@@ -1,1 +1,436 @@
 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends - BlockTiers</title>
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+```
+<style>
+    .friends-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+    }
+
+    .friends-header {
+        margin-bottom: 28px;
+    }
+
+    .friends-header h1 {
+        margin: 0 0 8px;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .friends-header p {
+        margin: 0;
+        color: #8d93a8;
+        font-size: 15px;
+    }
+
+    .friends-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .friend-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px;
+        background: rgba(15, 18, 30, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        transition: 0.2s ease;
+    }
+
+    .friend-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(124, 92, 255, 0.3);
+    }
+
+    .friend-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #171b2d;
+        flex-shrink: 0;
+    }
+
+    .friend-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .friend-name {
+        margin: 0 0 4px;
+        font-size: 17px;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .friend-username {
+        margin: 0;
+        color: #8d93a8;
+        font-size: 13px;
+    }
+
+    .friend-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .friend-button {
+        border: 0;
+        border-radius: 9px;
+        padding: 9px 13px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .friend-button.primary {
+        background: #7c5cff;
+        color: white;
+    }
+
+    .friend-button.primary:hover {
+        background: #6d4ff0;
+    }
+
+    .friend-button.danger {
+        background: rgba(220, 70, 70, 0.12);
+        color: #ff8585;
+        border: 1px solid rgba(220, 70, 70, 0.25);
+    }
+
+    .friend-button.danger:hover {
+        background: rgba(220, 70, 70, 0.2);
+    }
+
+    .status-message {
+        text-align: center;
+        padding: 80px 20px;
+        color: #8d93a8;
+    }
+
+    .empty-state {
+        padding: 70px 20px;
+        text-align: center;
+        background: rgba(15, 18, 30, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+    }
+
+    .empty-state h2 {
+        margin: 0 0 8px;
+        font-size: 22px;
+    }
+
+    .empty-state p {
+        margin: 0 0 22px;
+        color: #8d93a8;
+    }
+
+    @media (max-width: 800px) {
+        .friends-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .friends-page {
+            padding: 24px 14px 60px;
+        }
+
+        .friend-card {
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .friend-actions {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <img src="images/BlockTiersicon.png" alt="BlockTiers">
+        <span>BlockTiers</span>
+    </div>
+
+```
+<nav class="sidebar-nav">
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="support.html">Support</a>
+    <a href="whats-new.html">What's New</a>
+    <a href="https://discord.gg/fX7caP4gMb" target="_blank">Discord</a>
+</nav>
+
+<div id="account-slot"></div>
+```
+
+</div>
+
+<main class="friends-page">
+    <div class="friends-header">
+        <h1>Friends</h1>
+        <p id="friends-subtitle">Loading your friends...</p>
+    </div>
+
+```
+<div id="friends-container">
+    <div class="status-message">
+        Loading friends...
+    </div>
+</div>
+```
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    window.BLOCKTIERS_SUPABASE_URL = "https://qzdymlzgejamwgxnlhrt.supabase.co";
+    window.BLOCKTIERS_SUPABASE_ANON_KEY = "sb_publishable_EyMWMFT1lWh1lXlPeEDvRg_gwDUkP47";
+
+    const supabaseClient = supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
+
+    const friendsContainer = document.getElementById("friends-container");
+    const friendsSubtitle = document.getElementById("friends-subtitle");
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttribute(value) {
+        return escapeHtml(value);
+    }
+
+    async function loadFriends() {
+        const {
+            data: {
+                user
+            }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
+            friendsSubtitle.textContent = "You need to be logged in to view your friends.";
+
+            friendsContainer.innerHTML = `
+                <div class="empty-state">
+                    <h2>You're not logged in</h2>
+                    <p>Log in to see your friends.</p>
+                    <a class="friend-button primary" href="login.html">
+                        Log In
+                    </a>
+                </div>
+            `;
+
+            return;
+        }
+
+        const { data: friendships, error: friendshipError } =
+            await supabaseClient
+                .from("friendships")
+                .select("user_id, friend_id")
+                .or(
+                    `user_id.eq.${user.id},friend_id.eq.${user.id}`
+                );
+
+        if (friendshipError) {
+            friendsSubtitle.textContent = "Could not load your friends.";
+
+            friendsContainer.innerHTML = `
+                <div class="empty-state">
+                    <h2>Something went wrong</h2>
+                    <p>${escapeHtml(friendshipError.message)}</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        const friendIds = [];
+
+        for (const friendship of friendships || []) {
+            const friendId =
+                friendship.user_id === user.id
+                    ? friendship.friend_id
+                    : friendship.user_id;
+
+            if (!friendIds.includes(friendId)) {
+                friendIds.push(friendId);
+            }
+        }
+
+        if (friendIds.length === 0) {
+            friendsSubtitle.textContent = "You don't have any friends yet.";
+
+            friendsContainer.innerHTML = `
+                <div class="empty-state">
+                    <h2>No friends yet</h2>
+                    <p>Add someone from their profile to start building your friends list.</p>
+                    <a class="friend-button primary" href="profiles.html">
+                        Browse Profiles
+                    </a>
+                </div>
+            `;
+
+            return;
+        }
+
+        const {
+            data: profiles,
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name, avatar_url"
+            )
+            .in("id", friendIds);
+
+        if (profileError) {
+            friendsSubtitle.textContent = "Could not load your friends.";
+
+            friendsContainer.innerHTML = `
+                <div class="empty-state">
+                    <h2>Something went wrong</h2>
+                    <p>${escapeHtml(profileError.message)}</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        friendsSubtitle.textContent =
+            `${profiles.length} ${profiles.length === 1 ? "friend" : "friends"}`;
+
+        friendsContainer.innerHTML = `
+            <div class="friends-grid">
+                ${profiles.map(profile => {
+                    const avatar =
+                        profile.avatar_url ||
+                        "images/BlockTiersicon.png";
+
+                    return `
+                        <div class="friend-card">
+                            <img
+                                class="friend-avatar"
+                                src="${escapeAttribute(avatar)}"
+                                alt="${escapeAttribute(profile.display_name || profile.username)}"
+                            >
+
+                            <div class="friend-info">
+                                <h2 class="friend-name">
+                                    ${escapeHtml(profile.display_name || profile.username)}
+                                </h2>
+
+                                <p class="friend-username">
+                                    @${escapeHtml(profile.username)}
+                                </p>
+                            </div>
+
+                            <div class="friend-actions">
+                                <a
+                                    class="friend-button primary"
+                                    href="public-profile.html?username=${encodeURIComponent(profile.username)}"
+                                >
+                                    View Profile
+                                </a>
+
+                                <button
+                                    class="friend-button danger"
+                                    onclick="unfriendUser('${profile.id}')"
+                                >
+                                    Unfriend
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join("")}
+            </div>
+        `;
+    }
+
+    async function unfriendUser(friendId) {
+        const {
+            data: {
+                user
+            }
+        } = await supabaseClient.auth.getUser();
+
+        if (!user) {
+            return;
+        }
+
+        const confirmed = confirm(
+            "Are you sure you want to remove this friend?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        const { error } = await supabaseClient
+            .from("friendships")
+            .delete()
+            .or(
+                `and(user_id.eq.${user.id},friend_id.eq.${friendId}),and(user_id.eq.${friendId},friend_id.eq.${user.id})`
+            );
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        await loadFriends();
+    }
+
+    loadFriends();
+</script>
+
+</body>
+</html>
