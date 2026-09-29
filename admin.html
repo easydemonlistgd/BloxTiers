@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Admin Panel - BlockTiers</title>
+
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    .admin-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 50px 20px 80px;
+    }
+
+    .admin-header {
+        margin-bottom: 30px;
+    }
+
+    .admin-header .small-title {
+        margin-bottom: 8px;
+    }
+
+    .admin-header h1 {
+        margin: 0 0 8px;
+    }
+
+    .admin-header p {
+        margin: 0;
+        opacity: 0.65;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .admin-card {
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+    }
+
+    .admin-card h2 {
+        margin: 0 0 8px;
+        font-size: 20px;
+    }
+
+    .admin-card-description {
+        margin: 0 0 20px;
+        font-size: 13px;
+        opacity: 0.6;
+    }
+
+    .admin-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .admin-form label {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .admin-form input,
+    .admin-form select,
+    .admin-form textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.25);
+        color: #fff;
+        font-family: inherit;
+        outline: none;
+    }
+
+    .admin-form textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .admin-form input:focus,
+    .admin-form select:focus,
+    .admin-form textarea:focus {
+        border-color: rgba(255,255,255,0.3);
+    }
+
+    .admin-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 42px;
+        padding: 10px 16px;
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        font-family: inherit;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .admin-button:hover {
+        background: rgba(255,255,255,0.13);
+    }
+
+    .admin-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .admin-status {
+        min-height: 20px;
+        margin: 4px 0 0;
+        font-size: 13px;
+        opacity: 0.75;
+    }
+
+    .admin-denied {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 30px;
+        text-align: center;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+    }
+
+    .admin-denied h1 {
+        margin-top: 0;
+    }
+
+    .admin-denied p {
+        opacity: 0.65;
+    }
+
+    .admin-denied a {
+        display: inline-flex;
+        margin-top: 10px;
+        padding: 10px 16px;
+        border-radius: 9px;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    @media (max-width: 750px) {
+        .admin-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+```
+<div style="display:flex;align-items:center;gap:12px;">
+
+    <button
+        class="menu-button"
+        id="menu-button"
+        aria-label="Open menu"
+        type="button"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
+
+</div>
+```
+
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+```
+<div class="sidebar-header">
+
+    <a href="index.html" class="sidebar-logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
+
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button"
+    >
+        &times;
+    </button>
+
+</div>
+
+<nav class="sidebar-nav">
+
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="mailto:BlockTiers@protonmail.com">Support</a>
+    <a href="whats-new.html">What's New</a>
+
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Discord
+    </a>
+
+    <span id="account-slot">
+        <a href="login.html">Login</a>
+    </span>
+
+</nav>
+```
+
+</aside>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<main class="admin-page" id="admin-page">
+
+```
+<section class="admin-header">
+
+    <p class="small-title">
+        BLOCKTIERS MANAGEMENT
+    </p>
+
+    <h1>
+        Admin Panel
+    </h1>
+
+    <p>
+        Manage BlockTiers players and moderation.
+    </p>
+
+</section>
+
+<section class="admin-grid">
+
+    <div class="admin-card">
+
+        <h2>
+            Ban User
+        </h2>
+
+        <p class="admin-card-description">
+            Ban a BlockTiers account.
+        </p>
+
+        <form
+            class="admin-form"
+            id="ban-form"
+        >
+
+            <label for="ban-username">
+                Username
+            </label>
+
+            <input
+                id="ban-username"
+                type="text"
+                placeholder="Username"
+                required
+            >
+
+            <label for="ban-duration">
+                Duration
+            </label>
+
+            <select id="ban-duration">
+
+                <option value="1h">
+                    1 Hour
+                </option>
+
+                <option value="1d">
+                    1 Day
+                </option>
+
+                <option value="7d">
+                    7 Days
+                </option>
+
+                <option value="30d">
+                    30 Days
+                </option>
+
+                <option value="permanent">
+                    Permanent
+                </option>
+
+            </select>
+
+            <label for="ban-reason">
+                Reason
+            </label>
+
+            <textarea
+                id="ban-reason"
+                placeholder="Reason for the ban"
+                required
+            ></textarea>
+
+            <button
+                class="admin-button"
+                type="submit"
+                id="ban-button"
+            >
+                Ban User
+            </button>
+
+            <p
+                class="admin-status"
+                id="ban-status"
+            ></p>
+
+        </form>
+
+    </div>
+
+    <div class="admin-card">
+
+        <h2>
+            Unban User
+        </h2>
+
+        <p class="admin-card-description">
+            Remove an active ban from a user.
+        </p>
+
+        <form
+            class="admin-form"
+            id="unban-form"
+        >
+
+            <label for="unban-username">
+                Username
+            </label>
+
+            <input
+                id="unban-username"
+                type="text"
+                placeholder="Username"
+                required
+            >
+
+            <button
+                class="admin-button"
+                type="submit"
+                id="unban-button"
+            >
+                Unban User
+            </button>
+
+            <p
+                class="admin-status"
+                id="unban-status"
+            ></p>
+
+        </form>
+
+    </div>
+
+</section>
+```
+
+</main>
+
+<div
+    id="access-denied"
+    class="admin-denied"
+    style="display:none;"
+>
+
+```
+<h1>
+    Access Denied
+</h1>
+
+<p>
+    You do not have permission to access the BlockTiers Admin Panel.
+</p>
+
+<a href="index.html">
+    Return to BlockTiers
+</a>
+```
+
+</div>
+
+<footer>
+    BlockTiers &copy; 2026
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase-config.js"></script>
+
+<script src="js/auth.js"></script>
+
+<script>
+    const menuButton =
+        document.getElementById("menu-button");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const sidebarClose =
+        document.getElementById("sidebar-close");
+
+    const sidebarOverlay =
+        document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener(
+        "click",
+        openSidebar
+    );
+
+    sidebarClose.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+    sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeSidebar();
+            }
+
+        }
+    );
+
+    sidebar.querySelectorAll("a").forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                closeSidebar
+            );
+
+        }
+    );
+</script>
+
+<script>
+    const supabaseClient =
+        window.supabase.createClient(
+            window.BLOCKTIERS_SUPABASE_URL,
+            window.BLOCKTIERS_SUPABASE_ANON_KEY
+        );
+
+    let currentUser = null;
+
+    async function checkAdminAccess() {
+
+        const {
+            data: {
+                user
+            },
+            error
+        } = await supabaseClient.auth.getUser();
+
+        if (error || !user) {
+            window.location.href = "login.html";
+            return false;
+        }
+
+        currentUser = user;
+
+        const {
+            data: admin,
+            error: adminError
+        } = await supabaseClient
+            .from("blocktiers_admins")
+            .select("user_id")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+        if (adminError || !admin) {
+
+            document.getElementById(
+                "admin-page"
+            ).style.display = "none";
+
+            document.getElementById(
+                "access-denied"
+            ).style.display = "block";
+
+            return false;
+        }
+
+        return true;
+    }
+
+    async function findUser(username) {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("id, username")
+            .ilike("username", username)
+            .limit(1)
+            .maybeSingle();
+
+        if (error) {
+            throw error;
+        }
+
+        return data;
+    }
+
+    function getExpiry(duration) {
+
+        if (duration === "permanent") {
+            return null;
+        }
+
+        const now = new Date();
+
+        if (duration === "1h") {
+            now.setHours(now.getHours() + 1);
+        }
+
+        if (duration === "1d") {
+            now.setDate(now.getDate() + 1);
+        }
+
+        if (duration === "7d") {
+            now.setDate(now.getDate() + 7);
+        }
+
+        if (duration === "30d") {
+            now.setDate(now.getDate() + 30);
+        }
+
+        return now.toISOString();
+    }
+
+    async function banUser(event) {
+
+        event.preventDefault();
+
+        const status =
+            document.getElementById("ban-status");
+
+        const button =
+            document.getElementById("ban-button");
+
+        const username =
+            document.getElementById(
+                "ban-username"
+            ).value.trim();
+
+        const reason =
+            document.getElementById(
+                "ban-reason"
+            ).value.trim();
+
+        const duration =
+            document.getElementById(
+                "ban-duration"
+            ).value;
+
+        status.textContent = "";
+        button.disabled = true;
+
+        try {
+
+            const target =
+                await findUser(username);
+
+            if (!target) {
+                status.textContent =
+                    "User not found.";
+                return;
+            }
+
+            if (target.id === currentUser.id) {
+                status.textContent =
+                    "You cannot ban yourself.";
+                return;
+            }
+
+            const {
+                data: existingBan
+            } = await supabaseClient
+                .from("user_bans")
+                .select("id")
+                .eq("user_id", target.id)
+                .is("revoked_at", null)
+                .limit(1)
+                .maybeSingle();
+
+            if (existingBan) {
+                status.textContent =
+                    "This user is already banned.";
+                return;
+            }
+
+            const {
+                error
+            } = await supabaseClient
+                .from("user_bans")
+                .insert({
+                    user_id: target.id,
+                    banned_by: currentUser.id,
+                    reason: reason,
+                    expires_at:
+                        getExpiry(duration)
+                });
+
+            if (error) {
+                throw error;
+            }
+
+            status.textContent =
+                "User banned successfully.";
+
+            document.getElementById(
+                "ban-form"
+            ).reset();
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+                "Failed to ban user.";
+
+        } finally {
+
+            button.disabled = false;
+
+        }
+    }
+
+    async function unbanUser(event) {
+
+        event.preventDefault();
+
+        const status =
+            document.getElementById(
+                "unban-status"
+            );
+
+        const button =
+            document.getElementById(
+                "unban-button"
+            );
+
+        const username =
+            document.getElementById(
+                "unban-username"
+            ).value.trim();
+
+        status.textContent = "";
+        button.disabled = true;
+
+        try {
+
+            const target =
+                await findUser(username);
+
+            if (!target) {
+                status.textContent =
+                    "User not found.";
+                return;
+            }
+
+            const {
+                data: bans,
+                error: banError
+            } = await supabaseClient
+                .from("user_bans")
+                .select("id")
+                .eq("user_id", target.id)
+                .is("revoked_at", null);
+
+            if (banError) {
+                throw banError;
+            }
+
+            if (!bans || bans.length === 0) {
+                status.textContent =
+                    "This user is not currently banned.";
+                return;
+            }
+
+            const {
+                error
+            } = await supabaseClient
+                .from("user_bans")
+                .update({
+                    revoked_at:
+                        new Date().toISOString(),
+                    revoked_by:
+                        currentUser.id
+                })
+                .eq("user_id", target.id)
+                .is("revoked_at", null);
+
+            if (error) {
+                throw error;
+            }
+
+            status.textContent =
+                "User unbanned successfully.";
+
+            document.getElementById(
+                "unban-form"
+            ).reset();
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+                "Failed to unban user.";
+
+        } finally {
+
+            button.disabled = false;
+
+        }
+    }
+
+    document
+        .getElementById("ban-form")
+        .addEventListener(
+            "submit",
+            banUser
+        );
+
+    document
+        .getElementById("unban-form")
+        .addEventListener(
+            "submit",
+            unbanUser
+        );
+
+    checkAdminAccess();
+</script>
+
+</body>
+</html>
