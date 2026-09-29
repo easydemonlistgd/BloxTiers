@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -257,7 +256,8 @@
         } = await supabaseClient.auth.getUser();
 
         if (!user) {
-            friendsSubtitle.textContent = "You need to be logged in to view your friends.";
+            friendsSubtitle.textContent =
+                "You need to be logged in to view your friends.";
 
             friendsContainer.innerHTML = `
                 <div class="empty-state">
@@ -272,16 +272,19 @@
             return;
         }
 
-        const { data: friendships, error: friendshipError } =
-            await supabaseClient
-                .from("friendships")
-                .select("user_id, friend_id")
-                .or(
-                    `user_id.eq.${user.id},friend_id.eq.${user.id}`
-                );
+        const {
+            data: friendships,
+            error: friendshipError
+        } = await supabaseClient
+            .from("friendships")
+            .select("user_id, friend_id")
+            .or(
+                `user_id.eq.${user.id},friend_id.eq.${user.id}`
+            );
 
         if (friendshipError) {
-            friendsSubtitle.textContent = "Could not load your friends.";
+            friendsSubtitle.textContent =
+                "Could not load your friends.";
 
             friendsContainer.innerHTML = `
                 <div class="empty-state">
@@ -307,7 +310,8 @@
         }
 
         if (friendIds.length === 0) {
-            friendsSubtitle.textContent = "You don't have any friends yet.";
+            friendsSubtitle.textContent =
+                "You don't have any friends yet.";
 
             friendsContainer.innerHTML = `
                 <div class="empty-state">
@@ -333,7 +337,8 @@
             .in("id", friendIds);
 
         if (profileError) {
-            friendsSubtitle.textContent = "Could not load your friends.";
+            friendsSubtitle.textContent =
+                "Could not load your friends.";
 
             friendsContainer.innerHTML = `
                 <div class="empty-state">
