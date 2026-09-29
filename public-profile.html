@@ -1,396 +1,488 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Profile - BlockTiers</title>
+```
+<title>Profile - BlockTiers</title>
 
-    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
-    <link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+<link rel="stylesheet" href="css/style.css">
 
-    <style>
-        .public-profile-page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 70px 20px 90px;
+<style>
+    .public-profile-page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 70px 20px 90px;
+    }
+
+    .profile-container {
+        background: #10121d;
+        border: 1px solid rgba(255,255,255,.07);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .profile-banner {
+        height: 150px;
+        background:
+            radial-gradient(circle at 20% 30%, rgba(124,92,255,.35), transparent 35%),
+            radial-gradient(circle at 80% 70%, rgba(156,134,255,.18), transparent 40%),
+            #090b14;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .profile-content {
+        padding: 0 35px 40px;
+    }
+
+    .profile-main {
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+        margin-top: -55px;
+    }
+
+    .public-avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #191c2a;
+        border: 5px solid #10121d;
+        box-shadow: 0 8px 30px rgba(0,0,0,.35);
+    }
+
+    .profile-heading {
+        padding-bottom: 8px;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .profile-display-name {
+        margin: 0 0 5px;
+        color: #fff;
+        font-size: 28px;
+        font-weight: 800;
+        word-break: break-word;
+    }
+
+    .profile-username {
+        margin: 0;
+        color: #858799;
+        font-size: 15px;
+    }
+
+    .friend-area {
+        padding-bottom: 8px;
+        flex-shrink: 0;
+    }
+
+    .friend-button {
+        border: 0;
+        padding: 11px 17px;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 750;
+        cursor: pointer;
+        transition: .2s ease;
+        background: #7c5cff;
+    }
+
+    .friend-button:hover {
+        opacity: .9;
+        transform: translateY(-1px);
+    }
+
+    .friend-button:disabled {
+        cursor: default;
+        opacity: .65;
+        transform: none;
+    }
+
+    .friend-button.secondary {
+        background: rgba(255,255,255,.07);
+        border: 1px solid rgba(255,255,255,.08);
+        color: #d5d6df;
+    }
+
+    .friend-button.secondary:hover {
+        background: rgba(255,255,255,.11);
+    }
+
+    .friend-button.success {
+        background: rgba(80,200,120,.12);
+        border: 1px solid rgba(80,200,120,.2);
+        color: #83e0a2;
+    }
+
+    .friend-button.danger {
+        background: rgba(255,70,70,.08);
+        border: 1px solid rgba(255,70,70,.2);
+        color: #ff8585;
+    }
+
+    .friend-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .friend-status {
+        margin-top: 8px;
+        color: #858799;
+        font-size: 12px;
+        text-align: right;
+    }
+
+    .profile-information {
+        margin-top: 35px;
+    }
+
+    .profile-section-title {
+        margin: 0 0 15px;
+        color: #fff;
+        font-size: 19px;
+        font-weight: 750;
+    }
+
+    .social-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px;
+        background: #0b0d17;
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 14px;
+        margin-bottom: 12px;
+    }
+
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(124,92,255,.12);
+        color: #a996ff;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .social-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .social-name {
+        margin: 0 0 4px;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .social-description {
+        margin: 0;
+        color: #858799;
+        font-size: 13px;
+        word-break: break-all;
+    }
+
+    .social-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 10px 15px;
+        border-radius: 9px;
+        background: #7c5cff;
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: .2s ease;
+    }
+
+    .social-button:hover {
+        opacity: .9;
+        transform: translateY(-1px);
+    }
+
+    .no-socials {
+        padding: 22px;
+        background: #0b0d17;
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: 14px;
+        color: #858799;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .profile-loading {
+        text-align: center;
+        padding: 100px 20px;
+        color: #9294a5;
+    }
+
+    .profile-error {
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .profile-error h1 {
+        margin: 0 0 10px;
+        color: #fff;
+        font-size: 28px;
+    }
+
+    .profile-error p {
+        margin: 0 0 25px;
+        color: #858799;
+    }
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 18px;
+        border-radius: 10px;
+        background: #7c5cff;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+        .profile-main {
+            align-items: flex-start;
+            flex-wrap: wrap;
         }
 
-        .profile-container {
-            background: #10121d;
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,.25);
+        .friend-area {
+            width: 100%;
+            padding-bottom: 0;
         }
 
-        .profile-banner {
-            height: 150px;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(124,92,255,.35), transparent 35%),
-                radial-gradient(circle at 80% 70%, rgba(156,134,255,.18), transparent 40%),
-                #090b14;
-            border-bottom: 1px solid rgba(255,255,255,.06);
+        .friend-actions {
+            width: 100%;
         }
 
+        .friend-button {
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 600px) {
         .profile-content {
-            padding: 0 35px 40px;
+            padding: 0 20px 30px;
         }
 
         .profile-main {
-            display: flex;
-            align-items: flex-end;
-            gap: 20px;
-            margin-top: -55px;
-        }
-
-        .public-avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #191c2a;
-            border: 5px solid #10121d;
-            box-shadow: 0 8px 30px rgba(0,0,0,.35);
+            flex-direction: column;
         }
 
         .profile-heading {
-            padding-bottom: 8px;
-            min-width: 0;
-        }
-
-        .profile-display-name {
-            margin: 0 0 5px;
-            color: #fff;
-            font-size: 28px;
-            font-weight: 800;
-            word-break: break-word;
-        }
-
-        .profile-username {
-            margin: 0;
-            color: #858799;
-            font-size: 15px;
-        }
-
-        .profile-information {
-            margin-top: 35px;
-        }
-
-        .profile-section-title {
-            margin: 0 0 15px;
-            color: #fff;
-            font-size: 19px;
-            font-weight: 750;
+            padding-bottom: 0;
         }
 
         .social-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px;
-            background: #0b0d17;
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 14px;
-            margin-bottom: 12px;
-        }
-
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            background: rgba(124,92,255,.12);
-            color: #a996ff;
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        .social-details {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .social-name {
-            margin: 0 0 4px;
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .social-description {
-            margin: 0;
-            color: #858799;
-            font-size: 13px;
-            word-break: break-all;
+            flex-wrap: wrap;
         }
 
         .social-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            padding: 10px 15px;
-            border-radius: 9px;
-            background: #7c5cff;
-            color: #fff;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            transition: .2s ease;
+            width: 100%;
         }
+    }
+</style>
+```
 
-        .social-button:hover {
-            opacity: .9;
-            transform: translateY(-1px);
-        }
-
-        .no-socials {
-            padding: 22px;
-            background: #0b0d17;
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 14px;
-            color: #858799;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .profile-loading {
-            text-align: center;
-            padding: 100px 20px;
-            color: #9294a5;
-        }
-
-        .profile-error {
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        .profile-error h1 {
-            margin: 0 0 10px;
-            color: #fff;
-            font-size: 28px;
-        }
-
-        .profile-error p {
-            margin: 0 0 25px;
-            color: #858799;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 11px 18px;
-            border-radius: 10px;
-            background: #7c5cff;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        @media (max-width: 600px) {
-            .profile-content {
-                padding: 0 20px 30px;
-            }
-
-            .profile-main {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .profile-heading {
-                padding-bottom: 0;
-            }
-
-            .social-card {
-                flex-wrap: wrap;
-            }
-
-            .social-button {
-                width: 100%;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
 <header class="navbar">
 
-    <div style="display: flex; align-items: center; gap: 12px;">
+```
+<div style="display: flex; align-items: center; gap: 12px;">
 
-        <button
-            class="menu-button"
-            id="menu-button"
-            aria-label="Open menu"
-            type="button"
+    <button
+        class="menu-button"
+        id="menu-button"
+        aria-label="Open menu"
+        type="button"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
         >
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        Block<span>Tiers</span>
+    </a>
 
-        <a href="index.html" class="logo">
-            <img
-                src="images/BlockTiersicon.png"
-                alt="BlockTiers"
-                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
-            >
-            Block<span>Tiers</span>
-        </a>
-
-    </div>
+</div>
+```
 
 </header>
 
-
 <aside class="sidebar" id="sidebar">
 
-    <div class="sidebar-header">
+```
+<div class="sidebar-header">
 
-        <a href="index.html" class="sidebar-logo">
-            <img
-                src="images/BlockTiersicon.png"
-                alt="BlockTiers"
-                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
-            >
-            Block<span>Tiers</span>
-        </a>
-
-        <button
-            class="sidebar-close"
-            id="sidebar-close"
-            aria-label="Close menu"
-            type="button"
+    <a href="index.html" class="sidebar-logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
         >
-            &times;
-        </button>
+        Block<span>Tiers</span>
+    </a>
 
-    </div>
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button"
+    >
+        &times;
+    </button>
 
-    <nav class="sidebar-nav">
+</div>
 
-        <a href="index.html">Home</a>
-        <a href="mace.html">Mace</a>
-        <a href="sword.html">Sword</a>
-        <a href="crystal.html">Crystal</a>
-        <a href="axe.html">Axe</a>
-        <a href="uhc.html">UHC</a>
-        <a href="smp.html">SMP</a>
-        <a href="rules.html">Rules</a>
-        <a href="staff.html">Staff</a>
-        <a href="profiles.html" class="active">Profiles</a>
+<nav class="sidebar-nav">
 
-        <a href="mailto:BlockTiers@protonmail.com">
-            Support
-        </a>
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html" class="active">Profiles</a>
 
-        <a href="whats-new.html">
-            What's New
-        </a>
+    <a href="mailto:BlockTiers@protonmail.com">
+        Support
+    </a>
 
-        <a
-            href="https://discord.gg/fX7caP4gMb"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Discord
-        </a>
+    <a href="whats-new.html">
+        What's New
+    </a>
 
-        <span id="account-slot">
-            <a href="login.html">Login</a>
-        </span>
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Discord
+    </a>
 
-    </nav>
+    <span id="account-slot">
+        <a href="login.html">Login</a>
+    </span>
+
+</nav>
+```
 
 </aside>
 
-
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
 
 <main class="public-profile-page">
 
-    <div id="profileLoading" class="profile-loading">
-        Loading profile...
-    </div>
+```
+<div id="profileLoading" class="profile-loading">
+    Loading profile...
+</div>
 
 
-    <div id="profileError" class="profile-error" style="display:none;">
+<div id="profileError" class="profile-error" style="display:none;">
 
-        <h1>
-            Profile Not Found
-        </h1>
+    <h1>
+        Profile Not Found
+    </h1>
 
-        <p id="errorMessage">
-            Unable to find this BlockTiers profile.
-        </p>
+    <p id="errorMessage">
+        Unable to find this BlockTiers profile.
+    </p>
 
-        <a href="profiles.html" class="back-button">
-            Back to Profiles
-        </a>
+    <a href="profiles.html" class="back-button">
+        Back to Profiles
+    </a>
 
-    </div>
-
-
-    <div id="profileContainer" class="profile-container" style="display:none;">
-
-        <div class="profile-banner"></div>
-
-        <div class="profile-content">
-
-            <div class="profile-main">
-
-                <img
-                    id="profileAvatar"
-                    class="public-avatar"
-                    src=""
-                    alt="Profile avatar"
-                >
-
-                <div class="profile-heading">
-
-                    <h1
-                        id="profileDisplayName"
-                        class="profile-display-name"
-                    ></h1>
-
-                    <p
-                        id="profileUsername"
-                        class="profile-username"
-                    ></p>
-
-                </div>
-
-            </div>
+</div>
 
 
-            <div class="profile-information">
+<div id="profileContainer" class="profile-container" style="display:none;">
 
-                <h2 class="profile-section-title">
-                    Social Media
-                </h2>
+    <div class="profile-banner"></div>
 
-                <div id="socialContent"></div>
+    <div class="profile-content">
+
+        <div class="profile-main">
+
+            <img
+                id="profileAvatar"
+                class="public-avatar"
+                src=""
+                alt="Profile avatar"
+            >
+
+            <div class="profile-heading">
+
+                <h1
+                    id="profileDisplayName"
+                    class="profile-display-name"
+                ></h1>
+
+                <p
+                    id="profileUsername"
+                    class="profile-username"
+                ></p>
 
             </div>
+
+            <div
+                id="friendArea"
+                class="friend-area"
+                style="display:none;"
+            ></div>
+
+        </div>
+
+
+        <div class="profile-information">
+
+            <h2 class="profile-section-title">
+                Social Media
+            </h2>
+
+            <div id="socialContent"></div>
 
         </div>
 
     </div>
 
-</main>
+</div>
+```
 
+</main>
 
 <script src="js/supabase-config.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
     const menuButton = document.getElementById("menu-button");
@@ -445,6 +537,11 @@
     const displayName = document.getElementById("profileDisplayName");
     const usernameElement = document.getElementById("profileUsername");
     const socialContent = document.getElementById("socialContent");
+    const friendArea = document.getElementById("friendArea");
+
+
+    let currentUser = null;
+    let profileUser = null;
 
 
     function showError(message) {
@@ -452,6 +549,339 @@
         container.style.display = "none";
         error.style.display = "block";
         errorMessage.textContent = message;
+    }
+
+
+    async function loadCurrentUser() {
+
+        const {
+            data: {
+                user
+            }
+        } = await supabaseClient.auth.getUser();
+
+        currentUser = user || null;
+    }
+
+
+    function setFriendButton(text, className, disabled, clickHandler) {
+
+        friendArea.innerHTML = "";
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "friend-button " + (className || "");
+        button.textContent = text;
+        button.disabled = !!disabled;
+
+        if (clickHandler) {
+            button.addEventListener("click", clickHandler);
+        }
+
+        friendArea.appendChild(button);
+    }
+
+
+    async function loadFriendStatus() {
+
+        if (!currentUser || !profileUser) {
+            friendArea.style.display = "none";
+            return;
+        }
+
+
+        if (currentUser.id === profileUser.id) {
+            friendArea.style.display = "none";
+            return;
+        }
+
+
+        friendArea.style.display = "block";
+        friendArea.innerHTML = "";
+
+
+        const [
+            outgoingResult,
+            incomingResult,
+            friendshipResult
+        ] = await Promise.all([
+
+            supabaseClient
+                .from("friend_requests")
+                .select("id, status, sender_id, receiver_id")
+                .eq("sender_id", currentUser.id)
+                .eq("receiver_id", profileUser.id)
+                .maybeSingle(),
+
+            supabaseClient
+                .from("friend_requests")
+                .select("id, status, sender_id, receiver_id")
+                .eq("sender_id", profileUser.id)
+                .eq("receiver_id", currentUser.id)
+                .maybeSingle(),
+
+            supabaseClient
+                .from("friendships")
+                .select("id, user_id, friend_id")
+                .or(
+                    "and(user_id.eq." +
+                    currentUser.id +
+                    ",friend_id.eq." +
+                    profileUser.id +
+                    "),and(user_id.eq." +
+                    profileUser.id +
+                    ",friend_id.eq." +
+                    currentUser.id +
+                    ")"
+                )
+        ]);
+
+
+        if (outgoingResult.error) {
+            console.error(outgoingResult.error);
+        }
+
+        if (incomingResult.error) {
+            console.error(incomingResult.error);
+        }
+
+        if (friendshipResult.error) {
+            console.error(friendshipResult.error);
+        }
+
+
+        const outgoing = outgoingResult.data;
+        const incoming = incomingResult.data;
+        const friendships = friendshipResult.data || [];
+
+
+        if (friendships.length > 0) {
+
+            setFriendButton(
+                "Friends",
+                "success",
+                true,
+                null
+            );
+
+            return;
+        }
+
+
+        if (incoming && incoming.status === "pending") {
+
+            friendArea.innerHTML = `
+                <div class="friend-actions">
+                    <button
+                        type="button"
+                        class="friend-button"
+                        id="acceptFriendButton"
+                    >
+                        Accept
+                    </button>
+
+                    <button
+                        type="button"
+                        class="friend-button danger"
+                        id="declineFriendButton"
+                    >
+                        Decline
+                    </button>
+                </div>
+            `;
+
+            document
+                .getElementById("acceptFriendButton")
+                .addEventListener("click", function() {
+                    acceptFriendRequest(incoming.id);
+                });
+
+            document
+                .getElementById("declineFriendButton")
+                .addEventListener("click", function() {
+                    declineFriendRequest(incoming.id);
+                });
+
+            return;
+        }
+
+
+        if (outgoing && outgoing.status === "pending") {
+
+            setFriendButton(
+                "Request Sent",
+                "secondary",
+                false,
+                function() {
+                    cancelFriendRequest(outgoing.id);
+                }
+            );
+
+            return;
+        }
+
+
+        setFriendButton(
+            "Add Friend",
+            "",
+            false,
+            sendFriendRequest
+        );
+    }
+
+
+    async function sendFriendRequest() {
+
+        if (!currentUser || !profileUser) {
+            return;
+        }
+
+
+        setFriendButton(
+            "Sending...",
+            "secondary",
+            true,
+            null
+        );
+
+
+        const { error: insertError } = await supabaseClient
+            .from("friend_requests")
+            .insert({
+                sender_id: currentUser.id,
+                receiver_id: profileUser.id,
+                status: "pending"
+            });
+
+
+        if (insertError) {
+
+            console.error(insertError);
+
+            alert("Unable to send friend request.");
+
+            await loadFriendStatus();
+
+            return;
+        }
+
+
+        await loadFriendStatus();
+    }
+
+
+    async function cancelFriendRequest(requestId) {
+
+        const { error: deleteError } = await supabaseClient
+            .from("friend_requests")
+            .delete()
+            .eq("id", requestId);
+
+
+        if (deleteError) {
+
+            console.error(deleteError);
+
+            alert("Unable to cancel friend request.");
+
+            return;
+        }
+
+
+        await loadFriendStatus();
+    }
+
+
+    async function declineFriendRequest(requestId) {
+
+        const { error: updateError } = await supabaseClient
+            .from("friend_requests")
+            .update({
+                status: "declined",
+                updated_at: new Date().toISOString()
+            })
+            .eq("id", requestId);
+
+
+        if (updateError) {
+
+            console.error(updateError);
+
+            alert("Unable to decline friend request.");
+
+            return;
+        }
+
+
+        await loadFriendStatus();
+    }
+
+
+    async function acceptFriendRequest(requestId) {
+
+        if (!currentUser || !profileUser) {
+            return;
+        }
+
+
+        const { error: updateError } = await supabaseClient
+            .from("friend_requests")
+            .update({
+                status: "accepted",
+                updated_at: new Date().toISOString()
+            })
+            .eq("id", requestId);
+
+
+        if (updateError) {
+
+            console.error(updateError);
+
+            alert("Unable to accept friend request.");
+
+            return;
+        }
+
+
+        const firstUser =
+            currentUser.id < profileUser.id
+                ? currentUser.id
+                : profileUser.id;
+
+        const secondUser =
+            currentUser.id < profileUser.id
+                ? profileUser.id
+                : currentUser.id;
+
+
+        const { error: friendshipError } = await supabaseClient
+            .from("friendships")
+            .insert([
+                {
+                    user_id: firstUser,
+                    friend_id: secondUser
+                },
+                {
+                    user_id: secondUser,
+                    friend_id: firstUser
+                }
+            ]);
+
+
+        if (friendshipError) {
+
+            console.error(friendshipError);
+
+            alert(
+                "The request was accepted, but the friendship could not be created."
+            );
+
+            return;
+        }
+
+
+        await loadFriendStatus();
     }
 
 
@@ -463,10 +893,13 @@
         }
 
 
+        await loadCurrentUser();
+
+
         const { data, error: supabaseError } = await supabaseClient
             .from("profiles")
             .select(
-                "username, display_name, avatar_url, discord_username, youtube_url"
+                "id, username, display_name, avatar_url, discord_username, youtube_url"
             )
             .eq("username", username)
             .maybeSingle();
@@ -483,6 +916,9 @@
             showError("This profile does not exist.");
             return;
         }
+
+
+        profileUser = data;
 
 
         displayName.textContent =
@@ -590,6 +1026,9 @@
 
         loading.style.display = "none";
         container.style.display = "block";
+
+
+        await loadFriendStatus();
     }
 
 
