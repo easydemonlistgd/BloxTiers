@@ -1,1 +1,390 @@
 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Friend Requests - BlockTiers</title>
+
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    .requests-page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 70px 20px 90px;
+    }
+
+    .requests-header {
+        margin-bottom: 30px;
+    }
+
+    .requests-header h1 {
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .requests-header p {
+        margin: 0;
+        color: #858799;
+        font-size: 15px;
+    }
+
+    .requests-section {
+        margin-bottom: 35px;
+    }
+
+    .section-title {
+        margin: 0 0 15px;
+        color: #fff;
+        font-size: 19px;
+        font-weight: 750;
+    }
+
+    .request-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .request-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px;
+        background: #10121d;
+        border: 1px solid rgba(255,255,255,.07);
+        border-radius: 14px;
+    }
+
+    .request-avatar {
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #191c2a;
+    }
+
+    .request-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .request-name {
+        margin: 0 0 4px;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 750;
+        word-break: break-word;
+    }
+
+    .request-username {
+        margin: 0;
+        color: #858799;
+        font-size: 13px;
+    }
+
+    .request-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .request-button {
+        border: 0;
+        padding: 10px 14px;
+        border-radius: 9px;
+        color: #fff;
+        background: #7c5cff;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .request-button:hover {
+        opacity: .9;
+        transform: translateY(-1px);
+    }
+
+    .request-button.secondary {
+        background: rgba(255,255,255,.07);
+        border: 1px solid rgba(255,255,255,.08);
+        color: #d5d6df;
+    }
+
+    .request-button.danger {
+        background: rgba(255,70,70,.08);
+        border: 1px solid rgba(255,70,70,.2);
+        color: #ff8585;
+    }
+
+    .empty-state {
+        padding: 35px 20px;
+        background: #10121d;
+        border: 1px solid rgba(255,255,255,.07);
+        border-radius: 14px;
+        color: #858799;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .loading-state {
+        padding: 60px 20px;
+        color: #858799;
+        text-align: center;
+    }
+
+    .page-error {
+        padding: 35px 20px;
+        background: rgba(255,70,70,.06);
+        border: 1px solid rgba(255,70,70,.15);
+        border-radius: 14px;
+        color: #ff8585;
+        text-align: center;
+    }
+
+    .view-profile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 13px;
+        border-radius: 9px;
+        background: rgba(124,92,255,.1);
+        color: #a996ff;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .view-profile:hover {
+        background: rgba(124,92,255,.16);
+    }
+
+    @media (max-width: 650px) {
+        .request-card {
+            flex-wrap: wrap;
+        }
+
+        .request-info {
+            min-width: calc(100% - 67px);
+        }
+
+        .request-actions {
+            width: 100%;
+        }
+
+        .request-button,
+        .view-profile {
+            flex: 1;
+            text-align: center;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+
+<div style="display: flex; align-items: center; gap: 12px;">
+
+    <button
+        class="menu-button"
+        id="menu-button"
+        aria-label="Open menu"
+        type="button"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
+
+</div>
+
+
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+
+<div class="sidebar-header">
+
+    <a href="index.html" class="sidebar-logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
+
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button"
+    >
+        &times;
+    </button>
+
+</div>
+
+<nav class="sidebar-nav">
+
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html" class="active">Profiles</a>
+
+    <a href="mailto:BlockTiers@protonmail.com">
+        Support
+    </a>
+
+    <a href="whats-new.html">
+        What's New
+    </a>
+
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Discord
+    </a>
+
+    <span id="account-slot">
+        <a href="login.html">Login</a>
+    </span>
+
+</nav>
+
+
+</aside>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<main class="requests-page">
+
+
+<div class="requests-header">
+    <h1>Friend Requests</h1>
+    <p>Manage your incoming and outgoing friend requests.</p>
+</div>
+
+<div id="loadingState" class="loading-state">
+    Loading friend requests...
+</div>
+
+<div id="pageError" class="page-error" style="display:none;"></div>
+
+<div id="requestsContent" style="display:none;">
+
+    <section class="requests-section">
+
+        <h2 class="section-title">
+            Incoming Requests
+        </h2>
+
+        <div id="incomingList" class="request-list"></div>
+
+    </section>
+
+
+    <section class="requests-section">
+
+        <h2 class="section-title">
+            Outgoing Requests
+        </h2>
+
+        <div id="outgoingList" class="request-list"></div>
+
+    </section>
+
+</div>
+
+
+</main>
+
+<script src="js/supabase-config.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    menuButton.addEventListener("click", openSidebar);
+    sidebarClose.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+    });
+
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
+        });
+    });
+
+
+    const supabaseClient = window.supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
+
+
+    const loadingState = document.getElementById("loadingState");
+    const pageError = document.getElementById("pageError");
+    const requestsContent = document.getElementById("requestsContent");
+    const incomingList = document.getElementById("incomingList");
+    const outgoingList = document.getElementById("outgoingList");
+
+
+    let currentUser = null;
+
+
+    function showError(message) {
+        loadingState.style.display = "none";
