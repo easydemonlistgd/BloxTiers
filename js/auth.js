@@ -1,3 +1,4 @@
+
 (() => {
     const CONFIG_URL = window.BLOCKTIERS_SUPABASE_URL;
     const CONFIG_KEY = window.BLOCKTIERS_SUPABASE_ANON_KEY;
@@ -12,11 +13,11 @@
 
     const byId = (id) => document.getElementById(id);
 
-    // List of admin usernames (Change "YourUsernameHere" to your actual account username)
     const adminUsers = ["BlockTiersAdmin", "AnotherAdmin"];
 
     function renderUsername(element, displayName, username) {
-        // Check if the account username is in the admin list
+        if (!element) return;
+
         if (adminUsers.includes(username)) {
             element.innerHTML = `${escapeHtml(displayName)} <span class="admin-badge">ADMIN</span>`;
         } else {
@@ -27,6 +28,7 @@
     function setMessage(id, message, type = "") {
         const el = byId(id);
         if (!el) return;
+
         el.textContent = message;
         el.className = `form-message ${type}`.trim();
     }
@@ -44,6 +46,53 @@
 
         if (error) throw error;
         return data;
+    }
+
+    async function getActiveBan(userId) {
+        const now = new Date().toISOString();
+
+        const { data, error } = await client
+            .from("user_bans")
+            .select("id, reason, expires_at, created_at")
+            .eq("user_id", userId)
+            .is("revoked_at", null)
+            .or(`expires_at.is.null,expires_at.gt.${now}`)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+        if (error) {
+            console.error("BlockTiers ban check failed:", error);
+            throw new Error("Could not verify your account status.");
+        }
+
+        return data;
+    }
+
+    function formatBanExpiry(expiresAt) {
+        if (!expiresAt) {
+            return "Permanent";
+        }
+
+        return new Date(expiresAt).toLocaleString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit"
+        });
+    }
+
+    async function checkBanAndSignOut(user) {
+        const ban = await getActiveBan(user.id);
+
+        if (!ban) {
+            return null;
+        }
+
+        await client.auth.signOut();
+
+        return ban;
     }
 
     async function signUp(displayName, username, password) {
@@ -88,7 +137,7 @@
 
         if (!data.session) {
             throw new Error(
-                "Account created, but email confirmation is enabled in Supabase. Disable email confirmation in your Supabase Auth settings."
+                "Account created, but email confirmation is enabled in Supabase Auth. Disable email confirmation in your Supabase Auth settings."
             );
         }
 
@@ -114,11 +163,30 @@
             throw new Error("Incorrect username or password.");
         }
 
+        const user = data.user;
+
+        if (!user) {
+            throw new Error("Could not load your account.");
+        }
+
+        const ban = await checkBanAndSignOut(user);
+
+        if (ban) {
+            const expiry = formatBanExpiry(ban.expires_at);
+
+            throw new Error(
+                `You are banned from BlockTiers. Reason: ${ban.reason} | Expires: ${expiry}`
+            );
+        }
+
         return data;
     }
 
     async function updateAuthUI() {
-        const { data: { user } } = await client.auth.getUser();
+        const {
+            data: { user }
+        } = await client.auth.getUser();
+
         const slot = byId("account-slot");
 
         if (!slot) return;
@@ -223,7 +291,7 @@
             const password = byId("login-password").value;
 
             const button =
-                loginForm.querySelector("button[type=submit]");
+                loginForm.querySelector("button[type=submit)");
 
             button.disabled = true;
             button.textContent = "Logging in...";
@@ -268,11 +336,27 @@
             }
 
             try {
+                const ban = await getActiveBan(user.id);
+
+                if (ban) {
+                    await client.auth.signOut();
+
+                    setTimeout(() => {
+                        location.href = "login.html";
+                    }, 100);
+
+                    return;
+                }
+
                 const profile = await getProfile(user);
 
-                // This checks if their username is an admin, and displays the badge next to their display name
                 const nameElement = byId("profile-display-name");
-                renderUsername(nameElement, profile.display_name, profile.username);
+
+                renderUsername(
+                    nameElement,
+                    profile.display_name,
+                    profile.username
+                );
 
                 byId("profile-username").textContent =
                     `@${profile.username}`;
@@ -289,17 +373,25 @@
                         day: "numeric"
                     });
             } catch {
-                byId("profile-error").textContent =
-                    "Could not load your profile.";
+                const errorElement = byId("profile-error");
+
+                if (errorElement) {
+                    errorElement.textContent =
+                        "Could not load your profile.";
+                }
             }
 
-            byId("logout-button").addEventListener(
-                "click",
-                async () => {
-                    await client.auth.signOut();
-                    location.href = "index.html";
-                }
-            );
+            const logoutButton = byId("logout-button");
+
+            if (logoutButton) {
+                logoutButton.addEventListener(
+                    "click",
+                    async () => {
+                        await client.auth.signOut();
+                        location.href = "index.html";
+                    }
+                );
+            }
         })();
     }
 
@@ -309,3 +401,4 @@
 
     updateAuthUI();
 })();
+
