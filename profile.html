@@ -2,621 +2,560 @@
 
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Profile - BlockTiers</title>
+```
+<title>Profile - BlockTiers</title>
 
 <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/auth.css">
 
 <style>
-.profile-page {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 0 20px;
-}
-
-.profile-card {
-    background: rgba(15, 17, 30, 0.95);
-    border: 1px solid rgba(124, 92, 255, 0.25);
-    border-radius: 18px;
-    padding: 32px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.profile-avatar-wrapper {
-    position: relative;
-    flex-shrink: 0;
-}
-
-.profile-avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7c5cff, #9c86ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 42px;
-    font-weight: 700;
-    overflow: hidden;
-    border: 4px solid rgba(124, 92, 255, 0.3);
-    box-shadow: 0 8px 30px rgba(124, 92, 255, 0.2);
-}
-
-.profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.avatar-edit-button {
-    position: absolute;
-    right: -4px;
-    bottom: -4px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 3px solid #0f111e;
-    background: #7c5cff;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s ease;
-}
-
-.avatar-edit-button:hover {
-    transform: scale(1.08);
-}
-
-.profile-heading h1 {
-    margin: 0 0 6px;
-    font-size: 32px;
-}
-
-.profile-username {
-    margin: 0;
-    color: #9c86ff;
-    font-size: 16px;
-}
-
-.profile-subtitle {
-    margin: 10px 0 0;
-    color: #8d91a3;
-    font-size: 14px;
-}
-
-.profile-section {
-    margin-top: 28px;
-}
-
-.profile-section h2 {
-    margin: 0 0 15px;
-    font-size: 18px;
-}
-
-.profile-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.profile-info-row {
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 16px;
-}
-
-.profile-info-row span:first-child {
-    display: block;
-    color: #85899a;
-    font-size: 12px;
-    margin-bottom: 6px;
-}
-
-.profile-info-row span:last-child {
-    color: #f1f1f5;
-    font-weight: 600;
-}
-
-.social-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.social-card {
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 18px;
-}
-
-.social-card-title {
-    color: #f1f1f5;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.social-card-description {
-    color: #85899a;
-    font-size: 13px;
-    margin-bottom: 12px;
-}
-
-.social-input {
-    width: 100%;
-    box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 9px;
-    padding: 11px 12px;
-    color: white;
-    outline: none;
-    font-size: 14px;
-    transition: 0.2s ease;
-}
-
-.social-input:focus {
-    border-color: rgba(124, 92, 255, 0.6);
-    box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.08);
-}
-
-.social-input::placeholder {
-    color: #686d80;
-}
-
-.social-save-button {
-    margin-top: 10px;
-    border: 1px solid rgba(124, 92, 255, 0.3);
-    background: rgba(124, 92, 255, 0.12);
-    color: #c7bcff;
-    border-radius: 9px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s ease;
-}
-
-.social-save-button:hover {
-    background: rgba(124, 92, 255, 0.22);
-}
-
-.social-status {
-    margin-top: 8px;
-    color: #85899a;
-    font-size: 12px;
-    min-height: 16px;
-}
-
-.avatar-upload-area {
-    display: none;
-    margin-top: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(124, 92, 255, 0.2);
-    border-radius: 14px;
-}
-
-.avatar-upload-area.show {
-    display: block;
-}
-
-.avatar-upload-area p {
-    margin: 0 0 12px;
-    color: #9699aa;
-    font-size: 14px;
-}
-
-#avatar-file {
-    display: none;
-}
-
-.choose-avatar-button {
-    display: inline-block;
-    padding: 10px 16px;
-    background: #7c5cff;
-    color: white;
-    border-radius: 9px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.choose-avatar-button:hover {
-    background: #8b70ff;
-}
-
-.avatar-file-name {
-    margin-left: 10px;
-    color: #8d91a3;
-    font-size: 13px;
-}
-
-.profile-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-    flex-wrap: wrap;
-}
-
-.logout-button,
-.danger-button {
-    border-radius: 10px;
-    padding: 11px 18px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.logout-button {
-    background: rgba(124, 92, 255, 0.12);
-    border: 1px solid rgba(124, 92, 255, 0.3);
-    color: #c7bcff;
-}
-
-.logout-button:hover {
-    background: rgba(124, 92, 255, 0.2);
-}
-
-.danger-button {
-    display: block;
-    margin: 25px auto 0;
-    background: rgba(255, 70, 70, 0.08);
-    border: 1px solid rgba(255, 70, 70, 0.25);
-    color: #ff7777;
-}
-
-.danger-button:hover {
-    background: rgba(255, 70, 70, 0.15);
-}
-
-.form-message {
-    margin-top: 15px;
-}
-
-@media (max-width: 650px) {
-
-    .profile-card {
-        padding: 22px;
+    .profile-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 50px 20px 80px;
     }
 
-    .profile-header {
-        align-items: flex-start;
+    .profile-header-card {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 28px;
+        margin-bottom: 24px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+    }
+
+    .profile-avatar-wrap {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        flex-shrink: 0;
     }
 
     .profile-avatar {
-        width: 85px;
-        height: 85px;
-        font-size: 32px;
+        width: 110px;
+        height: 110px;
+        border-radius: 18px;
+        object-fit: cover;
+        display: block;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: #111;
+    }
+
+    .avatar-upload {
+        position: absolute;
+        left: 50%;
+        bottom: -12px;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .avatar-upload label {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 12px;
+        border-radius: 8px;
+        background: #181818;
+        border: 1px solid rgba(255,255,255,0.15);
+        color: #fff;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .avatar-upload input {
+        display: none;
+    }
+
+    .profile-heading {
+        min-width: 0;
     }
 
     .profile-heading h1 {
-        font-size: 25px;
+        margin: 0 0 5px;
+        font-size: 30px;
     }
 
-    .profile-info {
-        grid-template-columns: 1fr;
+    .profile-heading .username {
+        margin: 0 0 10px;
+        opacity: 0.65;
     }
 
-    .social-links {
-        grid-template-columns: 1fr;
+    .profile-badge {
+        display: inline-block;
+        padding: 5px 9px;
+        border-radius: 7px;
+        font-size: 11px;
+        background: rgba(255,255,255,0.07);
     }
 
-}
+    .profile-section {
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+    }
+
+    .profile-section h2 {
+        margin: 0 0 20px;
+        font-size: 20px;
+    }
+
+    .profile-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .profile-info-box {
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.04);
+    }
+
+    .profile-info-box .label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+        opacity: 0.55;
+    }
+
+    .profile-info-box .value {
+        font-size: 15px;
+        word-break: break-word;
+    }
+
+    .social-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .social-form:last-child {
+        margin-bottom: 0;
+    }
+
+    .social-form label {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .social-form input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.25);
+        color: #fff;
+        outline: none;
+        font-family: inherit;
+    }
+
+    .social-form input:focus {
+        border-color: rgba(255,255,255,0.3);
+    }
+
+    .social-form button {
+        align-self: flex-start;
+        padding: 10px 16px;
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 9px;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .social-description {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.55;
+    }
+
+    .save-status {
+        min-height: 18px;
+        margin: 0;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .profile-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+    }
+
+    .profile-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-width: 100px;
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.06);
+        color: #fff;
+        text-decoration: none;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .profile-action:hover {
+        background: rgba(255,255,255,0.11);
+    }
+
+    .profile-message {
+        margin-top: 15px;
+        font-size: 13px;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 650px) {
+        .profile-page {
+            padding: 30px 15px 60px;
+        }
+
+        .profile-header-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
+```
 
 </head>
 
 <body>
 
 <header class="navbar">
-
-<div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display:flex;align-items:center;gap:12px;">
 
 ```
-<button
-    class="menu-button"
-    id="menu-button"
-    aria-label="Open menu"
-    type="button">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
+    <button
+        class="menu-button"
+        id="menu-button"
+        aria-label="Open menu"
+        type="button"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-<a href="index.html" class="logo">
-    <img
-        src="images/BlockTiersicon.png"
-        alt="BlockTiers"
-        style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
-    Block<span>Tiers</span>
-</a>
-```
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
 
 </div>
+```
 
 </header>
 
 <aside class="sidebar" id="sidebar">
 
+```
 <div class="sidebar-header">
 
-```
-<a href="index.html" class="sidebar-logo">
-    <img
-        src="images/BlockTiersicon.png"
-        alt="BlockTiers"
-        style="width:34px;height:34px;object-fit:contain;border-radius:8px;">
-    Block<span>Tiers</span>
-</a>
+    <a href="index.html" class="sidebar-logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
 
-<button
-    class="sidebar-close"
-    id="sidebar-close"
-    aria-label="Close menu"
-    type="button">
-    &times;
-</button>
-```
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button"
+    >
+        &times;
+    </button>
 
 </div>
 
 <nav class="sidebar-nav">
 
-```
-<a href="index.html">Home</a>
-<a href="mace.html">Mace</a>
-<a href="sword.html">Sword</a>
-<a href="crystal.html">Crystal</a>
-<a href="axe.html">Axe</a>
-<a href="uhc.html">UHC</a>
-<a href="smp.html">SMP</a>
-<a href="rules.html">Rules</a>
-<a href="staff.html">Staff</a>
-<a href="profiles.html">Profiles</a>
-<a href="mailto:BlockTiers@protonmail.com">Support</a>
-<a href="whats-new.html">What's New</a>
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
 
-<a
-    href="https://discord.gg/fX7caP4gMb"
-    target="_blank"
-    rel="noopener noreferrer">
-    Discord
-</a>
+    <a href="mailto:BlockTiers@protonmail.com">
+        Support
+    </a>
 
-<span id="account-slot">
-    <a href="login.html">Login</a>
-</span>
-```
+    <a href="whats-new.html">
+        What's New
+    </a>
+
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Discord
+    </a>
+
+    <span id="account-slot">
+        <a href="login.html">Login</a>
+    </span>
 
 </nav>
+```
 
 </aside>
 
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-<main id="profile-page" class="profile-page">
-
-<section class="profile-card">
-
-<div class="profile-header">
-
-<div class="profile-avatar-wrapper">
+<main class="profile-page">
 
 ```
-<div id="profile-avatar" class="profile-avatar">
-    ?
+<div id="profile-loading">
+    Loading profile...
 </div>
 
-<button
-    id="avatar-edit-button"
-    class="avatar-edit-button"
-    type="button"
-    title="Change profile picture">
-    +
-</button>
+<div id="profile-content" style="display:none;">
+
+    <section class="profile-header-card">
+
+        <div class="profile-avatar-wrap">
+
+            <img
+                id="profile-avatar"
+                class="profile-avatar"
+                src="images/BlockTiersicon.png"
+                alt="Profile picture"
+            >
+
+            <div class="avatar-upload">
+                <label for="avatar-input">
+                    Change Avatar
+                </label>
+
+                <input
+                    type="file"
+                    id="avatar-input"
+                    accept="image/png,image/jpeg,image/webp"
+                >
+            </div>
+
+        </div>
+
+        <div class="profile-heading">
+
+            <h1 id="display-name">
+                Loading...
+            </h1>
+
+            <p class="username" id="username">
+                @Loading...
+            </p>
+
+            <span class="profile-badge">
+                BlockTiers Member
+            </span>
+
+        </div>
+
+    </section>
+
+    <section class="profile-section">
+
+        <h2>
+            Profile Information
+        </h2>
+
+        <div class="profile-info-grid">
+
+            <div class="profile-info-box">
+                <span class="label">
+                    Display Name
+                </span>
+
+                <span
+                    class="value"
+                    id="info-display-name"
+                >
+                    -
+                </span>
+            </div>
+
+            <div class="profile-info-box">
+                <span class="label">
+                    Username
+                </span>
+
+                <span
+                    class="value"
+                    id="info-username"
+                >
+                    -
+                </span>
+            </div>
+
+            <div class="profile-info-box">
+                <span class="label">
+                    Member Since
+                </span>
+
+                <span
+                    class="value"
+                    id="member-since"
+                >
+                    -
+                </span>
+            </div>
+
+            <div class="profile-info-box">
+                <span class="label">
+                    Account Status
+                </span>
+
+                <span class="value">
+                    Active
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="profile-section">
+
+        <h2>
+            Social Media
+        </h2>
+
+        <div class="social-form">
+
+            <label for="discord-input">
+                Discord
+            </label>
+
+            <p class="social-description">
+                Add your Discord username to your BlockTiers profile.
+            </p>
+
+            <input
+                type="text"
+                id="discord-input"
+                placeholder="Your Discord username"
+                maxlength="100"
+            >
+
+            <button
+                type="button"
+                id="save-discord"
+            >
+                Save Discord
+            </button>
+
+            <p
+                class="save-status"
+                id="discord-status"
+            ></p>
+
+        </div>
+
+        <div class="social-form">
+
+            <label for="youtube-input">
+                YouTube
+            </label>
+
+            <p class="social-description">
+                Add your YouTube channel to your BlockTiers profile.
+            </p>
+
+            <input
+                type="url"
+                id="youtube-input"
+                placeholder="https://youtube.com/@username"
+                maxlength="500"
+            >
+
+            <button
+                type="button"
+                id="save-youtube"
+            >
+                Save YouTube
+            </button>
+
+            <p
+                class="save-status"
+                id="youtube-status"
+            ></p>
+
+        </div>
+
+    </section>
+
+    <section class="profile-section">
+
+        <h2>
+            Account
+        </h2>
+
+        <div class="profile-actions">
+
+            <a
+                href="friends.html"
+                class="profile-action"
+            >
+                Friends
+            </a>
+
+            <button
+                type="button"
+                id="logout-button"
+                class="profile-action"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+        <p
+            id="profile-message"
+            class="profile-message"
+        ></p>
+
+    </section>
+
+</div>
 ```
-
-</div>
-
-<div class="profile-heading">
-
-```
-<h1 id="profile-display-name">
-    Loading...
-</h1>
-
-<p id="profile-username" class="profile-username">
-    @...
-</p>
-
-<p class="profile-subtitle">
-    BlockTiers Member
-</p>
-```
-
-</div>
-
-</div>
-
-<div id="avatar-upload-area" class="avatar-upload-area">
-
-<p>
-    Choose a profile picture. PNG, JPG and WEBP images are supported.
-    Maximum size: 2 MB.
-</p>
-
-<input
- type="file"
- id="avatar-file"
- accept="image/png,image/jpeg,image/webp">
-
-<label
- for="avatar-file"
- class="choose-avatar-button">
-Choose Image </label>
-
-<span
- id="avatar-file-name"
- class="avatar-file-name">
-No image selected </span>
-
-</div>
-
-<div class="profile-section">
-
-<h2>Profile Information</h2>
-
-<div class="profile-info">
-
-```
-<div class="profile-info-row">
-    <span>Display Name</span>
-    <span id="profile-display-name-copy">
-        Loading...
-    </span>
-</div>
-
-<div class="profile-info-row">
-    <span>Username</span>
-    <span id="profile-username-copy">
-        Loading...
-    </span>
-</div>
-
-<div class="profile-info-row">
-    <span>Member Since</span>
-    <span id="profile-created">
-        Loading...
-    </span>
-</div>
-
-<div class="profile-info-row">
-    <span>Account Status</span>
-    <span>Active</span>
-</div>
-```
-
-</div>
-
-</div>
-
-<div class="profile-section">
-
-<h2>Social Media</h2>
-
-<div class="social-links">
-
-```
-<div class="social-card">
-
-    <div class="social-card-title">
-        Discord
-    </div>
-
-    <div class="social-card-description">
-        Add your Discord username to your BlockTiers profile.
-    </div>
-
-    <input
-        type="text"
-        id="discord-username"
-        class="social-input"
-        placeholder="Your Discord username"
-        maxlength="32">
-
-    <button
-        id="save-discord"
-        class="social-save-button"
-        type="button">
-        Save Discord
-    </button>
-
-    <div
-        id="discord-status"
-        class="social-status">
-    </div>
-
-</div>
-
-<div class="social-card">
-
-    <div class="social-card-title">
-        YouTube
-    </div>
-
-    <div class="social-card-description">
-        Add your YouTube channel to your BlockTiers profile.
-    </div>
-
-    <input
-        type="url"
-        id="youtube-url"
-        class="social-input"
-        placeholder="https://youtube.com/@yourchannel">
-
-    <button
-        id="save-youtube"
-        class="social-save-button"
-        type="button">
-        Save YouTube
-    </button>
-
-    <div
-        id="youtube-status"
-        class="social-status">
-    </div>
-
-</div>
-```
-
-</div>
-
-</div>
-
-<p id="profile-error" class="form-message error"></p>
-
-<div class="profile-actions">
-
-```
-<a
-    href="friends.html"
-    class="logout-button"
-    style="text-decoration: none; display: inline-flex; align-items: center;">
-    Friends
-</a>
-
-<button
-    id="logout-button"
-    class="logout-button">
-    Log Out
-</button>
-```
-
-</div>
-
-</section>
-
-<button
- id="delete-account-button"
- class="danger-button">
-Delete Account </button>
 
 </main>
 
@@ -631,629 +570,307 @@ Delete Account </button>
 <script src="js/auth.js"></script>
 
 <script>
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
 
-const menuButton = document.getElementById("menu-button");
-const sidebar = document.getElementById("sidebar");
-const sidebarClose = document.getElementById("sidebar-close");
-const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-function openSidebar() {
-    sidebar.classList.add("open");
-    sidebarOverlay.classList.add("show");
-    document.body.classList.add("sidebar-open");
-}
-
-function closeSidebar() {
-    sidebar.classList.remove("open");
-    sidebarOverlay.classList.remove("show");
-    document.body.classList.remove("sidebar-open");
-}
-
-menuButton.addEventListener("click", openSidebar);
-sidebarClose.addEventListener("click", closeSidebar);
-sidebarOverlay.addEventListener("click", closeSidebar);
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        closeSidebar();
+    function openSidebar() {
+        sidebar.classList.add("open");
+        sidebarOverlay.classList.add("show");
+        document.body.classList.add("sidebar-open");
     }
-});
 
-sidebar.querySelectorAll("a").forEach(function(link) {
-    link.addEventListener("click", function() {
-        closeSidebar();
-    });
-});
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+        document.body.classList.remove("sidebar-open");
+    }
 
-document.addEventListener("DOMContentLoaded", () => {
+    menuButton.addEventListener("click", openSidebar);
+    sidebarClose.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
 
-    const nameElement =
-        document.getElementById("profile-display-name");
-
-    const nameCopy =
-        document.getElementById("profile-display-name-copy");
-
-    const usernameElement =
-        document.getElementById("profile-username");
-
-    const usernameCopy =
-        document.getElementById("profile-username-copy");
-
-    const avatar =
-        document.getElementById("profile-avatar");
-
-    const avatarButton =
-        document.getElementById("avatar-edit-button");
-
-    const uploadArea =
-        document.getElementById("avatar-upload-area");
-
-    const avatarFile =
-        document.getElementById("avatar-file");
-
-    const avatarFileName =
-        document.getElementById("avatar-file-name");
-
-    const discordInput =
-        document.getElementById("discord-username");
-
-    const youtubeInput =
-        document.getElementById("youtube-url");
-
-    const saveDiscordButton =
-        document.getElementById("save-discord");
-
-    const saveYouTubeButton =
-        document.getElementById("save-youtube");
-
-    const discordStatus =
-        document.getElementById("discord-status");
-
-    const youtubeStatus =
-        document.getElementById("youtube-status");
-
-    const observer = new MutationObserver(() => {
-
-        if (nameElement && nameCopy) {
-            nameCopy.textContent =
-                nameElement.textContent;
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeSidebar();
         }
-
-        if (usernameElement && usernameCopy) {
-
-            if (
-                usernameElement.textContent.trim() !== "@..."
-            ) {
-                usernameCopy.textContent =
-                    usernameElement.textContent;
-            }
-
-        }
-
     });
 
-    if (nameElement) {
-
-        observer.observe(nameElement, {
-            childList: true,
-            subtree: true
+    sidebar.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            closeSidebar();
         });
+    });
+</script>
 
-    }
+<script>
+    const supabaseClient = window.supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
 
-    if (usernameElement) {
+    let currentUser = null;
+    let currentProfile = null;
 
-        observer.observe(usernameElement, {
-            childList: true,
-            subtree: true
-        });
+    const loading = document.getElementById("profile-loading");
+    const content = document.getElementById("profile-content");
 
-    }
+    async function loadProfile() {
 
-    if (avatarButton && uploadArea) {
+        const {
+            data: {
+                user
+            },
+            error: authError
+        } = await supabaseClient.auth.getUser();
 
-        avatarButton.addEventListener("click", () => {
-            uploadArea.classList.toggle("show");
-        });
-
-    }
-
-    function waitForAuthClient() {
-
-        return new Promise((resolve, reject) => {
-
-            let attempts = 0;
-
-            const interval = setInterval(() => {
-
-                if (window.blockTiersAuth) {
-
-                    clearInterval(interval);
-
-                    resolve(
-                        window.blockTiersAuth
-                    );
-
-                    return;
-
-                }
-
-                attempts++;
-
-                if (attempts >= 100) {
-
-                    clearInterval(interval);
-
-                    reject(
-                        new Error(
-                            "BlockTiers authentication system did not load."
-                        )
-                    );
-
-                }
-
-            }, 50);
-
-        });
-
-    }
-
-    async function loadSocialMedia() {
-
-        try {
-
-            const client =
-                await waitForAuthClient();
-
-            const {
-                data: { user },
-                error: userError
-            } = await client.auth.getUser();
-
-            if (userError || !user) {
-                return;
-            }
-
-            const {
-                data,
-                error
-            } = await client
-                .from("profiles")
-                .select(
-                    "discord_username, youtube_url"
-                )
-                .eq("id", user.id)
-                .single();
-
-            if (error) {
-
-                console.error(
-                    "Could not load social media:",
-                    error
-                );
-
-                return;
-            }
-
-            if (data) {
-
-                if (data.discord_username) {
-
-                    discordInput.value =
-                        data.discord_username;
-
-                    discordStatus.textContent =
-                        "Discord saved.";
-
-                }
-
-                if (data.youtube_url) {
-
-                    youtubeInput.value =
-                        data.youtube_url;
-
-                    youtubeStatus.textContent =
-                        "YouTube channel saved.";
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Social media loading error:",
-                error
-            );
-
+        if (authError || !user) {
+            window.location.href = "login.html";
+            return;
         }
 
-    }
-
-    if (saveDiscordButton) {
-
-        saveDiscordButton.addEventListener(
-            "click",
-            async () => {
-
-                const username =
-                    discordInput.value.trim();
-
-                if (!username) {
-
-                    discordStatus.textContent =
-                        "Please enter your Discord username.";
-
-                    return;
-                }
-
-                saveDiscordButton.disabled =
-                    true;
-
-                saveDiscordButton.textContent =
-                    "Saving...";
-
-                try {
-
-                    const client =
-                        await waitForAuthClient();
-
-                    const {
-                        data: { user },
-                        error: userError
-                    } = await client.auth.getUser();
-
-                    if (userError || !user) {
-
-                        throw new Error(
-                            "You must be logged in."
-                        );
-
-                    }
-
-                    const {
-                        error
-                    } = await client
-                        .from("profiles")
-                        .update({
-                            discord_username:
-                                username
-                        })
-                        .eq("id", user.id);
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    discordStatus.textContent =
-                        "Discord saved successfully.";
-
-                } catch (error) {
-
-                    console.error(
-                        "Discord save error:",
-                        error
-                    );
-
-                    discordStatus.textContent =
-                        "Could not save Discord: " +
-                        error.message;
-
-                } finally {
-
-                    saveDiscordButton.disabled =
-                        false;
-
-                    saveDiscordButton.textContent =
-                        "Save Discord";
-
-                }
-
-            }
-        );
-
-    }
-
-    if (saveYouTubeButton) {
-
-        saveYouTubeButton.addEventListener(
-            "click",
-            async () => {
-
-                const url =
-                    youtubeInput.value.trim();
-
-                if (!url) {
-
-                    youtubeStatus.textContent =
-                        "Please enter your YouTube channel URL.";
-
-                    return;
-                }
-
-                if (
-                    !url.startsWith(
-                        "https://youtube.com/"
-                    ) &&
-                    !url.startsWith(
-                        "https://www.youtube.com/"
-                    )
-                ) {
-
-                    youtubeStatus.textContent =
-                        "Please enter a valid YouTube URL.";
-
-                    return;
-                }
-
-                saveYouTubeButton.disabled =
-                    true;
-
-                saveYouTubeButton.textContent =
-                    "Saving...";
-
-                try {
-
-                    const client =
-                        await waitForAuthClient();
-
-                    const {
-                        data: { user },
-                        error: userError
-                    } = await client.auth.getUser();
-
-                    if (userError || !user) {
-
-                        throw new Error(
-                            "You must be logged in."
-                        );
-
-                    }
-
-                    const {
-                        error
-                    } = await client
-                        .from("profiles")
-                        .update({
-                            youtube_url:
-                                url
-                        })
-                        .eq("id", user.id);
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    youtubeStatus.textContent =
-                        "YouTube channel saved successfully.";
-
-                } catch (error) {
-
-                    console.error(
-                        "YouTube save error:",
-                        error
-                    );
-
-                    youtubeStatus.textContent =
-                        "Could not save YouTube: " +
-                        error.message;
-
-                } finally {
-
-                    saveYouTubeButton.disabled =
-                        false;
-
-                    saveYouTubeButton.textContent =
-                        "Save YouTube";
-
-                }
-
-            }
-        );
-
-    }
-
-    async function loadAvatar() {
-
-        try {
-
-            const client =
-                await waitForAuthClient();
-
-            const {
-                data: { user },
-                error: userError
-            } = await client.auth.getUser();
-
-            if (userError || !user) {
-                return;
-            }
-
-            const {
-                data,
-                error
-            } = await client
-                .from("profiles")
-                .select("avatar_url")
-                .eq("id", user.id)
-                .single();
-
-            if (error) {
-
-                console.error(
-                    "Could not load avatar:",
-                    error
-                );
-
-                return;
-            }
-
-            if (data && data.avatar_url) {
-
-                avatar.innerHTML = `
-                    <img
-                        src="${data.avatar_url}"
-                        alt="Profile picture">
-                `;
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Avatar loading error:",
-                error
-            );
-
+        currentUser = user;
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select(`
+                id,
+                username,
+                display_name,
+                avatar_url,
+                discord_username,
+                youtube_url
+            `)
+            .eq("id", user.id)
+            .single();
+
+        if (error) {
+            console.error(error);
+            loading.textContent = "Unable to load your profile.";
+            return;
         }
 
+        currentProfile = profile;
+
+        document.getElementById("display-name").textContent =
+            profile.display_name || profile.username || "BlockTiers User";
+
+        document.getElementById("username").textContent =
+            "@" + (profile.username || "unknown");
+
+        document.getElementById("info-display-name").textContent =
+            profile.display_name || "Not set";
+
+        document.getElementById("info-username").textContent =
+            "@" + (profile.username || "unknown");
+
+        const createdAt = user.created_at
+            ? new Date(user.created_at)
+            : null;
+
+        document.getElementById("member-since").textContent =
+            createdAt
+                ? createdAt.toLocaleDateString()
+                : "Unknown";
+
+        if (profile.avatar_url) {
+            document.getElementById("profile-avatar").src =
+                profile.avatar_url;
+        }
+
+        document.getElementById("discord-input").value =
+            profile.discord_username || "";
+
+        document.getElementById("youtube-input").value =
+            profile.youtube_url || "";
+
+        loading.style.display = "none";
+        content.style.display = "block";
     }
 
-    if (avatarFile) {
+    async function uploadAvatar(file) {
 
-        avatarFile.addEventListener(
+        if (!file || !currentUser) {
+            return;
+        }
+
+        const message = document.getElementById("profile-message");
+
+        message.textContent = "Uploading avatar...";
+
+        const extension =
+            file.name.split(".").pop().toLowerCase();
+
+        const filePath =
+            currentUser.id + "." + extension;
+
+        const {
+            error: uploadError
+        } = await supabaseClient
+            .storage
+            .from("avatars")
+            .upload(
+                filePath,
+                file,
+                {
+                    upsert: true,
+                    contentType: file.type
+                }
+            );
+
+        if (uploadError) {
+            console.error(uploadError);
+            message.textContent =
+                "Avatar upload failed.";
+            return;
+        }
+
+        const {
+            data
+        } = supabaseClient
+            .storage
+            .from("avatars")
+            .getPublicUrl(filePath);
+
+        const avatarUrl =
+            data.publicUrl + "?t=" + Date.now();
+
+        const {
+            error: updateError
+        } = await supabaseClient
+            .from("profiles")
+            .update({
+                avatar_url: avatarUrl
+            })
+            .eq("id", currentUser.id);
+
+        if (updateError) {
+            console.error(updateError);
+            message.textContent =
+                "Avatar was uploaded but could not be saved.";
+            return;
+        }
+
+        document.getElementById("profile-avatar").src =
+            avatarUrl;
+
+        message.textContent =
+            "Avatar updated.";
+    }
+
+    async function saveDiscord() {
+
+        const value =
+            document.getElementById("discord-input").value.trim();
+
+        const status =
+            document.getElementById("discord-status");
+
+        status.textContent = "Saving...";
+
+        const {
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .update({
+                discord_username: value || null
+            })
+            .eq("id", currentUser.id);
+
+        if (error) {
+            console.error(error);
+            status.textContent =
+                "Failed to save Discord.";
+            return;
+        }
+
+        status.textContent =
+            "Discord saved.";
+    }
+
+    async function saveYouTube() {
+
+        const value =
+            document.getElementById("youtube-input").value.trim();
+
+        const status =
+            document.getElementById("youtube-status");
+
+        status.textContent = "Saving...";
+
+        const {
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .update({
+                youtube_url: value || null
+            })
+            .eq("id", currentUser.id);
+
+        if (error) {
+            console.error(error);
+            status.textContent =
+                "Failed to save YouTube.";
+            return;
+        }
+
+        status.textContent =
+            "YouTube channel saved.";
+    }
+
+    document
+        .getElementById("avatar-input")
+        .addEventListener(
             "change",
-            async () => {
-
-                if (!avatarFile.files.length) {
-
-                    avatarFileName.textContent =
-                        "No image selected";
-
-                    return;
-                }
-
+            function(event) {
                 const file =
-                    avatarFile.files[0];
+                    event.target.files[0];
 
-                const allowedTypes = [
-                    "image/png",
-                    "image/jpeg",
-                    "image/webp"
-                ];
-
-                if (!allowedTypes.includes(file.type)) {
-
-                    avatarFileName.textContent =
-                        "Please select a PNG, JPG or WEBP image.";
-
-                    avatarFile.value = "";
-
-                    return;
+                if (file) {
+                    uploadAvatar(file);
                 }
-
-                if (file.size > 2 * 1024 * 1024) {
-
-                    avatarFileName.textContent =
-                        "Image must be smaller than 2 MB.";
-
-                    avatarFile.value = "";
-
-                    return;
-                }
-
-                avatarFileName.textContent =
-                    "Uploading...";
-
-                try {
-
-                    const client =
-                        await waitForAuthClient();
-
-                    const {
-                        data: { user },
-                        error: userError
-                    } = await client.auth.getUser();
-
-                    if (userError || !user) {
-
-                        throw new Error(
-                            "You must be logged in."
-                        );
-
-                    }
-
-                    const extension =
-                        file.type === "image/png"
-                            ? "png"
-                            : file.type === "image/webp"
-                                ? "webp"
-                                : "jpg";
-
-                    const filePath =
-                        `${user.id}/avatar.${extension}`;
-
-                    const {
-                        error: uploadError
-                    } = await client.storage
-                        .from("avatars")
-                        .upload(
-                            filePath,
-                            file,
-                            {
-                                upsert: true,
-                                contentType: file.type
-                            }
-                        );
-
-                    if (uploadError) {
-                        throw uploadError;
-                    }
-
-                    const {
-                        data: publicData
-                    } = client.storage
-                        .from("avatars")
-                        .getPublicUrl(filePath);
-
-                    const publicUrl =
-                        publicData.publicUrl;
-
-                    const {
-                        error: profileError
-                    } = await client
-                        .from("profiles")
-                        .update({
-                            avatar_url: publicUrl
-                        })
-                        .eq("id", user.id);
-
-                    if (profileError) {
-                        throw profileError;
-                    }
-
-                    avatar.innerHTML = `
-                        <img
-                            src="${publicUrl}?t=${Date.now()}"
-                            alt="Profile picture">
-                    `;
-
-                    avatarFileName.textContent =
-                        "Profile picture saved!";
-
-                } catch (error) {
-
-                    console.error(
-                        "Avatar upload error:",
-                        error
-                    );
-
-                    avatarFileName.textContent =
-                        "Upload failed: " +
-                        error.message;
-
-                }
-
             }
         );
 
-    }
+    document
+        .getElementById("save-discord")
+        .addEventListener(
+            "click",
+            saveDiscord
+        );
 
-    loadAvatar();
-    loadSocialMedia();
+    document
+        .getElementById("save-youtube")
+        .addEventListener(
+            "click",
+            saveYouTube
+        );
 
-});
+    document
+        .getElementById("logout-button")
+        .addEventListener(
+            "click",
+            async function() {
 
+                const {
+                    error
+                } = await supabaseClient.auth.signOut();
+
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+
+                window.location.href =
+                    "login.html";
+            }
+        );
+
+    loadProfile();
 </script>
 
 </body>
