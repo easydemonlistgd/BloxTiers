@@ -1,4 +1,4 @@
-```javascript
+
 (() => {
     const CONFIG_URL = window.BLOCKTIERS_SUPABASE_URL;
     const CONFIG_KEY = window.BLOCKTIERS_SUPABASE_ANON_KEY;
@@ -360,4 +360,4 @@
 
     updateAuthUI();
 })();
-```
+
