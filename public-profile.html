@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,6 +103,24 @@
             opacity: 0.7;
         }
 
+        .report-button {
+            border: 1px solid rgba(220, 70, 70, 0.25);
+            border-radius: 10px;
+            padding: 11px 18px;
+            background: rgba(220, 70, 70, 0.1);
+            color: #ff8585;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .report-button:hover {
+            background: rgba(220, 70, 70, 0.18);
+            transform: translateY(-1px);
+        }
+
         .social-grid {
             margin-top: 32px;
             display: grid;
@@ -144,6 +161,125 @@
             padding: 80px 20px;
         }
 
+        /* REPORT MODAL */
+
+        .report-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+        }
+
+        .report-modal {
+            width: min(500px, 100%);
+            padding: 26px;
+            border-radius: 18px;
+            background: #10131f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .report-modal h2 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+        .report-modal-description {
+            margin: 0 0 22px;
+            color: #8d93a8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .report-form label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .report-form select,
+        .report-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .report-form select:focus,
+        .report-form textarea:focus {
+            border-color: rgba(124, 92, 255, 0.5);
+        }
+
+        .report-form textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .report-actions button {
+            flex: 1;
+            min-height: 42px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .report-cancel {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
+            color: white;
+        }
+
+        .report-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .report-submit {
+            border: 0;
+            background: #7c5cff;
+            color: white;
+        }
+
+        .report-submit:hover {
+            background: #6d4ff0;
+        }
+
+        .report-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .report-status {
+            min-height: 18px;
+            margin: 4px 0 0;
+            color: #8d93a8;
+            font-size: 13px;
+        }
+
         @media (max-width: 700px) {
             .profile-page {
                 padding: 24px 14px 60px;
@@ -156,6 +292,10 @@
             .social-grid {
                 grid-template-columns: 1fr;
             }
+
+            .report-modal {
+                padding: 22px;
+            }
         }
     </style>
 </head>
@@ -163,6 +303,7 @@
 <body>
 
 <div class="sidebar">
+
     <div class="sidebar-logo">
         <img src="images/BlockTiersicon.png" alt="BlockTiers">
         <span>BlockTiers</span>
@@ -181,39 +322,160 @@
         <a href="profiles.html">Profiles</a>
         <a href="support.html">Support</a>
         <a href="whats-new.html">What's New</a>
-        <a href="https://discord.gg/fX7caP4gMb" target="_blank">Discord</a>
+        <a
+            href="https://discord.gg/fX7caP4gMb"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord
+        </a>
     </nav>
 
     <div id="account-slot"></div>
+
 </div>
 
 <main class="profile-page">
+
     <div id="profile-container">
-        <div class="status-message">Loading profile...</div>
+
+        <div class="status-message">
+            Loading profile...
+        </div>
+
     </div>
+
 </main>
+
+<!-- REPORT MODAL -->
+
+<div
+    class="report-overlay"
+    id="report-overlay"
+>
+
+    <div class="report-modal">
+
+        <h2>
+            Report Profile
+        </h2>
+
+        <p class="report-modal-description">
+            Report this profile to the BlockTiers moderation team.
+            Please provide an accurate reason and any useful details.
+        </p>
+
+        <form
+            class="report-form"
+            id="report-form"
+        >
+
+            <label for="report-reason">
+                Reason
+            </label>
+
+            <select
+                id="report-reason"
+                required
+            >
+
+                <option value="">
+                    Select a reason
+                </option>
+
+                <option value="Harassment">
+                    Harassment
+                </option>
+
+                <option value="Impersonation">
+                    Impersonation
+                </option>
+
+                <option value="Inappropriate Profile">
+                    Inappropriate Profile
+                </option>
+
+                <option value="Spam">
+                    Spam
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+            <label for="report-details">
+                Details
+            </label>
+
+            <textarea
+                id="report-details"
+                maxlength="1000"
+                placeholder="Explain what is wrong with this profile..."
+            ></textarea>
+
+            <p
+                class="report-status"
+                id="report-status"
+            ></p>
+
+            <div class="report-actions">
+
+                <button
+                    type="button"
+                    class="report-cancel"
+                    onclick="closeReportModal()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="report-submit"
+                    id="report-submit"
+                >
+                    Submit Report
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-    window.BLOCKTIERS_SUPABASE_URL = "https://qzdymlzgejamwgxnlhrt.supabase.co";
-    window.BLOCKTIERS_SUPABASE_ANON_KEY = "sb_publishable_EyMWMFT1lWh1lXlPeEDvRg_gwDUkP47";
 
-    const supabaseClient = supabase.createClient(
-        window.BLOCKTIERS_SUPABASE_URL,
-        window.BLOCKTIERS_SUPABASE_ANON_KEY
-    );
+    window.BLOCKTIERS_SUPABASE_URL =
+        "https://qzdymlzgejamwgxnlhrt.supabase.co";
+
+    window.BLOCKTIERS_SUPABASE_ANON_KEY =
+        "sb_publishable_EyMWMFT1lWh1lXlPeEDvRg_gwDUkP47";
+
+    const supabaseClient =
+        supabase.createClient(
+            window.BLOCKTIERS_SUPABASE_URL,
+            window.BLOCKTIERS_SUPABASE_ANON_KEY
+        );
 
     const profileContainer =
         document.getElementById("profile-container");
 
+    let reportedProfileId = null;
+
     function escapeHtml(value) {
+
         return String(value ?? "")
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+
     }
 
     function escapeAttribute(value) {
@@ -221,17 +483,23 @@
     }
 
     function getUsernameFromUrl() {
+
         const params =
-            new URLSearchParams(window.location.search);
+            new URLSearchParams(
+                window.location.search
+            );
 
         return params.get("username");
+
     }
 
     async function loadProfile() {
+
         const username =
             getUsernameFromUrl();
 
         if (!username) {
+
             profileContainer.innerHTML = `
                 <div class="status-message">
                     Profile not found.
@@ -239,6 +507,7 @@
             `;
 
             return;
+
         }
 
         const {
@@ -253,6 +522,7 @@
             .maybeSingle();
 
         if (profileError || !profile) {
+
             profileContainer.innerHTML = `
                 <div class="status-message">
                     Profile not found.
@@ -260,12 +530,11 @@
             `;
 
             return;
+
         }
 
         document.title =
             `${profile.display_name || profile.username} - BlockTiers`;
-
-        let currentUser = null;
 
         const {
             data: {
@@ -273,36 +542,73 @@
             }
         } = await supabaseClient.auth.getUser();
 
-        currentUser = user;
+        const currentUser = user;
 
-        let friendArea = "";
+        const isOwnProfile =
+            currentUser &&
+            currentUser.id === profile.id;
 
-        if (currentUser && currentUser.id !== profile.id) {
-            friendArea = `
-                <div id="friend-area" class="profile-actions">
-                    <button class="friend-button primary" disabled>
-                        Loading...
+        let actionArea = "";
+
+        if (currentUser && !isOwnProfile) {
+
+            actionArea = `
+
+                <div class="profile-actions">
+
+                    <div
+                        id="friend-area"
+                        style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;"
+                    >
+                        <button
+                            class="friend-button primary"
+                            disabled
+                        >
+                            Loading...
+                        </button>
+                    </div>
+
+                    <button
+                        class="report-button"
+                        onclick="openReportModal('${profile.id}')"
+                    >
+                        Report Profile
                     </button>
+
                 </div>
+
             `;
+
         }
 
         const discordCard =
             profile.discord_username
                 ? `
                     <div class="social-card">
-                        <div class="social-title">Discord</div>
-                        <div class="social-value">
-                            ${escapeHtml(profile.discord_username)}
+
+                        <div class="social-title">
+                            Discord
                         </div>
+
+                        <div class="social-value">
+                            ${escapeHtml(
+                                profile.discord_username
+                            )}
+                        </div>
+
                     </div>
                 `
                 : `
                     <div class="social-card">
-                        <div class="social-title">Discord</div>
+
+                        <div class="social-title">
+                            Discord
+                        </div>
+
                         <div class="social-value">
                             Not connected
                         </div>
+
                     </div>
                 `;
 
@@ -311,27 +617,41 @@
                 ? `
                     <a
                         class="social-card"
-                        href="${escapeAttribute(profile.youtube_url)}"
+                        href="${escapeAttribute(
+                            profile.youtube_url
+                        )}"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <div class="social-title">YouTube</div>
+
+                        <div class="social-title">
+                            YouTube
+                        </div>
+
                         <div class="social-value">
                             View Channel
                         </div>
+
                     </a>
                 `
                 : `
                     <div class="social-card">
-                        <div class="social-title">YouTube</div>
+
+                        <div class="social-title">
+                            YouTube
+                        </div>
+
                         <div class="social-value">
                             Not connected
                         </div>
+
                     </div>
                 `;
 
         profileContainer.innerHTML = `
+
             <div class="profile-card">
+
                 <div class="profile-banner"></div>
 
                 <div class="profile-content">
@@ -344,34 +664,47 @@
                     </h1>
 
                     <p class="profile-username">
-                        @${escapeHtml(profile.username)}
+                        @${escapeHtml(
+                            profile.username
+                        )}
                     </p>
 
-                    ${friendArea}
+                    ${actionArea}
 
                     <div class="social-grid">
+
                         ${discordCard}
+
                         ${youtubeCard}
+
                     </div>
 
                 </div>
+
             </div>
+
         `;
 
-        if (currentUser && currentUser.id !== profile.id) {
+        if (currentUser && !isOwnProfile) {
+
             await loadFriendStatus(
                 currentUser.id,
                 profile.id
             );
+
         }
+
     }
 
     async function loadFriendStatus(
         currentUserId,
         profileUserId
     ) {
+
         const friendArea =
-            document.getElementById("friend-area");
+            document.getElementById(
+                "friend-area"
+            );
 
         if (!friendArea) {
             return;
@@ -381,18 +714,36 @@
             await supabaseClient
                 .from("friend_requests")
                 .select("id, status")
-                .eq("sender_id", currentUserId)
-                .eq("receiver_id", profileUserId)
-                .eq("status", "pending")
+                .eq(
+                    "sender_id",
+                    currentUserId
+                )
+                .eq(
+                    "receiver_id",
+                    profileUserId
+                )
+                .eq(
+                    "status",
+                    "pending"
+                )
                 .maybeSingle();
 
         const { data: incoming } =
             await supabaseClient
                 .from("friend_requests")
                 .select("id, status")
-                .eq("sender_id", profileUserId)
-                .eq("receiver_id", currentUserId)
-                .eq("status", "pending")
+                .eq(
+                    "sender_id",
+                    profileUserId
+                )
+                .eq(
+                    "receiver_id",
+                    currentUserId
+                )
+                .eq(
+                    "status",
+                    "pending"
+                )
                 .maybeSingle();
 
         const { data: friendship } =
@@ -406,74 +757,103 @@
                 .maybeSingle();
 
         if (friendship) {
+
             friendArea.innerHTML = `
+
                 <button
                     class="friend-button danger"
                     onclick="unfriendUser('${profileUserId}')"
                 >
                     Unfriend
                 </button>
+
             `;
 
             return;
         }
 
         if (incoming) {
+
             friendArea.innerHTML = `
+
                 <button
                     class="friend-button primary"
-                    onclick="acceptFriendRequest('${incoming.id}', '${profileUserId}')"
+                    onclick="acceptFriendRequest(
+                        '${incoming.id}',
+                        '${profileUserId}'
+                    )"
                 >
                     Accept
                 </button>
 
                 <button
                     class="friend-button secondary"
-                    onclick="declineFriendRequest('${incoming.id}', '${profileUserId}')"
+                    onclick="declineFriendRequest(
+                        '${incoming.id}',
+                        '${profileUserId}'
+                    )"
                 >
                     Decline
                 </button>
+
             `;
 
             return;
         }
 
         if (outgoing) {
+
             friendArea.innerHTML = `
+
                 <button
                     class="friend-button secondary"
-                    onclick="cancelFriendRequest('${outgoing.id}', '${profileUserId}')"
+                    onclick="cancelFriendRequest(
+                        '${outgoing.id}',
+                        '${profileUserId}'
+                    )"
                 >
                     Request Sent
                 </button>
+
             `;
 
             return;
         }
 
         friendArea.innerHTML = `
+
             <button
                 class="friend-button primary"
-                onclick="sendFriendRequest('${profileUserId}')"
+                onclick="sendFriendRequest(
+                    '${profileUserId}'
+                )"
             >
                 Add Friend
             </button>
+
         `;
+
     }
 
-    async function sendFriendRequest(profileUserId) {
+    async function sendFriendRequest(
+        profileUserId
+    ) {
+
         const {
             data: {
                 user
             }
-        } = await supabaseClient.auth.getUser();
+        } =
+            await supabaseClient.auth.getUser();
 
         if (!user) {
+
             alert(
                 "You need to be logged in to send a friend request."
             );
 
             return;
+
         }
 
         const { error } =
@@ -486,25 +866,31 @@
                 });
 
         if (error) {
+
             alert(error.message);
+
             return;
+
         }
 
         await loadFriendStatus(
             user.id,
             profileUserId
         );
+
     }
 
     async function cancelFriendRequest(
         requestId,
         profileUserId
     ) {
+
         const {
             data: {
                 user
             }
-        } = await supabaseClient.auth.getUser();
+        } =
+            await supabaseClient.auth.getUser();
 
         if (!user) {
             return;
@@ -517,25 +903,31 @@
                 .eq("id", requestId);
 
         if (error) {
+
             alert(error.message);
+
             return;
+
         }
 
         await loadFriendStatus(
             user.id,
             profileUserId
         );
+
     }
 
     async function declineFriendRequest(
         requestId,
         profileUserId
     ) {
+
         const {
             data: {
                 user
             }
-        } = await supabaseClient.auth.getUser();
+        } =
+            await supabaseClient.auth.getUser();
 
         if (!user) {
             return;
@@ -547,29 +939,41 @@
                 .update({
                     status: "declined"
                 })
-                .eq("id", requestId)
-                .eq("receiver_id", user.id);
+                .eq(
+                    "id",
+                    requestId
+                )
+                .eq(
+                    "receiver_id",
+                    user.id
+                );
 
         if (error) {
+
             alert(error.message);
+
             return;
+
         }
 
         await loadFriendStatus(
             user.id,
             profileUserId
         );
+
     }
 
     async function acceptFriendRequest(
         requestId,
         profileUserId
     ) {
+
         const {
             data: {
                 user
             }
-        } = await supabaseClient.auth.getUser();
+        } =
+            await supabaseClient.auth.getUser();
 
         if (!user) {
             return;
@@ -577,17 +981,27 @@
 
         const {
             error: requestError
-        } = await supabaseClient
-            .from("friend_requests")
-            .update({
-                status: "accepted"
-            })
-            .eq("id", requestId)
-            .eq("receiver_id", user.id);
+        } =
+            await supabaseClient
+                .from("friend_requests")
+                .update({
+                    status: "accepted"
+                })
+                .eq(
+                    "id",
+                    requestId
+                )
+                .eq(
+                    "receiver_id",
+                    user.id
+                );
 
         if (requestError) {
+
             alert(requestError.message);
+
             return;
+
         }
 
         const firstUser =
@@ -602,36 +1016,47 @@
 
         const {
             error: friendshipError
-        } = await supabaseClient
-            .from("friendships")
-            .insert([
-                {
-                    user_id: firstUser,
-                    friend_id: secondUser
-                },
-                {
-                    user_id: secondUser,
-                    friend_id: firstUser
-                }
-            ]);
+        } =
+            await supabaseClient
+                .from("friendships")
+                .insert([
+                    {
+                        user_id: firstUser,
+                        friend_id: secondUser
+                    },
+                    {
+                        user_id: secondUser,
+                        friend_id: firstUser
+                    }
+                ]);
 
         if (friendshipError) {
-            alert(friendshipError.message);
+
+            alert(
+                friendshipError.message
+            );
+
             return;
+
         }
 
         await loadFriendStatus(
             user.id,
             profileUserId
         );
+
     }
 
-    async function unfriendUser(profileUserId) {
+    async function unfriendUser(
+        profileUserId
+    ) {
+
         const {
             data: {
                 user
             }
-        } = await supabaseClient.auth.getUser();
+        } =
+            await supabaseClient.auth.getUser();
 
         if (!user) {
             return;
@@ -655,19 +1080,234 @@
                 );
 
         if (error) {
+
             alert(error.message);
+
             return;
+
         }
 
         await loadFriendStatus(
             user.id,
             profileUserId
         );
+
     }
 
+    /* ============================= */
+    /* REPORT SYSTEM */
+    /* ============================= */
+
+    function openReportModal(profileId) {
+
+        reportedProfileId = profileId;
+
+        const overlay =
+            document.getElementById(
+                "report-overlay"
+            );
+
+        const form =
+            document.getElementById(
+                "report-form"
+            );
+
+        const status =
+            document.getElementById(
+                "report-status"
+            );
+
+        form.reset();
+
+        status.textContent = "";
+
+        overlay.style.display = "flex";
+
+    }
+
+    function closeReportModal() {
+
+        const overlay =
+            document.getElementById(
+                "report-overlay"
+            );
+
+        overlay.style.display = "none";
+
+        reportedProfileId = null;
+
+    }
+
+    async function submitReport(event) {
+
+        event.preventDefault();
+
+        const status =
+            document.getElementById(
+                "report-status"
+            );
+
+        const button =
+            document.getElementById(
+                "report-submit"
+            );
+
+        const reason =
+            document.getElementById(
+                "report-reason"
+            ).value;
+
+        const details =
+            document.getElementById(
+                "report-details"
+            ).value.trim();
+
+        if (!reason) {
+
+            status.textContent =
+                "Please select a reason.";
+
+            return;
+
+        }
+
+        const {
+            data: {
+                user
+            }
+        } =
+            await supabaseClient.auth.getUser();
+
+        if (!user) {
+
+            status.textContent =
+                "You need to be logged in to report a profile.";
+
+            return;
+
+        }
+
+        if (!reportedProfileId) {
+            return;
+        }
+
+        if (user.id === reportedProfileId) {
+
+            status.textContent =
+                "You cannot report your own profile.";
+
+            return;
+
+        }
+
+        button.disabled = true;
+        button.textContent = "Submitting...";
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("profile_reports")
+                .insert({
+                    reported_profile_id:
+                        reportedProfileId,
+
+                    reporter_id:
+                        user.id,
+
+                    reason:
+                        reason,
+
+                    details:
+                        details || null,
+
+                    status:
+                        "pending"
+                });
+
+        if (error) {
+
+            console.error(
+                "BlockTiers report error:",
+                error
+            );
+
+            if (error.code === "23505") {
+
+                status.textContent =
+                    "You already have a pending report for this profile.";
+
+            } else {
+
+                status.textContent =
+                    "Failed to submit report.";
+
+            }
+
+            button.disabled = false;
+            button.textContent =
+                "Submit Report";
+
+            return;
+
+        }
+
+        status.textContent =
+            "Report submitted successfully.";
+
+        button.textContent =
+            "Submitted";
+
+        setTimeout(() => {
+
+            closeReportModal();
+
+            button.disabled = false;
+
+            button.textContent =
+                "Submit Report";
+
+        }, 1200);
+
+    }
+
+    document
+        .getElementById("report-form")
+        .addEventListener(
+            "submit",
+            submitReport
+        );
+
+    document
+        .getElementById("report-overlay")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+                    closeReportModal();
+                }
+
+            }
+        );
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape" &&
+                reportedProfileId
+            ) {
+                closeReportModal();
+            }
+
+        }
+    );
+
     loadProfile();
+
 </script>
 
 </body>
 </html>
-
