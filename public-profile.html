@@ -34,22 +34,12 @@
         }
 
         .profile-content {
-            padding: 0 32px 32px;
+            padding: 32px;
             text-align: center;
         }
 
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #0f121e;
-            margin-top: -40px;
-            background: #171b2d;
-        }
-
         .profile-name {
-            margin: 18px 0 4px;
+            margin: 0 0 4px;
             font-size: 30px;
             font-weight: 800;
         }
@@ -160,7 +150,7 @@
             }
 
             .profile-content {
-                padding: 0 20px 24px;
+                padding: 24px 20px;
             }
 
             .social-grid {
@@ -257,7 +247,7 @@
         } = await supabaseClient
             .from("profiles")
             .select(
-                "id, username, display_name, avatar_url, discord_username, youtube_url"
+                "id, username, display_name, discord_username, youtube_url"
             )
             .eq("username", username)
             .maybeSingle();
@@ -296,10 +286,6 @@
                 </div>
             `;
         }
-
-        const avatarUrl =
-            profile.avatar_url ||
-            "images/BlockTiersicon.png";
 
         const discordCard =
             profile.discord_username
@@ -349,15 +335,6 @@
                 <div class="profile-banner"></div>
 
                 <div class="profile-content">
-
-                    <img
-                        class="profile-avatar"
-                        src="${escapeAttribute(avatarUrl)}"
-                        alt="${escapeAttribute(
-                            profile.display_name ||
-                            profile.username
-                        )}"
-                    >
 
                     <h1 class="profile-name">
                         ${escapeHtml(
@@ -693,3 +670,4 @@
 
 </body>
 </html>
+
