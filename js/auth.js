@@ -1,4 +1,3 @@
-
 (() => {
     const CONFIG_URL = window.BLOCKTIERS_SUPABASE_URL;
     const CONFIG_KEY = window.BLOCKTIERS_SUPABASE_ANON_KEY;
@@ -15,6 +14,14 @@
 
     const adminUsers = ["BlockTiersAdmin", "AnotherAdmin"];
 
+    const currentPage =
+        window.location.pathname.split("/").pop() || "index.html";
+
+    const isBannedPage =
+        currentPage.toLowerCase() === "banned_user.html";
+
+    let banCheckRunning = false;
+
     function renderUsername(element, displayName, username) {
         if (!element) return;
 
@@ -28,10 +35,12 @@
 
     function setMessage(id, message, type = "") {
         const el = byId(id);
+
         if (!el) return;
 
         el.textContent = message;
-        el.className = `form-message ${type}`.trim();
+        el.className =
+            `form-message ${type}`.trim();
     }
 
     function validUsername(username) {
@@ -50,13 +59,6 @@
         return data;
     }
 
-    /*
-     * Check whether a user currently has an active ban.
-     *
-     * We intentionally fetch the user's active ban records and
-     * check the expiration in JavaScript. This avoids complicated
-     * PostgREST timestamp filtering.
-     */
     async function getActiveBan(userId) {
         const { data, error } = await client
             .from("user_bans")
@@ -66,7 +68,11 @@
             .order("created_at", { ascending: false });
 
         if (error) {
-            console.error("BlockTiers ban check failed:", error);
+            console.error(
+                "BlockTiers ban check failed:",
+                error
+            );
+
             throw error;
         }
 
@@ -81,7 +87,8 @@
                 return ban;
             }
 
-            const expires = new Date(ban.expires_at).getTime();
+            const expires =
+                new Date(ban.expires_at).getTime();
 
             if (expires > now) {
                 return ban;
@@ -96,15 +103,19 @@
             return "Permanent";
         }
 
-        const date = new Date(expiresAt);
+        const date =
+            new Date(expiresAt);
 
-        return date.toLocaleString(undefined, {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        });
+        return date.toLocaleString(
+            undefined,
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
     }
 
     async function enforceBan(user) {
@@ -112,50 +123,61 @@
             return false;
         }
 
+        if (isBannedPage) {
+            return false;
+        }
+
+        if (banCheckRunning) {
+            return false;
+        }
+
+        banCheckRunning = true;
+
         try {
-            const ban = await getActiveBan(user.id);
+            const ban =
+                await getActiveBan(user.id);
 
             if (!ban) {
+                banCheckRunning = false;
                 return false;
             }
 
-            console.warn("Blocked banned BlockTiers account:", user.id);
+            console.warn(
+                "Blocked banned BlockTiers account:",
+                user.id
+            );
 
-            await client.auth.signOut();
-
-            const reason = ban.reason || "No reason provided.";
-            const expiry = formatBanExpiry(ban.expires_at);
-
-            const message =
-                `You are banned from BlockTiers.\n\n` +
-                `Reason: ${reason}\n` +
-                `Expires: ${expiry}`;
-
-            const loginMessage = byId("login-message");
-
-            if (loginMessage) {
-                setMessage(
-                    "login-message",
-                    message,
-                    "error"
-                );
-            } else {
-                alert(message);
-            }
+            window.location.href =
+                "banned_user.html";
 
             return true;
 
         } catch (error) {
-            console.error("BlockTiers account ban check error:", error);
+            console.error(
+                "BlockTiers account ban check error:",
+                error
+            );
+
+            banCheckRunning = false;
             return false;
         }
     }
 
-    async function signUp(displayName, username, password) {
-        displayName = displayName.trim();
-        username = username.trim();
+    async function signUp(
+        displayName,
+        username,
+        password
+    ) {
+        displayName =
+            displayName.trim();
 
-        if (displayName.length < 2 || displayName.length > 32) {
+        username =
+            username.trim();
+
+        if (
+            displayName.length < 2 ||
+            displayName.length > 32
+        ) {
             throw new Error(
                 "Display name must be between 2 and 32 characters."
             );
@@ -176,16 +198,18 @@
         const internalEmail =
             `${username.toLowerCase()}@accounts.blocktiers.local`;
 
-        const { data, error } = await client.auth.signUp({
-            email: internalEmail,
-            password,
-            options: {
-                data: {
-                    username,
-                    display_name: displayName
+        const { data, error } =
+            await client.auth.signUp({
+                email: internalEmail,
+                password,
+                options: {
+                    data: {
+                        username,
+                        display_name:
+                            displayName
+                    }
                 }
-            }
-        });
+            });
 
         if (error) {
             if (
@@ -210,11 +234,17 @@
         return data;
     }
 
-    async function login(username, password) {
-        username = username.trim();
+    async function login(
+        username,
+        password
+    ) {
+        username =
+            username.trim();
 
         if (!validUsername(username)) {
-            throw new Error("Enter a valid username.");
+            throw new Error(
+                "Enter a valid username."
+            );
         }
 
         const internalEmail =
@@ -238,23 +268,16 @@
             );
         }
 
-        /*
-         * Check the ban immediately after Supabase login.
-         */
-        const ban = await getActiveBan(data.user.id);
+        const ban =
+            await getActiveBan(
+                data.user.id
+            );
 
         if (ban) {
-            await client.auth.signOut();
+            window.location.href =
+                "banned_user.html";
 
-            const reason =
-                ban.reason || "No reason provided.";
-
-            const expiry =
-                formatBanExpiry(ban.expires_at);
-
-            throw new Error(
-                `You are banned from BlockTiers. Reason: ${reason} | Expires: ${expiry}`
-            );
+            return data;
         }
 
         return data;
@@ -265,50 +288,67 @@
             data: { user }
         } = await client.auth.getUser();
 
-        const slot = byId("account-slot");
-
-        if (!slot) return;
-
         if (!user) {
-            slot.innerHTML =
-                `<a href="login.html" class="account-button">Login</a>`;
+            const slot =
+                byId("account-slot");
+
+            if (slot) {
+                slot.innerHTML =
+                    `<a href="login.html" class="account-button">Login</a>`;
+            }
+
             return;
         }
 
-        /*
-         * Make sure an already-existing session does not
-         * bypass the ban system.
-         */
-        const banned = await enforceBan(user);
+        if (isBannedPage) {
+            return;
+        }
+
+        const banned =
+            await enforceBan(user);
 
         if (banned) {
-            slot.innerHTML =
-                `<a href="login.html" class="account-button">Login</a>`;
+            return;
+        }
+
+        const slot =
+            byId("account-slot");
+
+        if (!slot) {
             return;
         }
 
         let profile;
 
         try {
-            profile = await getProfile(user);
+            profile =
+                await getProfile(user);
         } catch {
             profile = {
                 display_name:
-                    user.user_metadata?.display_name || "Player",
+                    user.user_metadata?.display_name ||
+                    "Player",
 
                 username:
-                    user.user_metadata?.username || "player"
+                    user.user_metadata?.username ||
+                    "player"
             };
         }
 
         slot.innerHTML = `
             <a href="profile.html" class="account-button account-logged">
                 <span class="account-avatar">
-                    ${profile.display_name.charAt(0).toUpperCase()}
+                    ${escapeHtml(
+                        profile.display_name
+                            .charAt(0)
+                            .toUpperCase()
+                    )}
                 </span>
 
                 <span>
-                    ${escapeHtml(profile.display_name)}
+                    ${escapeHtml(
+                        profile.display_name
+                    )}
                 </span>
             </a>
         `;
@@ -316,18 +356,34 @@
 
     function escapeHtml(value) {
         return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
+            .replaceAll(
+                "&",
+                "&amp;"
+            )
+            .replaceAll(
+                "<",
+                "&lt;"
+            )
+            .replaceAll(
+                ">",
+                "&gt;"
+            )
+            .replaceAll(
+                '"',
+                "&quot;"
+            )
+            .replaceAll(
+                "'",
+                "&#039;"
+            );
     }
 
     /*
      * SIGNUP
      */
 
-    const signupForm = byId("signup-form");
+    const signupForm =
+        byId("signup-form");
 
     if (signupForm) {
         signupForm.addEventListener(
@@ -347,7 +403,10 @@
                 const confirmPassword =
                     byId("confirm-password").value;
 
-                if (password !== confirmPassword) {
+                if (
+                    password !==
+                    confirmPassword
+                ) {
                     setMessage(
                         "signup-message",
                         "Passwords do not match.",
@@ -363,6 +422,7 @@
                     );
 
                 button.disabled = true;
+
                 button.textContent =
                     "Creating account...";
 
@@ -396,7 +456,9 @@
                         "error"
                     );
 
-                    button.disabled = false;
+                    button.disabled =
+                        false;
+
                     button.textContent =
                         "Create Account";
                 }
@@ -408,7 +470,8 @@
      * LOGIN
      */
 
-    const loginForm = byId("login-form");
+    const loginForm =
+        byId("login-form");
 
     if (loginForm) {
         loginForm.addEventListener(
@@ -428,6 +491,7 @@
                     );
 
                 button.disabled = true;
+
                 button.textContent =
                     "Logging in...";
 
@@ -441,6 +505,25 @@
                         username,
                         password
                     );
+
+                    const {
+                        data: {
+                            user
+                        }
+                    } =
+                        await client.auth.getUser();
+
+                    const ban =
+                        user
+                            ? await getActiveBan(user.id)
+                            : null;
+
+                    if (ban) {
+                        window.location.href =
+                            "banned_user.html";
+
+                        return;
+                    }
 
                     setMessage(
                         "login-message",
@@ -465,7 +548,9 @@
                         "error"
                     );
 
-                    button.disabled = false;
+                    button.disabled =
+                        false;
+
                     button.textContent =
                         "Login";
                 }
@@ -493,17 +578,10 @@
                 return;
             }
 
-            /*
-             * Do not allow an already logged-in banned
-             * account to access the profile page.
-             */
             const banned =
                 await enforceBan(user);
 
             if (banned) {
-                location.href =
-                    "login.html";
-
                 return;
             }
 
@@ -512,7 +590,9 @@
                     await getProfile(user);
 
                 const nameElement =
-                    byId("profile-display-name");
+                    byId(
+                        "profile-display-name"
+                    );
 
                 renderUsername(
                     nameElement,
@@ -520,21 +600,26 @@
                     profile.username
                 );
 
-                byId("profile-username")
-                    .textContent =
+                byId(
+                    "profile-username"
+                ).textContent =
                     `@${profile.username}`;
 
-                byId("profile-avatar")
-                    .textContent =
+                byId(
+                    "profile-avatar"
+                ).textContent =
                     profile.display_name
                         .charAt(0)
                         .toUpperCase();
 
                 const date =
-                    new Date(profile.created_at);
+                    new Date(
+                        profile.created_at
+                    );
 
-                byId("profile-created")
-                    .textContent =
+                byId(
+                    "profile-created"
+                ).textContent =
                     date.toLocaleDateString(
                         undefined,
                         {
@@ -545,13 +630,17 @@
                     );
 
             } catch {
-                byId("profile-error")
-                    .textContent =
+                byId(
+                    "profile-error"
+                ).textContent =
                     "Could not load your profile.";
             }
 
-            byId("logout-button")
-                .addEventListener(
+            const logoutButton =
+                byId("logout-button");
+
+            if (logoutButton) {
+                logoutButton.addEventListener(
                     "click",
                     async () => {
                         await client.auth.signOut();
@@ -560,6 +649,7 @@
                             "index.html";
                     }
                 );
+            }
         })();
     }
 
@@ -567,10 +657,11 @@
      * AUTH STATE
      */
 
-    client.auth.onAuthStateChange(() => {
-        updateAuthUI();
-    });
+    client.auth.onAuthStateChange(
+        () => {
+            updateAuthUI();
+        }
+    );
 
     updateAuthUI();
 })();
-
