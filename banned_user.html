@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Access Denied | BlockTiers</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            font-family: Inter, Arial, sans-serif;
+            background: #050509;
+            color: #ffffff;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(130, 70, 255, 0.16), transparent 35%),
+                radial-gradient(circle at 15% 85%, rgba(90, 40, 180, 0.08), transparent 30%),
+                #050509;
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .grid {
+            position: absolute;
+            inset: -50%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: gridMove 12s linear infinite;
+        }
+
+        .orb {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(120, 60, 255, 0.07);
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb.one {
+            top: -250px;
+            left: -150px;
+        }
+
+        .orb.two {
+            bottom: -300px;
+            right: -150px;
+            animation-delay: -4s;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: min(620px, calc(100% - 32px));
+        }
+
+        .card {
+            position: relative;
+            padding: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 24px;
+            background: rgba(12, 12, 20, 0.82);
+            backdrop-filter: blur(25px);
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.65),
+                0 0 80px rgba(110, 60, 255, 0.08);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(170, 120, 255, 0.8),
+                transparent
+            );
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(150, 90, 255, 0.09);
+            border: 1px solid rgba(170, 120, 255, 0.18);
+            color: #c8aaff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #a875ff;
+            box-shadow: 0 0 12px rgba(168, 117, 255, 0.8);
+        }
+
+        .icon {
+            width: 92px;
+            height: 92px;
+            margin: 28px auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            background: linear-gradient(
+                145deg,
+                rgba(150, 100, 255, 0.16),
+                rgba(70, 35, 130, 0.08)
+            );
+            border: 1px solid rgba(170, 120, 255, 0.2);
+            box-shadow:
+                0 0 40px rgba(120, 70, 255, 0.12),
+                inset 0 0 30px rgba(150, 100, 255, 0.04);
+        }
+
+        .lock {
+            width: 34px;
+            height: 29px;
+            border: 3px solid #b78aff;
+            border-radius: 7px;
+            position: relative;
+        }
+
+        .lock::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 4px;
+            top: -18px;
+            border: 3px solid #b78aff;
+            border-bottom: 0;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .lock::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            left: 12px;
+            top: 7px;
+            border-radius: 5px;
+            background: #b78aff;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(36px, 7vw, 58px);
+            line-height: 1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff, #c5a7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            margin: 18px auto 0;
+            max-width: 470px;
+            color: #92929f;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .ban-box {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: left;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .ban-label {
+            margin-bottom: 8px;
+            color: #777783;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .ban-reason {
+            color: #e7e7ee;
+            font-size: 15px;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .account {
+            margin-top: 14px;
+            color: #777783;
+            font-size: 13px;
+        }
+
+        .account span {
+            color: #bca0ff;
+            font-weight: 700;
+        }
+
+        .logout-button {
+            width: 100%;
+            margin-top: 28px;
+            padding: 15px 20px;
+            border: 0;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #8b5cf6, #7044d8);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(100, 60, 220, 0.25);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
+        }
+
+        .logout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(100, 60, 220, 0.35);
+            filter: brightness(1.08);
+        }
+
+        .logout-button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #4e4e58;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            to {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -25px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 32px 22px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .icon {
+                width: 78px;
+                height: 78px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="grid"></div>
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+    </div>
+
+    <main class="container">
+        <section class="card">
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Account Restricted
+            </div>
+
+            <div class="icon">
+                <div class="lock"></div>
+            </div>
+
+            <h1>ACCESS DENIED</h1>
+
+            <p class="subtitle">
+                Your BlockTiers account has been restricted and you cannot
+                access the rest of the website while this restriction is active.
+            </p>
+
+            <div class="ban-box">
+                <div class="ban-label">Ban Reason</div>
+                <div class="ban-reason" id="ban-reason">
+                    Loading...
+                </div>
+            </div>
+
+            <div class="account">
+                Account: <span id="account-name">Loading...</span>
+            </div>
+
+            <button class="logout-button" id="logout-button">
+                Log Out
+            </button>
+
+            <div class="footer">
+                BlockTiers Security System
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        const supabaseClient = window.blockTiersAuth;
+
+        async function loadBanInfo() {
+            if (!supabaseClient) {
+                document.getElementById("ban-reason").textContent =
+                    "Unable to load account information.";
+                return;
+            }
+
+            const {
+                data: { user }
+            } = await supabaseClient.auth.getUser();
+
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const { data: profile } = await supabaseClient
+                .from("profiles")
+                .select("username, display_name")
+                .eq("id", user.id)
+                .maybeSingle();
+
+            if (profile) {
+                document.getElementById("account-name").textContent =
+                    "@" + profile.username;
+            }
+
+            const { data: ban } = await supabaseClient
+                .from("user_bans")
+                .select("reason, expires_at")
+                .eq("user_id", user.id)
+                .is("revoked_at", null)
+                .order("created_at", { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (ban) {
+                document.getElementById("ban-reason").textContent =
+                    ban.reason || "No reason was provided.";
+            } else {
+                document.getElementById("ban-reason").textContent =
+                    "Your account has been restricted.";
+            }
+        }
+
+        document.getElementById("logout-button").addEventListener(
+            "click",
+            async () => {
+                await supabaseClient.auth.signOut();
+                window.location.href = "login.html";
+            }
+        );
+
+        loadBanInfo();
+    </script>
+
+</body>
+</html>
