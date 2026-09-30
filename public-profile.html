@@ -46,6 +46,42 @@
             text-align: center;
         }
 
+        .public-profile-avatar {
+            width: 110px !important;
+            height: 110px !important;
+            max-width: 110px !important;
+            max-height: 110px !important;
+            min-width: 110px !important;
+            min-height: 110px !important;
+            display: block;
+            margin: -88px auto 18px;
+            position: relative;
+            z-index: 2;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #171b2d;
+            border: 4px solid #10131f;
+            box-sizing: border-box;
+        }
+
+        .public-profile-avatar-fallback {
+            width: 110px;
+            height: 110px;
+            margin: -88px auto 18px;
+            position: relative;
+            z-index: 2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #7c5cff;
+            color: white;
+            border: 4px solid #10131f;
+            box-sizing: border-box;
+            font-size: 36px;
+            font-weight: 800;
+        }
+
         .profile-name {
             margin: 0 0 4px;
             font-size: 30px;
@@ -453,20 +489,12 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
 
 <script>
 
-    window.BLOCKTIERS_SUPABASE_URL =
-        "https://qzdymlzgejamwgxnlhrt.supabase.co";
-
-    window.BLOCKTIERS_SUPABASE_ANON_KEY =
-        "sb_publishable_EyMWMFT1lWh1lXlPeEDvRg_gwDUkP47";
-
-    const supabaseClient =
-        supabase.createClient(
-            window.BLOCKTIERS_SUPABASE_URL,
-            window.BLOCKTIERS_SUPABASE_ANON_KEY
-        );
+    const supabaseClient = window.blockTiersAuth;
 
     const profileContainer =
         document.getElementById("profile-container");
@@ -499,7 +527,88 @@
 
     }
 
+    function getInitials(profile) {
+
+        const name =
+            profile.display_name ||
+            profile.username ||
+            "?";
+
+        const words =
+            name
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        if (words.length >= 2) {
+
+            return (
+                words[0][0] +
+                words[1][0]
+            ).toUpperCase();
+
+        }
+
+        return name
+            .slice(0, 2)
+            .toUpperCase();
+
+    }
+
+    function createAvatar(profile) {
+
+        if (profile.avatar_url) {
+
+            return `
+                <img
+                    class="public-profile-avatar"
+                    src="${escapeAttribute(profile.avatar_url)}"
+                    alt="${escapeAttribute(
+                        profile.display_name ||
+                        profile.username ||
+                        "Profile"
+                    )}"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='flex';
+                    "
+                >
+
+                <div
+                    class="public-profile-avatar-fallback"
+                    style="display:none;"
+                >
+                    ${escapeHtml(getInitials(profile))}
+                </div>
+            `;
+
+        }
+
+        return `
+            <div class="public-profile-avatar-fallback">
+                ${escapeHtml(getInitials(profile))}
+            </div>
+        `;
+
+    }
+
     async function loadProfile() {
+
+        if (!supabaseClient) {
+
+            profileContainer.innerHTML = `
+                <div class="status-message">
+                    Unable to connect to BlockTiers.
+                </div>
+            `;
+
+            console.error(
+                "BlockTiers authentication client was not loaded."
+            );
+
+            return;
+
+        }
 
         const username =
             getUsernameFromUrl();
@@ -522,12 +631,29 @@
         } = await supabaseClient
             .from("profiles")
             .select(
-                "id, username, display_name, discord_username, youtube_url"
+                "id, username, display_name, avatar_url, discord_username, youtube_url"
             )
             .eq("username", username)
             .maybeSingle();
 
-        if (profileError || !profile) {
+        if (profileError) {
+
+            console.error(
+                "BlockTiers profile error:",
+                profileError
+            );
+
+            profileContainer.innerHTML = `
+                <div class="status-message">
+                    Unable to load this profile.
+                </div>
+            `;
+
+            return;
+
+        }
+
+        if (!profile) {
 
             profileContainer.innerHTML = `
                 <div class="status-message">
@@ -576,7 +702,7 @@
 
                     <button
                         class="report-button"
-                        onclick="openReportModal('${profile.id}')"
+                        onclick="openReportModal('${escapeAttribute(profile.id)}')"
                     >
                         Report Profile
                     </button>
@@ -661,6 +787,8 @@
                 <div class="profile-banner"></div>
 
                 <div class="profile-content">
+
+                    ${createAvatar(profile)}
 
                     <h1 class="profile-name">
                         ${escapeHtml(
@@ -1119,9 +1247,19 @@
                 "report-status"
             );
 
+        const button =
+            document.getElementById(
+                "report-submit"
+            );
+
         form.reset();
 
         status.textContent = "";
+
+        button.disabled = false;
+
+        button.textContent =
+            "Submit Report";
 
         overlay.style.display = "flex";
 
@@ -1203,7 +1341,8 @@
         }
 
         button.disabled = true;
-        button.textContent = "Submitting...";
+        button.textContent =
+            "Submitting...";
 
         const {
             error
