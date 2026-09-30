@@ -14,6 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        .sidebar-logo img {
+            width: 32px !important;
+            height: 32px !important;
+            max-width: 32px !important;
+            max-height: 32px !important;
+            object-fit: contain !important;
+            flex-shrink: 0 !important;
+        }
+
         .profile-page {
             max-width: 1000px;
             margin: 0 auto;
@@ -160,8 +169,6 @@
             color: #8d93a8;
             padding: 80px 20px;
         }
-
-        /* REPORT MODAL */
 
         .report-overlay {
             position: fixed;
@@ -322,6 +329,7 @@
         <a href="profiles.html">Profiles</a>
         <a href="support.html">Support</a>
         <a href="whats-new.html">What's New</a>
+
         <a
             href="https://discord.gg/fX7caP4gMb"
             target="_blank"
@@ -346,8 +354,6 @@
     </div>
 
 </main>
-
-<!-- REPORT MODAL -->
 
 <div
     class="report-overlay"
@@ -1093,10 +1099,6 @@
         );
 
     }
-
-    /* ============================= */
-    /* REPORT SYSTEM */
-    /* ============================= */
 
     function openReportModal(profileId) {
 
