@@ -21,7 +21,7 @@
             min-height: 100%;
             font-family: Inter, Arial, sans-serif;
             background: #050509;
-            color: #ffffff;
+            color: #fff;
         }
 
         body {
@@ -31,24 +31,24 @@
             justify-content: center;
             overflow: hidden;
             background:
-                radial-gradient(circle at 50% 35%, rgba(130, 70, 255, 0.16), transparent 35%),
-                radial-gradient(circle at 15% 85%, rgba(90, 40, 180, 0.08), transparent 30%),
+                radial-gradient(circle at 50% 35%, rgba(130, 70, 255, .18), transparent 35%),
+                radial-gradient(circle at 15% 85%, rgba(90, 40, 180, .08), transparent 30%),
                 #050509;
         }
 
         .background {
             position: fixed;
             inset: 0;
-            pointer-events: none;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .grid {
             position: absolute;
             inset: -50%;
             background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
             background-size: 50px 50px;
             transform: perspective(500px) rotateX(60deg);
             animation: gridMove 12s linear infinite;
@@ -59,7 +59,7 @@
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background: rgba(120, 60, 255, 0.07);
+            background: rgba(120,60,255,.07);
             filter: blur(80px);
             animation: float 8s ease-in-out infinite;
         }
@@ -70,8 +70,8 @@
         }
 
         .orb.two {
-            bottom: -300px;
             right: -150px;
+            bottom: -300px;
             animation-delay: -4s;
         }
 
@@ -84,13 +84,13 @@
         .card {
             position: relative;
             padding: 48px;
-            border: 1px solid rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255,255,255,.09);
             border-radius: 24px;
-            background: rgba(12, 12, 20, 0.82);
+            background: rgba(12,12,20,.84);
             backdrop-filter: blur(25px);
             box-shadow:
-                0 30px 100px rgba(0, 0, 0, 0.65),
-                0 0 80px rgba(110, 60, 255, 0.08);
+                0 30px 100px rgba(0,0,0,.65),
+                0 0 80px rgba(110,60,255,.08);
             text-align: center;
             overflow: hidden;
         }
@@ -105,7 +105,7 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(170, 120, 255, 0.8),
+                rgba(170,120,255,.8),
                 transparent
             );
         }
@@ -116,8 +116,8 @@
             gap: 9px;
             padding: 8px 14px;
             border-radius: 999px;
-            background: rgba(150, 90, 255, 0.09);
-            border: 1px solid rgba(170, 120, 255, 0.18);
+            background: rgba(150,90,255,.09);
+            border: 1px solid rgba(170,120,255,.18);
             color: #c8aaff;
             font-size: 12px;
             font-weight: 700;
@@ -130,7 +130,7 @@
             height: 7px;
             border-radius: 50%;
             background: #a875ff;
-            box-shadow: 0 0 12px rgba(168, 117, 255, 0.8);
+            box-shadow: 0 0 12px rgba(168,117,255,.8);
         }
 
         .icon {
@@ -143,13 +143,13 @@
             border-radius: 22px;
             background: linear-gradient(
                 145deg,
-                rgba(150, 100, 255, 0.16),
-                rgba(70, 35, 130, 0.08)
+                rgba(150,100,255,.16),
+                rgba(70,35,130,.08)
             );
-            border: 1px solid rgba(170, 120, 255, 0.2);
+            border: 1px solid rgba(170,120,255,.2);
             box-shadow:
-                0 0 40px rgba(120, 70, 255, 0.12),
-                inset 0 0 30px rgba(150, 100, 255, 0.04);
+                0 0 40px rgba(120,70,255,.12),
+                inset 0 0 30px rgba(150,100,255,.04);
         }
 
         .lock {
@@ -188,7 +188,7 @@
             font-size: clamp(36px, 7vw, 58px);
             line-height: 1;
             letter-spacing: -2px;
-            background: linear-gradient(135deg, #ffffff, #c5a7ff);
+            background: linear-gradient(135deg,#fff,#c5a7ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -207,8 +207,8 @@
             padding: 20px;
             text-align: left;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255,255,255,.025);
+            border: 1px solid rgba(255,255,255,.07);
         }
 
         .ban-label {
@@ -238,27 +238,33 @@
             font-weight: 700;
         }
 
+        .expiry {
+            margin-top: 6px;
+            color: #666672;
+            font-size: 12px;
+        }
+
         .logout-button {
             width: 100%;
             margin-top: 28px;
             padding: 15px 20px;
             border: 0;
             border-radius: 13px;
-            background: linear-gradient(135deg, #8b5cf6, #7044d8);
-            color: #ffffff;
+            background: linear-gradient(135deg,#8b5cf6,#7044d8);
+            color: #fff;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(100, 60, 220, 0.25);
+            box-shadow: 0 10px 30px rgba(100,60,220,.25);
             transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                filter 0.2s ease;
+                transform .2s ease,
+                box-shadow .2s ease,
+                filter .2s ease;
         }
 
         .logout-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(100, 60, 220, 0.35);
+            box-shadow: 0 15px 40px rgba(100,60,220,.35);
             filter: brightness(1.08);
         }
 
@@ -270,7 +276,7 @@
             margin-top: 20px;
             color: #4e4e58;
             font-size: 11px;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
         }
 
         @keyframes gridMove {
@@ -284,17 +290,16 @@
         }
 
         @keyframes float {
-            0%,
-            100% {
-                transform: translate(0, 0);
+            0%,100% {
+                transform: translate(0,0);
             }
 
             50% {
-                transform: translate(30px, -25px);
+                transform: translate(30px,-25px);
             }
         }
 
-        @media (max-width: 600px) {
+        @media(max-width:600px) {
             .card {
                 padding: 32px 22px;
                 border-radius: 20px;
@@ -335,22 +340,44 @@
             <h1>ACCESS DENIED</h1>
 
             <p class="subtitle">
-                Your BlockTiers account has been restricted and you cannot
-                access the rest of the website while this restriction is active.
+                Your BlockTiers account has been restricted.
+                Access to the rest of the website is unavailable
+                while this restriction is active.
             </p>
 
             <div class="ban-box">
-                <div class="ban-label">Ban Reason</div>
-                <div class="ban-reason" id="ban-reason">
+
+                <div class="ban-label">
+                    Ban Reason
+                </div>
+
+                <div
+                    class="ban-reason"
+                    id="ban-reason"
+                >
                     Loading...
                 </div>
+
             </div>
 
             <div class="account">
-                Account: <span id="account-name">Loading...</span>
+                Account:
+                <span id="account-name">
+                    Loading...
+                </span>
             </div>
 
-            <button class="logout-button" id="logout-button">
+            <div class="expiry">
+                Expires:
+                <span id="ban-expiry">
+                    Loading...
+                </span>
+            </div>
+
+            <button
+                class="logout-button"
+                id="logout-button"
+            >
                 Log Out
             </button>
 
@@ -362,60 +389,181 @@
     </main>
 
     <script>
-        const supabaseClient = window.blockTiersAuth;
+        const supabaseClient =
+            window.blockTiersAuth;
 
         async function loadBanInfo() {
+
+            const reasonElement =
+                document.getElementById(
+                    "ban-reason"
+                );
+
+            const accountElement =
+                document.getElementById(
+                    "account-name"
+                );
+
+            const expiryElement =
+                document.getElementById(
+                    "ban-expiry"
+                );
+
             if (!supabaseClient) {
-                document.getElementById("ban-reason").textContent =
-                    "Unable to load account information.";
+                reasonElement.textContent =
+                    "Unable to connect to BlockTiers.";
+
                 return;
             }
 
             const {
-                data: { user }
-            } = await supabaseClient.auth.getUser();
+                data: {
+                    user
+                }
+            } =
+                await supabaseClient.auth.getUser();
 
             if (!user) {
-                window.location.href = "login.html";
+                window.location.href =
+                    "login.html";
+
                 return;
             }
 
-            const { data: profile } = await supabaseClient
-                .from("profiles")
-                .select("username, display_name")
-                .eq("id", user.id)
-                .maybeSingle();
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select(
+                        "username, display_name"
+                    )
+                    .eq("id", user.id)
+                    .maybeSingle();
 
-            if (profile) {
-                document.getElementById("account-name").textContent =
+            if (!profileError && profile) {
+                accountElement.textContent =
                     "@" + profile.username;
+            } else {
+                accountElement.textContent =
+                    "Unknown account";
             }
 
-            const { data: ban } = await supabaseClient
-                .from("user_bans")
-                .select("reason, expires_at")
-                .eq("user_id", user.id)
-                .is("revoked_at", null)
-                .order("created_at", { ascending: false })
-                .limit(1)
-                .maybeSingle();
+            const {
+                data: bans,
+                error: banError
+            } =
+                await supabaseClient
+                    .from("user_bans")
+                    .select(
+                        "id, user_id, reason, expires_at, created_at, revoked_at"
+                    )
+                    .eq("user_id", user.id)
+                    .is("revoked_at", null)
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
 
-            if (ban) {
-                document.getElementById("ban-reason").textContent =
-                    ban.reason || "No reason was provided.";
+            if (banError) {
+                console.error(
+                    "Ban information error:",
+                    banError
+                );
+
+                reasonElement.textContent =
+                    "Unable to load the ban reason.";
+
+                expiryElement.textContent =
+                    "Unknown";
+
+                return;
+            }
+
+            if (!bans || bans.length === 0) {
+                reasonElement.textContent =
+                    "No active ban was found.";
+
+                expiryElement.textContent =
+                    "Unknown";
+
+                return;
+            }
+
+            const now =
+                Date.now();
+
+            let activeBan = null;
+
+            for (const ban of bans) {
+
+                if (!ban.expires_at) {
+                    activeBan = ban;
+                    break;
+                }
+
+                const expires =
+                    new Date(
+                        ban.expires_at
+                    ).getTime();
+
+                if (expires > now) {
+                    activeBan = ban;
+                    break;
+                }
+            }
+
+            if (!activeBan) {
+                reasonElement.textContent =
+                    "No active ban was found.";
+
+                expiryElement.textContent =
+                    "Expired";
+
+                return;
+            }
+
+            reasonElement.textContent =
+                activeBan.reason ||
+                "No reason was provided.";
+
+            if (activeBan.expires_at) {
+                expiryElement.textContent =
+                    new Date(
+                        activeBan.expires_at
+                    ).toLocaleString(
+                        undefined,
+                        {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    );
             } else {
-                document.getElementById("ban-reason").textContent =
-                    "Your account has been restricted.";
+                expiryElement.textContent =
+                    "Permanent";
             }
         }
 
-        document.getElementById("logout-button").addEventListener(
-            "click",
-            async () => {
-                await supabaseClient.auth.signOut();
-                window.location.href = "login.html";
-            }
-        );
+        document
+            .getElementById("logout-button")
+            .addEventListener(
+                "click",
+                async () => {
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+                    window.location.href =
+                        "login.html";
+                }
+            );
 
         loadBanInfo();
     </script>
