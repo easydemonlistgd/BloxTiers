@@ -1,397 +1,399 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Profile - BlockTiers</title>
+<title>Profile - BlockTiers</title>
 
-    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
-    <link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+<link rel="stylesheet" href="css/style.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        .sidebar-logo img {
-            width: 32px !important;
-            height: 32px !important;
-            max-width: 32px !important;
-            max-height: 32px !important;
-            object-fit: contain !important;
-            flex-shrink: 0 !important;
-        }
+<style>
+    .sidebar-logo img {
+        width: 32px !important;
+        height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+        object-fit: contain !important;
+        flex-shrink: 0 !important;
+    }
 
+    .profile-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+    }
+
+    .profile-card {
+        background: rgba(15, 18, 30, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .profile-banner {
+        height: 180px;
+        background: linear-gradient(135deg, #171b2d, #0b0d16);
+    }
+
+    .profile-content {
+        padding: 32px;
+        padding-top: 0;
+        text-align: center;
+    }
+
+    .public-profile-avatar {
+        width: 110px !important;
+        height: 110px !important;
+        min-width: 110px !important;
+        min-height: 110px !important;
+        max-width: 110px !important;
+        max-height: 110px !important;
+        display: block;
+        margin: -55px auto 18px;
+        position: relative;
+        z-index: 5;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #171b2d;
+        border: 4px solid #10131f;
+        box-sizing: border-box;
+    }
+
+    .public-profile-avatar-fallback {
+        width: 110px;
+        height: 110px;
+        min-width: 110px;
+        min-height: 110px;
+        margin: -55px auto 18px;
+        position: relative;
+        z-index: 5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #7c5cff;
+        color: white;
+        border: 4px solid #10131f;
+        box-sizing: border-box;
+        font-size: 36px;
+        font-weight: 800;
+    }
+
+    .profile-name {
+        margin: 0 0 4px;
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .profile-username {
+        margin: 0;
+        color: #8d93a8;
+        font-size: 15px;
+    }
+
+    .profile-actions {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .friend-button {
+        border: 0;
+        border-radius: 10px;
+        padding: 11px 18px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .friend-button.primary {
+        background: #7c5cff;
+        color: white;
+    }
+
+    .friend-button.primary:hover {
+        background: #6d4ff0;
+        transform: translateY(-1px);
+    }
+
+    .friend-button.secondary {
+        background: rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .friend-button.secondary:hover {
+        background: rgba(255, 255, 255, 0.11);
+    }
+
+    .friend-button.danger {
+        background: rgba(220, 70, 70, 0.12);
+        color: #ff8585;
+        border: 1px solid rgba(220, 70, 70, 0.25);
+    }
+
+    .friend-button.danger:hover {
+        background: rgba(220, 70, 70, 0.2);
+    }
+
+    .friend-button:disabled {
+        cursor: default;
+        opacity: 0.7;
+    }
+
+    .report-button {
+        border: 1px solid rgba(220, 70, 70, 0.25);
+        border-radius: 10px;
+        padding: 11px 18px;
+        background: rgba(220, 70, 70, 0.1);
+        color: #ff8585;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .report-button:hover {
+        background: rgba(220, 70, 70, 0.18);
+        transform: translateY(-1px);
+    }
+
+    .social-grid {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .social-card {
+        display: block;
+        padding: 20px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        text-decoration: none;
+        color: inherit;
+        transition: 0.2s ease;
+    }
+
+    .social-card:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .social-title {
+        font-size: 13px;
+        color: #8d93a8;
+        margin-bottom: 6px;
+    }
+
+    .social-value {
+        font-weight: 700;
+        word-break: break-word;
+    }
+
+    .status-message {
+        text-align: center;
+        color: #8d93a8;
+        padding: 80px 20px;
+    }
+
+    .report-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(5px);
+        z-index: 9999;
+    }
+
+    .report-modal {
+        width: min(500px, 100%);
+        padding: 26px;
+        border-radius: 18px;
+        background: #10131f;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .report-modal h2 {
+        margin: 0 0 8px;
+        font-size: 22px;
+    }
+
+    .report-modal-description {
+        margin: 0 0 22px;
+        color: #8d93a8;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .report-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .report-form label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 4px;
+    }
+
+    .report-form select,
+    .report-form textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        font-family: inherit;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .report-form select:focus,
+    .report-form textarea:focus {
+        border-color: rgba(124, 92, 255, 0.5);
+    }
+
+    .report-form textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .report-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .report-actions button {
+        flex: 1;
+        min-height: 42px;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .report-cancel {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: white;
+    }
+
+    .report-cancel:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .report-submit {
+        border: 0;
+        background: #7c5cff;
+        color: white;
+    }
+
+    .report-submit:hover {
+        background: #6d4ff0;
+    }
+
+    .report-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .report-status {
+        min-height: 18px;
+        margin: 4px 0 0;
+        color: #8d93a8;
+        font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
         .profile-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 24px 80px;
-        }
-
-        .profile-card {
-            background: rgba(15, 18, 30, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .profile-banner {
-            height: 180px;
-            background: linear-gradient(135deg, #171b2d, #0b0d16);
+            padding: 24px 14px 60px;
         }
 
         .profile-content {
-            padding: 32px;
-            padding-top: 0;
-            text-align: center;
-        }
-
-        .public-profile-avatar {
-            width: 110px !important;
-            height: 110px !important;
-            min-width: 110px !important;
-            min-height: 110px !important;
-            max-width: 110px !important;
-            max-height: 110px !important;
-            display: block;
-            margin: -55px auto 18px;
-            position: relative;
-            z-index: 5;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #171b2d;
-            border: 4px solid #10131f;
-            box-sizing: border-box;
-        }
-
-        .public-profile-avatar-fallback {
-            width: 110px;
-            height: 110px;
-            min-width: 110px;
-            min-height: 110px;
-            margin: -55px auto 18px;
-            position: relative;
-            z-index: 5;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #7c5cff;
-            color: white;
-            border: 4px solid #10131f;
-            box-sizing: border-box;
-            font-size: 36px;
-            font-weight: 800;
-        }
-
-        .profile-name {
-            margin: 0 0 4px;
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .profile-username {
-            margin: 0;
-            color: #8d93a8;
-            font-size: 15px;
-        }
-
-        .profile-actions {
-            margin-top: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .friend-button {
-            border: 0;
-            border-radius: 10px;
-            padding: 11px 18px;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        .friend-button.primary {
-            background: #7c5cff;
-            color: white;
-        }
-
-        .friend-button.primary:hover {
-            background: #6d4ff0;
-            transform: translateY(-1px);
-        }
-
-        .friend-button.secondary {
-            background: rgba(255, 255, 255, 0.07);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .friend-button.secondary:hover {
-            background: rgba(255, 255, 255, 0.11);
-        }
-
-        .friend-button.danger {
-            background: rgba(220, 70, 70, 0.12);
-            color: #ff8585;
-            border: 1px solid rgba(220, 70, 70, 0.25);
-        }
-
-        .friend-button.danger:hover {
-            background: rgba(220, 70, 70, 0.2);
-        }
-
-        .friend-button:disabled {
-            cursor: default;
-            opacity: 0.7;
-        }
-
-        .report-button {
-            border: 1px solid rgba(220, 70, 70, 0.25);
-            border-radius: 10px;
-            padding: 11px 18px;
-            background: rgba(220, 70, 70, 0.1);
-            color: #ff8585;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        .report-button:hover {
-            background: rgba(220, 70, 70, 0.18);
-            transform: translateY(-1px);
+            padding: 0 20px 24px;
         }
 
         .social-grid {
-            margin-top: 32px;
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .social-card {
-            display: block;
-            padding: 20px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            text-decoration: none;
-            color: inherit;
-            transition: 0.2s ease;
-        }
-
-        .social-card:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .social-title {
-            font-size: 13px;
-            color: #8d93a8;
-            margin-bottom: 6px;
-        }
-
-        .social-value {
-            font-weight: 700;
-            word-break: break-word;
-        }
-
-        .status-message {
-            text-align: center;
-            color: #8d93a8;
-            padding: 80px 20px;
-        }
-
-        .report-overlay {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(5px);
-            z-index: 9999;
+            grid-template-columns: 1fr;
         }
 
         .report-modal {
-            width: min(500px, 100%);
-            padding: 26px;
-            border-radius: 18px;
-            background: #10131f;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            padding: 22px;
         }
+    }
+</style>
 
-        .report-modal h2 {
-            margin: 0 0 8px;
-            font-size: 22px;
-        }
-
-        .report-modal-description {
-            margin: 0 0 22px;
-            color: #8d93a8;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .report-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .report-form label {
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .report-form select,
-        .report-form textarea {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            font-family: inherit;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .report-form select:focus,
-        .report-form textarea:focus {
-            border-color: rgba(124, 92, 255, 0.5);
-        }
-
-        .report-form textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .report-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .report-actions button {
-            flex: 1;
-            min-height: 42px;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .report-cancel {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.06);
-            color: white;
-        }
-
-        .report-cancel:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .report-submit {
-            border: 0;
-            background: #7c5cff;
-            color: white;
-        }
-
-        .report-submit:hover {
-            background: #6d4ff0;
-        }
-
-        .report-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .report-status {
-            min-height: 18px;
-            margin: 4px 0 0;
-            color: #8d93a8;
-            font-size: 13px;
-        }
-
-        @media (max-width: 700px) {
-            .profile-page {
-                padding: 24px 14px 60px;
-            }
-
-            .profile-content {
-                padding: 0 20px 24px;
-            }
-
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .report-modal {
-                padding: 22px;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
 <div class="sidebar">
 
-    <div class="sidebar-logo">
-        <img src="images/BlockTiersicon.png" alt="BlockTiers">
-        <span>BlockTiers</span>
-    </div>
+<div class="sidebar-logo">
+    <img src="images/BlockTiersicon.png" alt="BlockTiers">
+    <span>BlockTiers</span>
+</div>
 
-    <nav class="sidebar-nav">
-        <a href="index.html">Home</a>
-        <a href="mace.html">Mace</a>
-        <a href="sword.html">Sword</a>
-        <a href="crystal.html">Crystal</a>
-        <a href="axe.html">Axe</a>
-        <a href="uhc.html">UHC</a>
-        <a href="smp.html">SMP</a>
-        <a href="rules.html">Rules</a>
-        <a href="staff.html">Staff</a>
-        <a href="profiles.html">Profiles</a>
-        <a href="support.html">Support</a>
-        <a href="whats-new.html">What's New</a>
+<nav class="sidebar-nav">
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="support.html">Support</a>
+    <a href="whats-new.html">What's New</a>
 
-        <a
-            href="https://discord.gg/fX7caP4gMb"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Discord
-        </a>
-    </nav>
+    <a
+        href="https://discord.gg/fX7caP4gMb"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Discord
+    </a>
+</nav>
 
-    <div id="account-slot"></div>
+<div id="account-slot"></div>
 
 </div>
 
 <main class="profile-page">
 
-    <div id="profile-container">
+<div id="profile-container">
 
-        <div class="status-message">
-            Loading profile...
-        </div>
-
+    <div class="status-message">
+        Loading profile...
     </div>
+
+</div>
 
 </main>
 
@@ -400,100 +402,102 @@
     id="report-overlay"
 >
 
-    <div class="report-modal">
+<div class="report-modal">
 
-        <h2>
-            Report Profile
-        </h2>
+    <h2>
+        Report Profile
+    </h2>
 
-        <p class="report-modal-description">
-            Report this profile to the BlockTiers moderation team.
-            Please provide an accurate reason and any useful details.
-        </p>
+    <p class="report-modal-description">
+        Report this profile to the BlockTiers moderation team.
+        Please provide an accurate reason and any useful details.
+    </p>
 
-        <form
-            class="report-form"
-            id="report-form"
+    <form
+        class="report-form"
+        id="report-form"
+    >
+
+        <label for="report-reason">
+            Reason
+        </label>
+
+        <select
+            id="report-reason"
+            required
         >
 
-            <label for="report-reason">
-                Reason
-            </label>
+            <option value="">
+                Select a reason
+            </option>
 
-            <select
-                id="report-reason"
-                required
+            <option value="Harassment">
+                Harassment
+            </option>
+
+            <option value="Impersonation">
+                Impersonation
+            </option>
+
+            <option value="Inappropriate Profile">
+                Inappropriate Profile
+            </option>
+
+            <option value="Spam">
+                Spam
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+        <label for="report-details">
+            Details
+        </label>
+
+        <textarea
+            id="report-details"
+            maxlength="1000"
+            placeholder="Explain what is wrong with this profile..."
+        ></textarea>
+
+        <p
+            class="report-status"
+            id="report-status"
+        ></p>
+
+        <div class="report-actions">
+
+            <button
+                type="button"
+                class="report-cancel"
+                onclick="closeReportModal()"
             >
+                Cancel
+            </button>
 
-                <option value="">
-                    Select a reason
-                </option>
+            <button
+                type="submit"
+                class="report-submit"
+                id="report-submit"
+            >
+                Submit Report
+            </button>
 
-                <option value="Harassment">
-                    Harassment
-                </option>
+        </div>
 
-                <option value="Impersonation">
-                    Impersonation
-                </option>
+    </form>
 
-                <option value="Inappropriate Profile">
-                    Inappropriate Profile
-                </option>
-
-                <option value="Spam">
-                    Spam
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
-            </select>
-
-            <label for="report-details">
-                Details
-            </label>
-
-            <textarea
-                id="report-details"
-                maxlength="1000"
-                placeholder="Explain what is wrong with this profile..."
-            ></textarea>
-
-            <p
-                class="report-status"
-                id="report-status"
-            ></p>
-
-            <div class="report-actions">
-
-                <button
-                    type="button"
-                    class="report-cancel"
-                    onclick="closeReportModal()"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="report-submit"
-                    id="report-submit"
-                >
-                    Submit Report
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
+</div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="js/supabase-config.js"></script>
+
 <script src="js/auth.js"></script>
 
 <script>
