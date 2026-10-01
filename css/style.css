@@ -998,3 +998,59 @@ footer {
     }
 
 }
+
+
+.recovery-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recovery-form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.recovery-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.25);
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+}
+
+.recovery-form input:focus {
+    border-color: rgba(255,255,255,0.3);
+}
+
+.recovery-form button {
+    align-self: flex-start;
+    padding: 10px 16px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.recovery-form button:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+.recovery-status {
+    min-height: 18px;
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.recovery-current {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.6;
+}
