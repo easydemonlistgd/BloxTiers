@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify Recovery Email - BlockTiers</title>
+
+    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <style>
+        .verify-page {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 70px 20px 100px;
+        }
+
+        .verify-card {
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .verify-card h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+        }
+
+        .verify-card p {
+            line-height: 1.6;
+            opacity: 0.65;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+        <a href="index.html" class="logo">
+            <img
+                src="images/BlockTiersicon.png"
+                alt="BlockTiers"
+                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+            >
+            Block<span>Tiers</span>
+        </a>
+    </div>
+</header>
+
+<main class="verify-page">
+
+    <section class="verify-card">
+        <h1 id="verify-title">
+            Verifying recovery email...
+        </h1>
+
+        <p id="verify-message">
+            Please wait while BlockTiers confirms your recovery email.
+        </p>
+    </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+    const client = window.supabase.createClient(
+        window.BLOCKTIERS_SUPABASE_URL,
+        window.BLOCKTIERS_SUPABASE_ANON_KEY
+    );
+
+    const title =
+        document.getElementById("verify-title");
+
+    const message =
+        document.getElementById("verify-message");
+
+    async function verifyRecoveryEmail() {
+        try {
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const code =
+                params.get("code");
+
+            if (code) {
+                const {
+                    error
+                } =
+                    await client.auth.exchangeCodeForSession(
+                        code
+                    );
+
+                if (error) {
+                    throw error;
+                }
+            }
+
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } =
+                await client.auth.getUser();
+
+            if (userError || !user) {
+                throw new Error(
+                    "No verified BlockTiers session was found."
+                );
+            }
+
+            if (!user.email) {
+                throw new Error(
+                    "Your account does not have a recovery email."
+                );
+            }
+
+            const {
+                error: updateError
+            } =
+                await client
+                    .from("profiles")
+                    .update({
+                        recovery_email:
+                            user.email,
+                        recovery_email_pending:
+                            null
+                    })
+                    .eq(
+                        "id",
+                        user.id
+                    );
+
+            if (updateError) {
+                throw updateError;
+            }
+
+            title.textContent =
+                "Recovery email verified";
+
+            message.textContent =
+                "Your BlockTiers recovery email is now verified. Redirecting to your profile...";
+
+            setTimeout(() => {
+                window.location.href =
+                    "profile.html";
+            }, 1500);
+
+        } catch (error) {
+            console.error(
+                "BlockTiers recovery email verification failed:",
+                error
+            );
+
+            title.textContent =
+                "Verification failed";
+
+            message.textContent =
+                "This verification link is invalid, expired, or could not be completed. Return to your profile and request another verification email.";
+        }
+    }
+
+    verifyRecoveryEmail();
+</script>
+
+</body>
+</html>
