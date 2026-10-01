@@ -247,22 +247,48 @@
             );
         }
 
-        const internalEmail =
-            `${username.toLowerCase()}@accounts.blocktiers.local`;
-
         const { data, error } =
-            await client.auth.signInWithPassword({
-                email: internalEmail,
-                password
-            });
+            await client.functions.invoke(
+                "account-auth",
+                {
+                    body: {
+                        action: "login",
+                        username,
+                        password
+                    }
+                }
+            );
 
-        if (error) {
+        if (error || !data || !data.session) {
             throw new Error(
                 "Incorrect username or password."
             );
         }
 
-        if (!data || !data.user) {
+        const {
+            error: sessionError
+        } = await client.auth.setSession(
+            data.session
+        );
+
+        if (sessionError) {
+            console.error(
+                "BlockTiers session setup failed:",
+                sessionError
+            );
+
+            throw new Error(
+                "Login failed. Please try again."
+            );
+        }
+
+        const {
+            data: {
+                user
+            }
+        } = await client.auth.getUser();
+
+        if (!user) {
             throw new Error(
                 "Login failed. Please try again."
             );
@@ -270,7 +296,7 @@
 
         const ban =
             await getActiveBan(
-                data.user.id
+                user.id
             );
 
         if (ban) {
@@ -378,10 +404,6 @@
             );
     }
 
-    /*
-     * SIGNUP
-     */
-
     const signupForm =
         byId("signup-form");
 
@@ -465,10 +487,6 @@
             }
         );
     }
-
-    /*
-     * LOGIN
-     */
 
     const loginForm =
         byId("login-form");
@@ -558,10 +576,6 @@
         );
     }
 
-    /*
-     * PROFILE PAGE
-     */
-
     const profilePage =
         byId("profile-page");
 
@@ -600,40 +614,52 @@
                     profile.username
                 );
 
-                byId(
-                    "profile-username"
-                ).textContent =
-                    `@${profile.username}`;
+                const usernameElement =
+                    byId("profile-username");
 
-                byId(
-                    "profile-avatar"
-                ).textContent =
-                    profile.display_name
-                        .charAt(0)
-                        .toUpperCase();
+                if (usernameElement) {
+                    usernameElement.textContent =
+                        `@${profile.username}`;
+                }
 
-                const date =
-                    new Date(
-                        profile.created_at
-                    );
+                const avatarElement =
+                    byId("profile-avatar");
 
-                byId(
-                    "profile-created"
-                ).textContent =
-                    date.toLocaleDateString(
-                        undefined,
-                        {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric"
-                        }
-                    );
+                if (avatarElement) {
+                    avatarElement.textContent =
+                        profile.display_name
+                            .charAt(0)
+                            .toUpperCase();
+                }
+
+                const createdElement =
+                    byId("profile-created");
+
+                if (createdElement) {
+                    const date =
+                        new Date(
+                            profile.created_at
+                        );
+
+                    createdElement.textContent =
+                        date.toLocaleDateString(
+                            undefined,
+                            {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            }
+                        );
+                }
 
             } catch {
-                byId(
-                    "profile-error"
-                ).textContent =
-                    "Could not load your profile.";
+                const errorElement =
+                    byId("profile-error");
+
+                if (errorElement) {
+                    errorElement.textContent =
+                        "Could not load your profile.";
+                }
             }
 
             const logoutButton =
@@ -652,10 +678,6 @@
             }
         })();
     }
-
-    /*
-     * AUTH STATE
-     */
 
     client.auth.onAuthStateChange(
         () => {
