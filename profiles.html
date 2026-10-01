@@ -4,207 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Profiles - BlockTiers</title>
+    <title>Profile - BlockTiers</title>
 
     <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
 
     <style>
-        .profiles-page {
-            max-width: 1100px;
+        .profile-page {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 20px 80px;
+            padding: 50px 20px 80px;
         }
 
-        .profiles-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .profiles-header h1 {
-            margin: 0 0 10px;
-            font-size: 42px;
-            font-weight: 800;
-        }
-
-        .profiles-header p {
-            margin: 0;
-            color: #a8a8b8;
-            font-size: 16px;
-        }
-
-        .profile-search-box {
-            max-width: 700px;
-            margin: 0 auto 45px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .profile-search-input {
-            flex: 1;
-            min-width: 0;
-            padding: 15px 18px;
-            border: 1px solid rgba(124, 92, 255, 0.35);
-            border-radius: 12px;
-            outline: none;
-            background: #10121d;
-            color: #ffffff;
-            font-size: 15px;
-            transition: 0.2s ease;
-        }
-
-        .profile-search-input::placeholder {
-            color: #77798a;
-        }
-
-        .profile-search-input:focus {
-            border-color: #7c5cff;
-            box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
-        }
-
-        .profile-search-button {
-            border: none;
-            border-radius: 12px;
-            padding: 0 24px;
-            background: #7c5cff;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        .profile-search-button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .profile-search-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .profiles-status {
-            text-align: center;
-            color: #9294a5;
-            margin: 25px 0;
-            min-height: 22px;
-        }
-
-        .profile-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 18px;
-        }
-
-        .profile-card {
+        .profile-header-card {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding: 20px;
-            background: #10121d;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 16px;
-            transition: 0.2s ease;
+            gap: 24px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
         }
 
-        .profile-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(124, 92, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .profile-avatar-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
         }
 
         .profile-avatar {
-            width: 58px;
-            height: 58px;
-            flex-shrink: 0;
-            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            border-radius: 18px;
             object-fit: cover;
-            background: #191c2a;
-            border: 2px solid rgba(124, 92, 255, 0.35);
+            display: block;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: #111;
         }
 
-        .profile-card-info {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .profile-display-name {
-            margin: 0 0 4px;
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 700;
+        .avatar-upload {
+            position: absolute;
+            left: 50%;
+            bottom: -12px;
+            transform: translateX(-50%);
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .profile-username {
-            margin: 0;
-            color: #858799;
-            font-size: 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .profile-view-button {
+        .avatar-upload label {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            padding: 9px 13px;
-            border-radius: 9px;
-            background: rgba(124, 92, 255, 0.13);
-            color: #a996ff;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            transition: 0.2s ease;
+            padding: 7px 12px;
+            border-radius: 8px;
+            background: #181818;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
         }
 
-        .profile-view-button:hover {
-            background: #7c5cff;
-            color: #ffffff;
+        .avatar-upload input {
+            display: none;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-            color: #858799;
-            background: #10121d;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            grid-column: 1 / -1;
+        .profile-heading {
+            min-width: 0;
         }
 
-        .empty-state h2 {
-            margin: 0 0 8px;
-            color: #ffffff;
+        .profile-heading h1 {
+            margin: 0 0 5px;
+            font-size: 30px;
+        }
+
+        .profile-heading .username {
+            margin: 0 0 10px;
+            opacity: 0.65;
+        }
+
+        .profile-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .profile-section {
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .profile-section h2 {
+            margin: 0 0 20px;
             font-size: 20px;
         }
 
-        .empty-state p {
-            margin: 0;
-            font-size: 14px;
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
         }
 
-        @media (max-width: 600px) {
-            .profiles-page {
-                padding: 40px 15px 60px;
+        .profile-info-box {
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .profile-info-box .label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            opacity: 0.55;
+        }
+
+        .profile-info-box .value {
+            font-size: 15px;
+            word-break: break-word;
+        }
+
+        .social-form,
+        .recovery-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .social-form:last-child,
+        .recovery-form:last-child {
+            margin-bottom: 0;
+        }
+
+        .social-form label,
+        .recovery-form label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .social-form input,
+        .recovery-form input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(0,0,0,0.25);
+            color: #fff;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .social-form input:focus,
+        .recovery-form input:focus {
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .social-form button,
+        .recovery-form button {
+            align-self: flex-start;
+            padding: 10px 16px;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 9px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .social-form button:hover,
+        .recovery-form button:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .social-description,
+        .recovery-description {
+            margin: 0;
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+        .save-status,
+        .recovery-status {
+            min-height: 18px;
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .recovery-current {
+            margin: 0 0 15px;
+            font-size: 13px;
+            opacity: 0.65;
+            word-break: break-word;
+        }
+
+        .profile-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .profile-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-width: 100px;
+            height: 42px;
+            padding: 0 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .profile-action:hover {
+            background: rgba(255,255,255,0.11);
+        }
+
+        .profile-message {
+            margin-top: 15px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 650px) {
+            .profile-page {
+                padding: 30px 15px 60px;
             }
 
-            .profiles-header h1 {
-                font-size: 32px;
-            }
-
-            .profile-search-box {
+            .profile-header-card {
                 flex-direction: column;
+                align-items: flex-start;
             }
 
-            .profile-search-button {
-                height: 48px;
+            .profile-info-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -213,8 +262,7 @@
 <body>
 
 <header class="navbar">
-
-    <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display:flex;align-items:center;gap:12px;">
 
         <button
             class="menu-button"
@@ -237,7 +285,6 @@
         </a>
 
     </div>
-
 </header>
 
 <aside class="sidebar" id="sidebar">
@@ -275,9 +322,15 @@
         <a href="smp.html">SMP</a>
         <a href="rules.html">Rules</a>
         <a href="staff.html">Staff</a>
-        <a href="profiles.html" class="active">Profiles</a>
-        <a href="mailto:BlockTiers@protonmail.com">Support</a>
-        <a href="whats-new.html">What's New</a>
+        <a href="profiles.html">Profiles</a>
+
+        <a href="mailto:BlockTiers@protonmail.com">
+            Support
+        </a>
+
+        <a href="whats-new.html">
+            What's New
+        </a>
 
         <a
             href="https://discord.gg/fX7caP4gMb"
@@ -287,7 +340,9 @@
             Discord
         </a>
 
-        <span id="account-slot"></span>
+        <span id="account-slot">
+            <a href="login.html">Login</a>
+        </span>
 
     </nav>
 
@@ -295,56 +350,280 @@
 
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-<main class="profiles-page">
+<main class="profile-page">
 
-    <section class="profiles-header">
-
-        <h1>Profiles</h1>
-
-        <p>
-            Search for BlockTiers players and view their public profiles.
-        </p>
-
-    </section>
-
-    <form class="profile-search-box" id="profile-search-form">
-
-        <input
-            type="text"
-            id="profile-search-input"
-            class="profile-search-input"
-            placeholder="Search for a username..."
-            autocomplete="off"
-            maxlength="30"
-        >
-
-        <button
-            type="submit"
-            id="profile-search-button"
-            class="profile-search-button"
-        >
-            Search
-        </button>
-
-    </form>
-
-    <div id="profiles-status" class="profiles-status">
-        Search for a player to get started.
+    <div id="profile-loading">
+        Loading profile...
     </div>
 
-    <section
-        id="profile-results"
-        class="profile-results"
-    ></section>
+    <div id="profile-content" style="display:none;">
+
+        <section class="profile-header-card">
+
+            <div class="profile-avatar-wrap">
+
+                <img
+                    id="profile-avatar"
+                    class="profile-avatar"
+                    src="images/BlockTiersicon.png"
+                    alt="Profile picture"
+                >
+
+                <div class="avatar-upload">
+                    <label for="avatar-input">
+                        Change Avatar
+                    </label>
+
+                    <input
+                        type="file"
+                        id="avatar-input"
+                        accept="image/png,image/jpeg,image/webp"
+                    >
+                </div>
+
+            </div>
+
+            <div class="profile-heading">
+
+                <h1 id="display-name">
+                    Loading...
+                </h1>
+
+                <p class="username" id="username">
+                    @Loading...
+                </p>
+
+                <span class="profile-badge">
+                    BlockTiers Member
+                </span>
+
+            </div>
+
+        </section>
+
+        <section class="profile-section">
+
+            <h2>
+                Profile Information
+            </h2>
+
+            <div class="profile-info-grid">
+
+                <div class="profile-info-box">
+                    <span class="label">
+                        Display Name
+                    </span>
+
+                    <span
+                        class="value"
+                        id="info-display-name"
+                    >
+                        -
+                    </span>
+                </div>
+
+                <div class="profile-info-box">
+                    <span class="label">
+                        Username
+                    </span>
+
+                    <span
+                        class="value"
+                        id="info-username"
+                    >
+                        -
+                    </span>
+                </div>
+
+                <div class="profile-info-box">
+                    <span class="label">
+                        Member Since
+                    </span>
+
+                    <span
+                        class="value"
+                        id="member-since"
+                    >
+                        -
+                    </span>
+                </div>
+
+                <div class="profile-info-box">
+                    <span class="label">
+                        Account Status
+                    </span>
+
+                    <span class="value">
+                        Active
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="profile-section">
+
+            <h2>
+                Social Media
+            </h2>
+
+            <div class="social-form">
+
+                <label for="discord-input">
+                    Discord
+                </label>
+
+                <p class="social-description">
+                    Add your Discord username to your BlockTiers profile.
+                </p>
+
+                <input
+                    type="text"
+                    id="discord-input"
+                    placeholder="Your Discord username"
+                    maxlength="100"
+                >
+
+                <button
+                    type="button"
+                    id="save-discord"
+                >
+                    Save Discord
+                </button>
+
+                <p
+                    class="save-status"
+                    id="discord-status"
+                ></p>
+
+            </div>
+
+            <div class="social-form">
+
+                <label for="youtube-input">
+                    YouTube
+                </label>
+
+                <p class="social-description">
+                    Add your YouTube channel to your BlockTiers profile.
+                </p>
+
+                <input
+                    type="url"
+                    id="youtube-input"
+                    placeholder="https://youtube.com/@username"
+                    maxlength="500"
+                >
+
+                <button
+                    type="button"
+                    id="save-youtube"
+                >
+                    Save YouTube
+                </button>
+
+                <p
+                    class="save-status"
+                    id="youtube-status"
+                ></p>
+
+            </div>
+
+        </section>
+
+        <section class="profile-section">
+
+            <h2>
+                Account Recovery
+            </h2>
+
+            <p
+                class="recovery-current"
+                id="recovery-current"
+            >
+                No recovery email has been added.
+            </p>
+
+            <p class="recovery-description">
+                Add an email address that you can access. BlockTiers will send a verification link before it can be used for password recovery.
+            </p>
+
+            <div class="recovery-form" style="margin-top:15px;">
+
+                <label for="recovery-email-input">
+                    Recovery Email
+                </label>
+
+                <input
+                    type="email"
+                    id="recovery-email-input"
+                    placeholder="you@example.com"
+                    maxlength="320"
+                    autocomplete="email"
+                >
+
+                <button
+                    type="button"
+                    id="save-recovery-email"
+                >
+                    Send Verification
+                </button>
+
+                <p
+                    class="recovery-status"
+                    id="recovery-status"
+                ></p>
+
+            </div>
+
+        </section>
+
+        <section class="profile-section">
+
+            <h2>
+                Account
+            </h2>
+
+            <div class="profile-actions">
+
+                <a
+                    href="friends.html"
+                    class="profile-action"
+                >
+                    Friends
+                </a>
+
+                <button
+                    type="button"
+                    id="logout-button"
+                    class="profile-action"
+                >
+                    Log Out
+                </button>
+
+            </div>
+
+            <p
+                id="profile-message"
+                class="profile-message"
+            ></p>
+
+        </section>
+
+    </div>
 
 </main>
+
+<footer>
+    BlockTiers &copy; 2026
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/auth.js"></script>
 
 <script>
-
     const menuButton =
         document.getElementById("menu-button");
 
@@ -357,24 +636,17 @@
     const sidebarOverlay =
         document.getElementById("sidebar-overlay");
 
-
     function openSidebar() {
-
         sidebar.classList.add("open");
         sidebarOverlay.classList.add("show");
         document.body.classList.add("sidebar-open");
-
     }
 
-
     function closeSidebar() {
-
         sidebar.classList.remove("open");
         sidebarOverlay.classList.remove("show");
         document.body.classList.remove("sidebar-open");
-
     }
-
 
     menuButton.addEventListener(
         "click",
@@ -391,270 +663,468 @@
         closeSidebar
     );
 
-
     document.addEventListener(
         "keydown",
         function(event) {
-
             if (event.key === "Escape") {
                 closeSidebar();
             }
-
         }
     );
 
-
     sidebar.querySelectorAll("a").forEach(
         function(link) {
-
             link.addEventListener(
                 "click",
                 function() {
                     closeSidebar();
                 }
             );
-
         }
     );
+</script>
 
-
+<script>
     const supabaseClient =
-        window.blockTiersAuth;
-
-
-    const searchForm =
-        document.getElementById(
-            "profile-search-form"
+        window.supabase.createClient(
+            window.BLOCKTIERS_SUPABASE_URL,
+            window.BLOCKTIERS_SUPABASE_ANON_KEY
         );
 
-    const searchInput =
-        document.getElementById(
-            "profile-search-input"
-        );
+    let currentUser = null;
+    let currentProfile = null;
 
-    const searchButton =
-        document.getElementById(
-            "profile-search-button"
-        );
+    const loading =
+        document.getElementById("profile-loading");
 
-    const status =
-        document.getElementById(
-            "profiles-status"
-        );
+    const content =
+        document.getElementById("profile-content");
 
-    const results =
-        document.getElementById(
-            "profile-results"
-        );
+    function getSiteBaseUrl() {
+        const currentPath =
+            window.location.pathname;
 
+        const lastSlash =
+            currentPath.lastIndexOf("/");
 
-    function escapeHtml(value) {
+        const directory =
+            currentPath.substring(
+                0,
+                lastSlash + 1
+            );
 
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
+        return new URL(
+            directory,
+            window.location.origin
+        ).href;
     }
 
+    async function loadProfile() {
 
-    function createAvatar(profile) {
+        const {
+            data: {
+                user
+            },
+            error: authError
+        } =
+            await supabaseClient.auth.getUser();
 
-        if (
-            profile.avatar_url &&
-            typeof profile.avatar_url === "string"
-        ) {
-
-            return profile.avatar_url;
-
+        if (authError || !user) {
+            window.location.href = "login.html";
+            return;
         }
 
-        return (
-            "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(
-                profile.display_name ||
-                profile.username ||
-                "User"
-            ) +
-            "&background=7c5cff&color=ffffff"
-        );
+        currentUser = user;
 
+        const {
+            data: profile,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(`
+                    id,
+                    username,
+                    display_name,
+                    avatar_url,
+                    discord_username,
+                    youtube_url,
+                    recovery_email,
+                    recovery_email_pending
+                `)
+                .eq("id", user.id)
+                .single();
+
+        if (error) {
+            console.error(error);
+            loading.textContent =
+                "Unable to load your profile.";
+            return;
+        }
+
+        currentProfile = profile;
+
+        document.getElementById("display-name").textContent =
+            profile.display_name ||
+            profile.username ||
+            "BlockTiers User";
+
+        document.getElementById("username").textContent =
+            "@" +
+            (profile.username || "unknown");
+
+        document.getElementById("info-display-name").textContent =
+            profile.display_name || "Not set";
+
+        document.getElementById("info-username").textContent =
+            "@" +
+            (profile.username || "unknown");
+
+        const createdAt = user.created_at
+            ? new Date(user.created_at)
+            : null;
+
+        document.getElementById("member-since").textContent =
+            createdAt
+                ? createdAt.toLocaleDateString()
+                : "Unknown";
+
+        if (profile.avatar_url) {
+            document.getElementById("profile-avatar").src =
+                profile.avatar_url;
+        }
+
+        document.getElementById("discord-input").value =
+            profile.discord_username || "";
+
+        document.getElementById("youtube-input").value =
+            profile.youtube_url || "";
+
+        document.getElementById("recovery-email-input").value =
+            profile.recovery_email_pending ||
+            profile.recovery_email ||
+            "";
+
+        const recoveryCurrent =
+            document.getElementById("recovery-current");
+
+        if (profile.recovery_email) {
+            recoveryCurrent.textContent =
+                `Recovery email: ${profile.recovery_email} — Verified`;
+        } else if (profile.recovery_email_pending) {
+            recoveryCurrent.textContent =
+                `Verification pending for: ${profile.recovery_email_pending}`;
+        } else {
+            recoveryCurrent.textContent =
+                "No recovery email has been added.";
+        }
+
+        loading.style.display = "none";
+        content.style.display = "block";
     }
 
+    async function uploadAvatar(file) {
 
-    searchForm.addEventListener(
-        "submit",
-        async function(event) {
+        if (!file || !currentUser) {
+            return;
+        }
 
-            event.preventDefault();
+        const message =
+            document.getElementById("profile-message");
 
-            const query =
-                searchInput.value.trim();
+        message.textContent =
+            "Uploading avatar...";
 
+        const extension =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
 
-            if (!query) {
+        const filePath =
+            currentUser.id + "." + extension;
 
-                status.textContent =
-                    "Please enter a username.";
-
-                results.innerHTML = "";
-
-                return;
-
-            }
-
-
-            searchButton.disabled = true;
-
-            status.textContent =
-                "Searching...";
-
-            results.innerHTML = "";
-
-
-            const {
-                data,
-                error
-            } =
-                await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "username, display_name, avatar_url"
-                    )
-                    .ilike(
-                        "username",
-                        `%${query}%`
-                    )
-                    .order(
-                        "username",
-                        {
-                            ascending: true
-                        }
-                    )
-                    .limit(50);
-
-
-            searchButton.disabled = false;
-
-
-            if (error) {
-
-                console.error(
-                    "Profile search error:",
-                    error
+        const {
+            error: uploadError
+        } =
+            await supabaseClient
+                .storage
+                .from("avatars")
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        upsert: true,
+                        contentType: file.type
+                    }
                 );
 
-                status.textContent =
-                    "Unable to search profiles right now.";
-
-                return;
-
-            }
-
-
-            if (
-                !data ||
-                data.length === 0
-            ) {
-
-                status.textContent =
-                    "No profiles found.";
-
-                results.innerHTML = `
-
-                    <div class="empty-state">
-
-                        <h2>
-                            No profiles found
-                        </h2>
-
-                        <p>
-                            Try searching for a different username.
-                        </p>
-
-                    </div>
-
-                `;
-
-                return;
-
-            }
-
-
-            status.textContent =
-                `${data.length} profile${data.length === 1 ? "" : "s"} found.`;
-
-
-            results.innerHTML =
-                data.map(
-                    function(profile) {
-
-                        const safeUsername =
-                            escapeHtml(
-                                profile.username
-                            );
-
-                        const safeDisplayName =
-                            escapeHtml(
-                                profile.display_name ||
-                                profile.username ||
-                                "BlockTiers User"
-                            );
-
-                        const avatarUrl =
-                            escapeHtml(
-                                createAvatar(profile)
-                            );
-
-
-                        return `
-
-                            <article class="profile-card">
-
-                                <img
-                                    class="profile-avatar"
-                                    src="${avatarUrl}"
-                                    alt="${safeDisplayName}"
-                                    onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(
-                                        profile.display_name ||
-                                        profile.username ||
-                                        'User'
-                                    )}&background=7c5cff&color=ffffff';"
-                                >
-
-                                <div class="profile-card-info">
-
-                                    <p class="profile-display-name">
-                                        ${safeDisplayName}
-                                    </p>
-
-                                    <p class="profile-username">
-                                        @${safeUsername}
-                                    </p>
-
-                                </div>
-
-                                <a
-                                    class="profile-view-button"
-                                    href="public-profile.html?username=${encodeURIComponent(
-                                        profile.username
-                                    )}"
-                                >
-                                    View
-                                </a>
-
-                            </article>
-
-                        `;
-
-                    }
-                ).join("");
-
+        if (uploadError) {
+            console.error(uploadError);
+            message.textContent =
+                "Avatar upload failed.";
+            return;
         }
-    );
 
+        const {
+            data
+        } =
+            supabaseClient
+                .storage
+                .from("avatars")
+                .getPublicUrl(filePath);
+
+        const avatarUrl =
+            data.publicUrl +
+            "?t=" +
+            Date.now();
+
+        const {
+            error: updateError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+                    avatar_url: avatarUrl
+                })
+                .eq(
+                    "id",
+                    currentUser.id
+                );
+
+        if (updateError) {
+            console.error(updateError);
+            message.textContent =
+                "Avatar was uploaded but could not be saved.";
+            return;
+        }
+
+        document.getElementById("profile-avatar").src =
+            avatarUrl;
+
+        message.textContent =
+            "Avatar updated.";
+    }
+
+    async function saveDiscord() {
+
+        const value =
+            document.getElementById("discord-input")
+                .value
+                .trim();
+
+        const status =
+            document.getElementById("discord-status");
+
+        status.textContent =
+            "Saving...";
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+                    discord_username: value || null
+                })
+                .eq("id", currentUser.id);
+
+        if (error) {
+            console.error(error);
+            status.textContent =
+                "Failed to save Discord.";
+            return;
+        }
+
+        status.textContent =
+            "Discord saved.";
+    }
+
+    async function saveYouTube() {
+
+        const value =
+            document.getElementById("youtube-input")
+                .value
+                .trim();
+
+        const status =
+            document.getElementById("youtube-status");
+
+        status.textContent =
+            "Saving...";
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+                    youtube_url: value || null
+                })
+                .eq("id", currentUser.id);
+
+        if (error) {
+            console.error(error);
+            status.textContent =
+                "Failed to save YouTube.";
+            return;
+        }
+
+        status.textContent =
+            "YouTube channel saved.";
+    }
+
+    async function saveRecoveryEmail() {
+
+        const input =
+            document.getElementById("recovery-email-input");
+
+        const status =
+            document.getElementById("recovery-status");
+
+        const current =
+            document.getElementById("recovery-current");
+
+        const value =
+            input.value.trim();
+
+        if (!value) {
+            status.textContent =
+                "Enter a recovery email.";
+            return;
+        }
+
+        if (!input.validity.valid) {
+            status.textContent =
+                "Enter a valid email address.";
+            return;
+        }
+
+        if (
+            currentUser.email &&
+            currentUser.email.toLowerCase() ===
+                value.toLowerCase()
+        ) {
+            status.textContent =
+                "That email is already your verified account email.";
+            return;
+        }
+
+        status.textContent =
+            "Sending verification...";
+
+        const verifyUrl =
+            new URL(
+                "verify-email.html",
+                getSiteBaseUrl()
+            ).href;
+
+        const {
+            data: updatedUser,
+            error
+        } =
+            await supabaseClient.auth.updateUser(
+                {
+                    email: value
+                },
+                {
+                    emailRedirectTo: verifyUrl
+                }
+            );
+
+        if (error) {
+            console.error(error);
+            status.textContent =
+                error.message ||
+                "Could not update the recovery email.";
+            return;
+        }
+
+        const {
+            error: profileError
+        } =
+            await supabaseClient
+                .from("profiles")
+                .update({
+                    recovery_email_pending: value
+                })
+                .eq("id", currentUser.id);
+
+        if (profileError) {
+            console.error(profileError);
+            status.textContent =
+                "Verification was requested, but the pending email could not be saved.";
+            return;
+        }
+
+        if (updatedUser?.user) {
+            currentUser = updatedUser.user;
+        }
+
+        current.textContent =
+            `Verification pending for: ${value}`;
+
+        status.textContent =
+            "Verification email sent. Check your inbox and click the link.";
+    }
+
+    document
+        .getElementById("avatar-input")
+        .addEventListener(
+            "change",
+            function(event) {
+                const file =
+                    event.target.files[0];
+
+                if (file) {
+                    uploadAvatar(file);
+                }
+            }
+        );
+
+    document
+        .getElementById("save-discord")
+        .addEventListener(
+            "click",
+            saveDiscord
+        );
+
+    document
+        .getElementById("save-youtube")
+        .addEventListener(
+            "click",
+            saveYouTube
+        );
+
+    document
+        .getElementById("save-recovery-email")
+        .addEventListener(
+            "click",
+            saveRecoveryEmail
+        );
+
+    document
+        .getElementById("logout-button")
+        .addEventListener(
+            "click",
+            async function() {
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth.signOut();
+
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+
+                window.location.href =
+                    "login.html";
+            }
+        );
+
+    loadProfile();
 </script>
 
 </body>
