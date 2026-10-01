@@ -1,148 +1,166 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - BlockTiers</title>
+```
+<title>Login - BlockTiers</title>
 
-    <link rel="icon" type="image/png" href="images/BlockTiersicon.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/auth.css">
+<link rel="icon" type="image/png" href="images/BlockTiersicon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
 
-    <style>
-        .auth-page {
-            min-height: calc(100vh - 145px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 70px 20px;
-        }
+<style>
+    .auth-page {
+        min-height: calc(100vh - 145px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 70px 20px;
+    }
 
+    .auth-card {
+        width: 100%;
+        max-width: 440px;
+        padding: 42px;
+        border: 1px solid #1b1d29;
+        border-radius: 22px;
+        background: rgba(13, 15, 24, 0.92);
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .auth-brand {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        background: #151827;
+        border: 1px solid #25283a;
+    }
+
+    .auth-brand img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+
+    .auth-card h1 {
+        margin: 0;
+        text-align: center;
+        font-size: 32px;
+        letter-spacing: -0.5px;
+    }
+
+    .auth-subtitle {
+        margin: 10px 0 32px;
+        text-align: center;
+        color: #8e93a7;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #d9dbea;
+    }
+
+    .form-group input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px 15px;
+        border: 1px solid #272a3a;
+        border-radius: 12px;
+        outline: none;
+        background: #0a0c14;
+        color: #ffffff;
+        font: inherit;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus {
+        border-color: #7c5cff;
+        box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
+    }
+
+    .forgot-password {
+        display: block;
+        margin: -8px 0 20px;
+        text-align: right;
+        color: #9c86ff;
+        font-size: 13px;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .forgot-password:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+
+    .form-message {
+        min-height: 20px;
+        margin: 8px 0 14px;
+        text-align: center;
+    }
+
+    .auth-submit {
+        width: 100%;
+        padding: 14px 18px;
+        border: 0;
+        border-radius: 12px;
+        background: #7c5cff;
+        color: #ffffff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .auth-submit:hover {
+        transform: translateY(-1px);
+        opacity: 0.92;
+    }
+
+    .auth-switch {
+        margin: 24px 0 0;
+        text-align: center;
+        color: #8e93a7;
+    }
+
+    .auth-switch a {
+        color: #9c86ff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-switch a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
         .auth-card {
-            width: 100%;
-            max-width: 440px;
-            padding: 42px;
-            border: 1px solid #1b1d29;
-            border-radius: 22px;
-            background: rgba(13, 15, 24, 0.92);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
-        }
-
-        .auth-brand {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 16px;
-            background: #151827;
-            border: 1px solid #25283a;
-        }
-
-        .auth-brand img {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-            border-radius: 10px;
+            padding: 30px 22px;
+            border-radius: 18px;
         }
 
         .auth-card h1 {
-            margin: 0;
-            text-align: center;
-            font-size: 32px;
-            letter-spacing: -0.5px;
+            font-size: 28px;
         }
+    }
+</style>
+```
 
-        .auth-subtitle {
-            margin: 10px 0 32px;
-            text-align: center;
-            color: #8e93a7;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #d9dbea;
-        }
-
-        .form-group input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 14px 15px;
-            border: 1px solid #272a3a;
-            border-radius: 12px;
-            outline: none;
-            background: #0a0c14;
-            color: #ffffff;
-            font: inherit;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .form-group input:focus {
-            border-color: #7c5cff;
-            box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.12);
-        }
-
-        .form-message {
-            min-height: 20px;
-            margin: 8px 0 14px;
-            text-align: center;
-        }
-
-        .auth-submit {
-            width: 100%;
-            padding: 14px 18px;
-            border: 0;
-            border-radius: 12px;
-            background: #7c5cff;
-            color: #ffffff;
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .auth-submit:hover {
-            transform: translateY(-1px);
-            opacity: 0.92;
-        }
-
-        .auth-switch {
-            margin: 24px 0 0;
-            text-align: center;
-            color: #8e93a7;
-        }
-
-        .auth-switch a {
-            color: #9c86ff;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .auth-switch a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-            .auth-card {
-                padding: 30px 22px;
-                border-radius: 18px;
-            }
-
-            .auth-card h1 {
-                font-size: 28px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -160,15 +178,18 @@
             <span></span>
         </button>
 
-        <a href="index.html" class="logo">
-            <img
-                src="images/BlockTiersicon.png"
-                alt="BlockTiers"
-                style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
-            >
-            Block<span>Tiers</span>
-        </a>
-    </div>
+```
+    <a href="index.html" class="logo">
+        <img
+            src="images/BlockTiersicon.png"
+            alt="BlockTiers"
+            style="width:34px;height:34px;object-fit:contain;border-radius:8px;"
+        >
+        Block<span>Tiers</span>
+    </a>
+</div>
+```
+
 </header>
 
 <aside class="sidebar" id="sidebar">
@@ -182,35 +203,38 @@
             Block<span>Tiers</span>
         </a>
 
-        <button
-            class="sidebar-close"
-            id="sidebar-close"
-            aria-label="Close menu"
-            type="button"
-        >
-            &times;
-        </button>
-    </div>
+```
+    <button
+        class="sidebar-close"
+        id="sidebar-close"
+        aria-label="Close menu"
+        type="button"
+    >
+        &times;
+    </button>
+</div>
 
-    <nav class="sidebar-nav">
-        <a href="index.html">Home</a>
-        <a href="mace.html">Mace</a>
-        <a href="sword.html">Sword</a>
-        <a href="crystal.html">Crystal</a>
-        <a href="axe.html">Axe</a>
-        <a href="uhc.html">UHC</a>
-        <a href="smp.html">SMP</a>
-        <a href="rules.html">Rules</a>
-        <a href="staff.html">Staff</a>
-        <a href="profiles.html">Profiles</a>
-        <a href="mailto:BlockTiers@protonmail.com">Support</a>
-        <a href="whats-new.html">What's New?</a>
-        <a href="https://discord.gg/fX7caP4gMb" target="_blank" rel="noopener noreferrer">Discord</a>
+<nav class="sidebar-nav">
+    <a href="index.html">Home</a>
+    <a href="mace.html">Mace</a>
+    <a href="sword.html">Sword</a>
+    <a href="crystal.html">Crystal</a>
+    <a href="axe.html">Axe</a>
+    <a href="uhc.html">UHC</a>
+    <a href="smp.html">SMP</a>
+    <a href="rules.html">Rules</a>
+    <a href="staff.html">Staff</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="mailto:BlockTiers@protonmail.com">Support</a>
+    <a href="whats-new.html">What's New?</a>
+    <a href="https://discord.gg/fX7caP4gMb" target="_blank" rel="noopener noreferrer">Discord</a>
 
-        <span id="account-slot">
-            <a href="login.html" class="active">Login</a>
-        </span>
-    </nav>
+    <span id="account-slot">
+        <a href="login.html" class="active">Login</a>
+    </span>
+</nav>
+```
+
 </aside>
 
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
@@ -218,52 +242,72 @@
 <main class="auth-page">
     <section class="auth-card">
 
-        <div class="auth-brand">
-            <img src="images/BlockTiersicon.png" alt="BlockTiers">
+```
+    <div class="auth-brand">
+        <img src="images/BlockTiersicon.png" alt="BlockTiers">
+    </div>
+
+    <h1>Welcome back</h1>
+
+    <p class="auth-subtitle">
+        Log in to your BlockTiers account.
+    </p>
+
+    <form id="login-form">
+
+        <div class="form-group">
+            <label for="login-username">Username</label>
+
+            <input
+                id="login-username"
+                type="text"
+                placeholder="RedaPlays"
+                autocomplete="username"
+                required
+            >
         </div>
 
-        <h1>Welcome back</h1>
+        <div class="form-group">
+            <label for="login-password">Password</label>
 
-        <p class="auth-subtitle">
-            Log in to your BlockTiers account.
-        </p>
+            <input
+                id="login-password"
+                type="password"
+                placeholder="Your password"
+                autocomplete="current-password"
+                required
+            >
+        </div>
 
-        <form id="login-form">
-            <div class="form-group">
-                <label for="login-username">Username</label>
-                <input
-                    id="login-username"
-                    type="text"
-                    placeholder="RedaPlays"
-                    autocomplete="username"
-                    required
-                >
-            </div>
+        <a
+            href="forgot-password.html"
+            class="forgot-password"
+        >
+            Forgot your password?
+        </a>
 
-            <div class="form-group">
-                <label for="login-password">Password</label>
-                <input
-                    id="login-password"
-                    type="password"
-                    placeholder="Your password"
-                    autocomplete="current-password"
-                    required
-                >
-            </div>
+        <p
+            id="login-message"
+            class="form-message"
+        ></p>
 
-            <p id="login-message" class="form-message"></p>
+        <button
+            class="auth-submit"
+            type="submit"
+        >
+            Login
+        </button>
 
-            <button class="auth-submit" type="submit">
-                Login
-            </button>
-        </form>
+    </form>
 
-        <p class="auth-switch">
-            Don't have an account?
-            <a href="signup.html">Create one</a>
-        </p>
+    <p class="auth-switch">
+        Don't have an account?
+        <a href="signup.html">Create one</a>
+    </p>
 
-    </section>
+</section>
+```
+
 </main>
 
 <footer>
@@ -271,14 +315,23 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="js/supabase-config.js"></script>
+
 <script src="js/auth.js"></script>
 
 <script>
-    const menuButton = document.getElementById("menu-button");
-    const sidebar = document.getElementById("sidebar");
-    const sidebarClose = document.getElementById("sidebar-close");
-    const sidebarOverlay = document.getElementById("sidebar-overlay");
+    const menuButton =
+        document.getElementById("menu-button");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const sidebarClose =
+        document.getElementById("sidebar-close");
+
+    const sidebarOverlay =
+        document.getElementById("sidebar-overlay");
 
     function openSidebar() {
         sidebar.classList.add("open");
@@ -292,21 +345,40 @@
         document.body.classList.remove("sidebar-open");
     }
 
-    menuButton.addEventListener("click", openSidebar);
-    sidebarClose.addEventListener("click", closeSidebar);
-    sidebarOverlay.addEventListener("click", closeSidebar);
+    menuButton.addEventListener(
+        "click",
+        openSidebar
+    );
 
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape") {
-            closeSidebar();
+    sidebarClose.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+    sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+            if (event.key === "Escape") {
+                closeSidebar();
+            }
         }
-    });
+    );
 
-    sidebar.querySelectorAll("a").forEach(function(link) {
-        link.addEventListener("click", function() {
-            closeSidebar();
-        });
-    });
+    sidebar.querySelectorAll("a").forEach(
+        function(link) {
+            link.addEventListener(
+                "click",
+                function() {
+                    closeSidebar();
+                }
+            );
+        }
+    );
 </script>
 
 </body>
