@@ -88,9 +88,8 @@ async function handleLogin(username: string, password: string) {
         );
     }
 
-    const email =
-        profile?.recovery_email ||
-        `${username.toLowerCase()}@accounts.blocktiers.local`;
+const email =
+    `${username.toLowerCase()}@accounts.blocktiers.local`;
 
     const { data, error } =
         await authClient.auth.signInWithPassword({
